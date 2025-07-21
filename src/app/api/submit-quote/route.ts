@@ -62,6 +62,7 @@ async function sendEmailNotification(submissionData: any) {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
+    console.log('Received form data:', body);
     
     // Validate required fields
     const { firstName, lastName, email, projectType, projectDetails } = body;
@@ -92,6 +93,8 @@ export async function POST(request: NextRequest) {
       project_type: projectType,
       project_details: projectDetails,
     };
+    
+    console.log('Prepared submission data:', submissionData);
 
     // Insert into Supabase
     const { data, error } = await supabase
@@ -103,10 +106,12 @@ export async function POST(request: NextRequest) {
     if (error) {
       console.error('Database error:', error);
       return NextResponse.json(
-        { error: 'Failed to save submission' },
+        { error: 'Failed to save submission', details: error },
         { status: 500 }
       );
     }
+    
+    console.log('Successfully inserted data:', data);
 
     // Send email notification
     const emailSent = await sendEmailNotification(submissionData);
