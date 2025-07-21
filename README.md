@@ -9,6 +9,8 @@ A modern Next.js website for Aman Modular Buildings, built with TypeScript, Tail
 - **Performance**: Optimized with Next.js 14 and modern web practices
 - **Animations**: Smooth animations with Framer Motion
 - **SEO Optimized**: Built-in SEO with metadata and structured data
+- **Quote System**: Functional quote request form with email notifications
+- **Database Integration**: Supabase database for storing submissions
 
 ## Tech Stack
 
@@ -17,6 +19,8 @@ A modern Next.js website for Aman Modular Buildings, built with TypeScript, Tail
 - **UI Components**: shadcn/ui components
 - **Animations**: Framer Motion
 - **TypeScript**: Full type safety
+- **Database**: Supabase for data storage
+- **Email**: Resend API for email notifications
 - **Icons**: Lucide React
 
 ## Getting Started
@@ -26,12 +30,41 @@ A modern Next.js website for Aman Modular Buildings, built with TypeScript, Tail
 npm install
 ```
 
-2. Run the development server:
+2. Set up environment variables:
+```bash
+cp .env.example .env.local
+```
+Then fill in your Supabase and Resend API credentials.
+
+3. Run the development server:
 ```bash
 npm run dev
 ```
 
-3. Open [http://localhost:3000](http://localhost:3000) in your browser.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## Quote System Setup
+
+The quote system requires:
+
+1. **Supabase Database**: Quote submissions are stored in the `quote_submissions` table
+2. **Email Service**: Using Resend API (free tier available)
+
+### Environment Variables
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
+RESEND_API_KEY=your_resend_api_key
+```
+
+### Database Schema
+
+The `quote_submissions` table includes:
+- Contact information (name, email, phone, company)
+- Project details (type, description)
+- Timestamps and status tracking
 
 ## Design System
 

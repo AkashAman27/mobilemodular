@@ -12,7 +12,7 @@ interface FormData {
   phone: string
   company: string
   projectType: string
-  message: string
+  projectDetails: string
 }
 
 const QuoteForm = () => {
@@ -23,10 +23,11 @@ const QuoteForm = () => {
     phone: '',
     company: '',
     projectType: '',
-    message: ''
+    projectDetails: ''
   })
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState('')
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     setFormData(prev => ({
@@ -38,12 +39,39 @@ const QuoteForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
+    setError('')
     
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000))
-    
-    setIsLoading(false)
-    setIsSubmitted(true)
+    try {
+      const response = await fetch('/api/submit-quote', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      const result = await response.json()
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to submit quote request')
+      }
+
+      setIsSubmitted(true)
+      // Reset form
+      setFormData({
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        company: '',
+        projectType: '',
+        projectDetails: ''
+      })
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An error occurred')
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   if (isSubmitted) {
@@ -177,31 +205,42 @@ const QuoteForm = () => {
           className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-steel-500 focus:border-transparent transition-colors"
         >
           <option value="">Select a project type</option>
-          <option value="office">Office Buildings</option>
-          <option value="classroom">Portable Classrooms</option>
-          <option value="storage">Storage Containers</option>
-          <option value="healthcare">Healthcare Facilities</option>
-          <option value="security">Security Buildings</option>
-          <option value="restaurant">Restaurant & Food Service</option>
-          <option value="other">Other</option>
+          <option value="Office Buildings">Office Buildings</option>
+          <option value="Portable Classrooms">Portable Classrooms</option>
+          <option value="Storage Containers">Storage Containers</option>
+          <option value="Healthcare Facilities">Healthcare Facilities</option>
+          <option value="Security Buildings">Security Buildings</option>
+          <option value="Restaurant & Food Service">Restaurant & Food Service</option>
+          <option value="Restroom Facilities">Restroom Facilities</option>
+          <option value="Government Buildings">Government Buildings</option>
+          <option value="Emergency Response">Emergency Response</option>
+          <option value="Other">Other</option>
         </select>
       </div>
 
       {/* Message */}
       <div>
-        <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
-          Project Details
+        <label htmlFor="projectDetails" className="block text-sm font-medium text-gray-700 mb-2">
+          Project Details *
         </label>
         <textarea
-          id="message"
-          name="message"
+          id="projectDetails"
+          name="projectDetails"
           rows={4}
-          value={formData.message}
+          required
+          value={formData.projectDetails}
           onChange={handleChange}
           className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-steel-500 focus:border-transparent transition-colors resize-vertical"
           placeholder="Please provide details about your project requirements, timeline, and any specific needs..."
         />
       </div>
+
+      {/* Error Display */}
+      {error && (
+        <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
+          <p className="text-red-600 text-sm">{error}</p>
+        </div>
+      )}
 
       {/* Submit Button */}
       <div className="pt-4">
