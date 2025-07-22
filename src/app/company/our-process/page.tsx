@@ -149,7 +149,7 @@ const benefits = [
 ]
 
 export default function OurProcessPage() {
-  const [processSteps, setProcessSteps] = useState([])
+  const [processStepsState, setProcessStepsState] = useState(processSteps)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -161,27 +161,11 @@ export default function OurProcessPage() {
       const response = await fetch('/api/process-steps')
       if (response.ok) {
         const data = await response.json()
-        setProcessSteps(data)
+        setProcessStepsState(data)
       } else {
         console.error('Failed to fetch process steps')
         // Fallback to hardcoded data if API fails
-        setProcessSteps([
-          {
-            id: 1,
-            title: "Initial Consultation",
-            description: "We discuss your specific needs, timeline, and requirements to understand your project scope.",
-            icon: "Phone",
-            duration: "1-2 Days",
-            details: [
-              "Free consultation call or site visit",
-              "Requirements analysis and needs assessment", 
-              "Budget discussion and initial pricing",
-              "Timeline planning and project scoping"
-            ],
-            color: "from-blue-500 to-blue-600"
-          }
-          // Add other fallback steps if needed
-        ])
+        setProcessStepsState(processSteps)
       }
     } catch (error) {
       console.error('Error fetching process steps:', error)
@@ -190,19 +174,6 @@ export default function OurProcessPage() {
     }
   }
 
-  const getIconComponent = (iconName) => {
-    const iconMap = {
-      'Phone': Phone,
-      'Search': Search,
-      'Settings': Settings,
-      'Shield': Shield,
-      'Wrench': Wrench,
-      'Truck': Truck,
-      'CheckCircle': CheckCircle,
-      'Clock': Clock
-    }
-    return iconMap[iconName] || Settings
-  }
 
   if (loading) {
     return (
@@ -278,7 +249,7 @@ export default function OurProcessPage() {
               {/* Timeline Line */}
               <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-500 via-purple-500 to-teal-500"></div>
 
-              {processSteps.map((step, index) => (
+              {processStepsState.map((step, index) => (
                 <motion.div
                   key={step.id}
                   initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
@@ -293,7 +264,7 @@ export default function OurProcessPage() {
                   <div className={`w-full lg:w-5/12 ${index % 2 === 0 ? 'lg:pr-12' : 'lg:pl-12'}`}>
                     <div className="bg-white rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-shadow duration-300">
                       <div className={`inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-r ${step.color} text-white mb-6`}>
-                        {React.createElement(getIconComponent(step.icon), { className: "h-8 w-8" })}
+                        {React.createElement(step.icon, { className: "h-8 w-8" })}
                       </div>
                       
                       <div className="flex items-center justify-between mb-4">

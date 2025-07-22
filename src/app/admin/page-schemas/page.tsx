@@ -240,14 +240,14 @@ export default function PageSchemasPage() {
   }
 
   return (
-    <div className="p-6 bg-gray-50 min-h-full">
+    <div className="p-6 bg-slate-50 min-h-full">
       <div className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Page Schemas & Structured Data</h1>
-            <p className="text-gray-600 mt-1">Manage JSON-LD schemas and structured data markup</p>
+            <h1 className="text-3xl font-bold text-slate-900">Page Schemas & Structured Data</h1>
+            <p className="text-slate-600 mt-1">Manage JSON-LD schemas and structured data markup</p>
           </div>
-          <Button onClick={() => setIsModalOpen(true)} className="bg-blue-600 hover:bg-blue-700">
+          <Button onClick={() => setIsModalOpen(true)} className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 shadow-lg">
             <Plus className="h-4 w-4 mr-2" />
             Add Schema
           </Button>
@@ -255,46 +255,54 @@ export default function PageSchemasPage() {
 
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <Card>
+          <Card className="bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200 shadow-lg">
             <CardContent className="p-6">
               <div className="flex items-center">
-                <Database className="h-8 w-8 text-blue-600" />
+                <div className="p-3 bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl shadow-lg">
+                  <Database className="h-6 w-6 text-white" />
+                </div>
                 <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600">Total Schemas</p>
-                  <p className="text-2xl font-bold text-gray-900">{schemas.length}</p>
+                  <p className="text-sm font-medium text-blue-700">Total Schemas</p>
+                  <p className="text-2xl font-bold text-blue-900">{schemas.length}</p>
                 </div>
               </div>
             </CardContent>
           </Card>
-          <Card>
+          <Card className="bg-gradient-to-br from-emerald-50 to-emerald-100 border-emerald-200 shadow-lg">
             <CardContent className="p-6">
               <div className="flex items-center">
-                <CheckCircle className="h-8 w-8 text-green-600" />
+                <div className="p-3 bg-gradient-to-r from-emerald-600 to-emerald-700 rounded-xl shadow-lg">
+                  <CheckCircle className="h-6 w-6 text-white" />
+                </div>
                 <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600">Valid</p>
-                  <p className="text-2xl font-bold text-gray-900">{schemas.filter(s => s.validation_status === 'valid').length}</p>
+                  <p className="text-sm font-medium text-emerald-700">Valid</p>
+                  <p className="text-2xl font-bold text-emerald-900">{schemas.filter(s => s.validation_status === 'valid').length}</p>
                 </div>
               </div>
             </CardContent>
           </Card>
-          <Card>
+          <Card className="bg-gradient-to-br from-amber-50 to-amber-100 border-amber-200 shadow-lg">
             <CardContent className="p-6">
               <div className="flex items-center">
-                <AlertCircle className="h-8 w-8 text-orange-600" />
+                <div className="p-3 bg-gradient-to-r from-amber-600 to-amber-700 rounded-xl shadow-lg">
+                  <AlertCircle className="h-6 w-6 text-white" />
+                </div>
                 <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600">Warnings</p>
-                  <p className="text-2xl font-bold text-gray-900">{schemas.filter(s => s.validation_status === 'warning').length}</p>
+                  <p className="text-sm font-medium text-amber-700">Warnings</p>
+                  <p className="text-2xl font-bold text-amber-900">{schemas.filter(s => s.validation_status === 'warning').length}</p>
                 </div>
               </div>
             </CardContent>
           </Card>
-          <Card>
+          <Card className="bg-gradient-to-br from-purple-50 to-purple-100 border-purple-200 shadow-lg">
             <CardContent className="p-6">
               <div className="flex items-center">
-                <Code className="h-8 w-8 text-purple-600" />
+                <div className="p-3 bg-gradient-to-r from-purple-600 to-purple-700 rounded-xl shadow-lg">
+                  <Code className="h-6 w-6 text-white" />
+                </div>
                 <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600">Active</p>
-                  <p className="text-2xl font-bold text-gray-900">{schemas.filter(s => s.is_active).length}</p>
+                  <p className="text-sm font-medium text-purple-700">Active</p>
+                  <p className="text-2xl font-bold text-purple-900">{schemas.filter(s => s.is_active).length}</p>
                 </div>
               </div>
             </CardContent>
@@ -328,9 +336,9 @@ export default function PageSchemasPage() {
                         </span>
                       </div>
                     </div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-1">{schema.schema_name}</h3>
-                    <div className="bg-gray-100 rounded-md p-3 mb-3">
-                      <pre className="text-xs text-gray-700 font-mono overflow-x-auto">
+                    <h3 className="text-lg font-semibold text-slate-900 mb-1">{schema.schema_name}</h3>
+                    <div className="bg-slate-100 rounded-md p-3 mb-3">
+                      <pre className="text-xs text-slate-700 font-mono overflow-x-auto">
                         {schema.schema_json.substring(0, 200)}{schema.schema_json.length > 200 ? '...' : ''}
                       </pre>
                     </div>
@@ -340,7 +348,7 @@ export default function PageSchemasPage() {
                       }`}>
                         {schema.is_active ? 'Active' : 'Inactive'}
                       </span>
-                      <span className="text-xs text-gray-500">
+                      <span className="text-xs text-slate-500">
                         Updated: {new Date(schema.updated_at).toLocaleDateString()}
                       </span>
                     </div>
@@ -380,10 +388,10 @@ export default function PageSchemasPage() {
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
             <div className="bg-white rounded-lg p-6 w-full max-w-4xl max-h-[90vh] overflow-y-auto">
               <div className="flex justify-between items-center mb-6">
-                <h2 className="text-xl font-bold text-gray-900">
+                <h2 className="text-xl font-bold text-slate-900">
                   {editingSchema ? 'Edit Schema' : 'Add Schema'}
                 </h2>
-                <button onClick={resetForm} className="text-gray-400 hover:text-gray-600">
+                <button onClick={resetForm} className="text-slate-400 hover:text-slate-600">
                   <X className="h-6 w-6" />
                 </button>
               </div>
@@ -392,7 +400,7 @@ export default function PageSchemasPage() {
                 {/* Left Column - Form Fields */}
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Page Path</label>
+                    <label className="block text-sm font-medium text-slate-700 mb-2">Page Path</label>
                     <Input
                       value={formData.page_path}
                       onChange={(e) => setFormData({...formData, page_path: e.target.value})}
@@ -401,7 +409,7 @@ export default function PageSchemasPage() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Schema Name</label>
+                    <label className="block text-sm font-medium text-slate-700 mb-2">Schema Name</label>
                     <Input
                       value={formData.schema_name}
                       onChange={(e) => setFormData({...formData, schema_name: e.target.value})}
@@ -410,7 +418,7 @@ export default function PageSchemasPage() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Schema Type</label>
+                    <label className="block text-sm font-medium text-slate-700 mb-2">Schema Type</label>
                     <Input
                       value={formData.schema_type}
                       onChange={(e) => setFormData({...formData, schema_type: e.target.value})}
@@ -419,7 +427,7 @@ export default function PageSchemasPage() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Schema Templates</label>
+                    <label className="block text-sm font-medium text-slate-700 mb-2">Schema Templates</label>
                     <div className="grid grid-cols-2 gap-2">
                       {Object.keys(SCHEMA_TEMPLATES).map((template) => (
                         <Button
@@ -443,7 +451,7 @@ export default function PageSchemasPage() {
                       onChange={(e) => setFormData({...formData, is_active: e.target.checked})}
                       className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
                     />
-                    <label htmlFor="is_active" className="ml-2 block text-sm text-gray-700">
+                    <label htmlFor="is_active" className="ml-2 block text-sm text-slate-700">
                       Active (will be included in page output)
                     </label>
                   </div>
@@ -451,7 +459,7 @@ export default function PageSchemasPage() {
 
                 {/* Right Column - JSON Editor */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">JSON-LD Schema</label>
+                  <label className="block text-sm font-medium text-slate-700 mb-2">JSON-LD Schema</label>
                   <Textarea
                     value={formData.schema_json}
                     onChange={(e) => setFormData({...formData, schema_json: e.target.value})}
@@ -483,7 +491,7 @@ export default function PageSchemasPage() {
               </div>
 
               <div className="flex gap-3 mt-6">
-                <Button onClick={handleSave} className="flex-1 bg-blue-600 hover:bg-blue-700">
+                <Button onClick={handleSave} className="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800">
                   <Save className="h-4 w-4 mr-2" />
                   {editingSchema ? 'Update' : 'Save'} Schema
                 </Button>

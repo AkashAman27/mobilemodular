@@ -364,12 +364,12 @@ export default function RobotsPage() {
   }
 
   return (
-    <div className="p-6 bg-gray-50 min-h-full">
+    <div className="p-6 bg-slate-50 min-h-full">
       <div className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Robots.txt Management</h1>
-            <p className="text-gray-600 mt-1">Manage search engine crawling rules and directives</p>
+            <h1 className="text-3xl font-bold text-slate-900">Robots.txt Management</h1>
+            <p className="text-slate-600 mt-1">Manage search engine crawling rules and directives</p>
           </div>
           <div className="flex gap-2">
             <Button onClick={testRobots} variant="outline">
@@ -380,7 +380,7 @@ export default function RobotsPage() {
               {manualEdit ? <Bot className="h-4 w-4 mr-2" /> : <FileText className="h-4 w-4 mr-2" />}
               {manualEdit ? 'Visual Editor' : 'Manual Edit'}
             </Button>
-            <Button onClick={saveRobots} className="bg-blue-600 hover:bg-blue-700">
+            <Button onClick={saveRobots} className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 shadow-lg">
               <Save className="h-4 w-4 mr-2" />
               Save Robots.txt
             </Button>
@@ -458,7 +458,7 @@ export default function RobotsPage() {
                     {/* User agent rules list */}
                     <div className="space-y-4">
                       {robotsConfig.user_agents.map(ua => (
-                        <div key={ua.id} className="border rounded-lg p-4 bg-gray-50">
+                        <div key={ua.id} className="border rounded-lg p-4 bg-slate-50">
                           <div className="flex items-center justify-between mb-3">
                             <h4 className="font-medium">User-agent: {ua.user_agent}</h4>
                             <div className="flex items-center gap-2">
@@ -484,7 +484,7 @@ export default function RobotsPage() {
 
                           {/* Crawl delay */}
                           <div className="mb-3">
-                            <label className="block text-sm font-medium text-gray-700 mb-1">Crawl Delay (seconds)</label>
+                            <label className="block text-sm font-medium text-slate-700 mb-1">Crawl Delay (seconds)</label>
                             <Input
                               type="number"
                               value={ua.crawl_delay || ''}
@@ -496,7 +496,7 @@ export default function RobotsPage() {
 
                           {/* Allow patterns */}
                           <div className="mb-3">
-                            <label className="block text-sm font-medium text-gray-700 mb-1">Allow Patterns</label>
+                            <label className="block text-sm font-medium text-slate-700 mb-1">Allow Patterns</label>
                             <div className="space-y-1">
                               {ua.allow.map((pattern, index) => (
                                 <div key={index} className="flex items-center gap-2">
@@ -530,7 +530,7 @@ export default function RobotsPage() {
 
                           {/* Disallow patterns */}
                           <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1">Disallow Patterns</label>
+                            <label className="block text-sm font-medium text-slate-700 mb-1">Disallow Patterns</label>
                             <div className="space-y-1">
                               {ua.disallow.map((pattern, index) => (
                                 <div key={index} className="flex items-center gap-2">
@@ -641,13 +641,13 @@ export default function RobotsPage() {
                     <Eye className="h-5 w-5 mr-2" />
                     Robots.txt Preview
                   </div>
-                  <span className="text-sm text-gray-500">
+                  <span className="text-sm text-slate-500">
                     Last updated: {new Date(robotsConfig.last_updated).toLocaleString()}
                   </span>
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <pre className="text-xs font-mono bg-gray-100 p-4 rounded-lg overflow-auto whitespace-pre-wrap">
+                <pre className="text-xs font-mono bg-slate-100 p-4 rounded-lg overflow-auto whitespace-pre-wrap">
                   {robotsConfig.content}
                 </pre>
               </CardContent>

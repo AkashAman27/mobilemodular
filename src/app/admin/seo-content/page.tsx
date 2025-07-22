@@ -156,14 +156,14 @@ export default function SEOContentPage() {
   }
 
   return (
-    <div className="p-6 bg-gray-50 min-h-full">
+    <div className="p-6 bg-slate-50 min-h-full">
       <div className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">SEO Content Management</h1>
-            <p className="text-gray-600 mt-1">Manage meta descriptions, keywords, and content optimization</p>
+            <h1 className="text-3xl font-bold text-slate-900">SEO Content Management</h1>
+            <p className="text-slate-600 mt-1">Manage meta descriptions, keywords, and content optimization</p>
           </div>
-          <Button onClick={() => setIsModalOpen(true)} className="bg-blue-600 hover:bg-blue-700">
+          <Button onClick={() => setIsModalOpen(true)} className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 shadow-lg">
             <Plus className="h-4 w-4 mr-2" />
             Add SEO Content
           </Button>
@@ -171,35 +171,41 @@ export default function SEOContentPage() {
 
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <Card>
+          <Card className="bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200 shadow-lg">
             <CardContent className="p-6">
               <div className="flex items-center">
-                <FileText className="h-8 w-8 text-blue-600" />
+                <div className="p-3 bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl shadow-lg">
+                  <FileText className="h-6 w-6 text-white" />
+                </div>
                 <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600">Total Pages</p>
-                  <p className="text-2xl font-bold text-gray-900">{seoItems.length}</p>
+                  <p className="text-sm font-medium text-blue-700">Total Pages</p>
+                  <p className="text-2xl font-bold text-blue-900">{seoItems.length}</p>
                 </div>
               </div>
             </CardContent>
           </Card>
-          <Card>
+          <Card className="bg-gradient-to-br from-emerald-50 to-emerald-100 border-emerald-200 shadow-lg">
             <CardContent className="p-6">
               <div className="flex items-center">
-                <BarChart3 className="h-8 w-8 text-green-600" />
+                <div className="p-3 bg-gradient-to-r from-emerald-600 to-emerald-700 rounded-xl shadow-lg">
+                  <BarChart3 className="h-6 w-6 text-white" />
+                </div>
                 <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600">Optimized</p>
-                  <p className="text-2xl font-bold text-gray-900">{seoItems.filter(item => item.meta_title && item.meta_description).length}</p>
+                  <p className="text-sm font-medium text-emerald-700">Optimized</p>
+                  <p className="text-2xl font-bold text-emerald-900">{seoItems.filter(item => item.meta_title && item.meta_description).length}</p>
                 </div>
               </div>
             </CardContent>
           </Card>
-          <Card>
+          <Card className="bg-gradient-to-br from-amber-50 to-amber-100 border-amber-200 shadow-lg">
             <CardContent className="p-6">
               <div className="flex items-center">
-                <Search className="h-8 w-8 text-orange-600" />
+                <div className="p-3 bg-gradient-to-r from-amber-600 to-amber-700 rounded-xl shadow-lg">
+                  <Search className="h-6 w-6 text-white" />
+                </div>
                 <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600">Keywords</p>
-                  <p className="text-2xl font-bold text-gray-900">{seoItems.reduce((acc, item) => acc + item.target_keywords.length, 0)}</p>
+                  <p className="text-sm font-medium text-amber-700">Keywords</p>
+                  <p className="text-2xl font-bold text-amber-900">{seoItems.reduce((acc, item) => acc + item.target_keywords.length, 0)}</p>
                 </div>
               </div>
             </CardContent>

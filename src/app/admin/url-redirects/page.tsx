@@ -208,12 +208,12 @@ export default function URLRedirectsPage() {
   }
 
   return (
-    <div className="p-6 bg-gray-50 min-h-full">
+    <div className="p-6 bg-slate-50 min-h-full">
       <div className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">URL Redirects Management</h1>
-            <p className="text-gray-600 mt-1">Manage 301/302 redirects and URL structure changes</p>
+            <h1 className="text-3xl font-bold text-slate-900">URL Redirects Management</h1>
+            <p className="text-slate-600 mt-1">Manage 301/302 redirects and URL structure changes</p>
           </div>
           <div className="flex gap-2">
             <Button onClick={() => setIsBulkModalOpen(true)} variant="outline">
@@ -224,7 +224,7 @@ export default function URLRedirectsPage() {
               <Download className="h-4 w-4 mr-2" />
               Export
             </Button>
-            <Button onClick={() => setIsModalOpen(true)} className="bg-blue-600 hover:bg-blue-700">
+            <Button onClick={() => setIsModalOpen(true)} className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 shadow-lg">
               <Plus className="h-4 w-4 mr-2" />
               Add Redirect
             </Button>
@@ -233,46 +233,54 @@ export default function URLRedirectsPage() {
 
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <Card>
+          <Card className="bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200 shadow-lg">
             <CardContent className="p-6">
               <div className="flex items-center">
-                <Redirect className="h-8 w-8 text-blue-600" />
+                <div className="p-3 bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl shadow-lg">
+                  <Redirect className="h-6 w-6 text-white" />
+                </div>
                 <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600">Total Redirects</p>
-                  <p className="text-2xl font-bold text-gray-900">{redirects.length}</p>
+                  <p className="text-sm font-medium text-blue-700">Total Redirects</p>
+                  <p className="text-2xl font-bold text-blue-900">{redirects.length}</p>
                 </div>
               </div>
             </CardContent>
           </Card>
-          <Card>
+          <Card className="bg-gradient-to-br from-emerald-50 to-emerald-100 border-emerald-200 shadow-lg">
             <CardContent className="p-6">
               <div className="flex items-center">
-                <CheckCircle className="h-8 w-8 text-green-600" />
+                <div className="p-3 bg-gradient-to-r from-emerald-600 to-emerald-700 rounded-xl shadow-lg">
+                  <CheckCircle className="h-6 w-6 text-white" />
+                </div>
                 <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600">Active</p>
-                  <p className="text-2xl font-bold text-gray-900">{redirects.filter(r => r.status === 'active').length}</p>
+                  <p className="text-sm font-medium text-emerald-700">Active</p>
+                  <p className="text-2xl font-bold text-emerald-900">{redirects.filter(r => r.status === 'active').length}</p>
                 </div>
               </div>
             </CardContent>
           </Card>
-          <Card>
+          <Card className="bg-gradient-to-br from-amber-50 to-amber-100 border-amber-200 shadow-lg">
             <CardContent className="p-6">
               <div className="flex items-center">
-                <Settings className="h-8 w-8 text-orange-600" />
+                <div className="p-3 bg-gradient-to-r from-amber-600 to-amber-700 rounded-xl shadow-lg">
+                  <Settings className="h-6 w-6 text-white" />
+                </div>
                 <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600">301 Redirects</p>
-                  <p className="text-2xl font-bold text-gray-900">{redirects.filter(r => r.redirect_type === '301').length}</p>
+                  <p className="text-sm font-medium text-amber-700">301 Redirects</p>
+                  <p className="text-2xl font-bold text-amber-900">{redirects.filter(r => r.redirect_type === '301').length}</p>
                 </div>
               </div>
             </CardContent>
           </Card>
-          <Card>
+          <Card className="bg-gradient-to-br from-purple-50 to-purple-100 border-purple-200 shadow-lg">
             <CardContent className="p-6">
               <div className="flex items-center">
-                <ArrowRight className="h-8 w-8 text-purple-600" />
+                <div className="p-3 bg-gradient-to-r from-purple-600 to-purple-700 rounded-xl shadow-lg">
+                  <ArrowRight className="h-6 w-6 text-white" />
+                </div>
                 <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600">Total Hits</p>
-                  <p className="text-2xl font-bold text-gray-900">{redirects.reduce((acc, r) => acc + r.hits, 0)}</p>
+                  <p className="text-sm font-medium text-purple-700">Total Hits</p>
+                  <p className="text-2xl font-bold text-purple-900">{redirects.reduce((acc, r) => acc + r.hits, 0)}</p>
                 </div>
               </div>
             </CardContent>
@@ -295,21 +303,21 @@ export default function URLRedirectsPage() {
                         {redirect.redirect_type}
                       </span>
                       <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                        redirect.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
+                        redirect.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-slate-100 text-slate-800'
                       }`}>
                         {redirect.status}
                       </span>
                     </div>
                     
                     <div className="flex items-center gap-2 mb-2">
-                      <code className="text-sm bg-gray-100 px-2 py-1 rounded">{redirect.from_url}</code>
-                      <ArrowRight className="h-4 w-4 text-gray-400" />
+                      <code className="text-sm bg-slate-100 px-2 py-1 rounded">{redirect.from_url}</code>
+                      <ArrowRight className="h-4 w-4 text-slate-400" />
                       <code className="text-sm bg-blue-50 px-2 py-1 rounded text-blue-700">{redirect.to_url}</code>
                     </div>
                     
-                    <p className="text-sm text-gray-600 mb-2">{redirect.description}</p>
+                    <p className="text-sm text-slate-600 mb-2">{redirect.description}</p>
                     
-                    <div className="flex items-center gap-4 text-xs text-gray-500">
+                    <div className="flex items-center gap-4 text-xs text-slate-500">
                       <span>Hits: {redirect.hits}</span>
                       <span>Last accessed: {new Date(redirect.last_accessed).toLocaleString()}</span>
                       <span>Created: {new Date(redirect.created_at).toLocaleDateString()}</span>
@@ -359,37 +367,37 @@ export default function URLRedirectsPage() {
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
             <div className="bg-white rounded-lg p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto">
               <div className="flex justify-between items-center mb-6">
-                <h2 className="text-xl font-bold text-gray-900">
+                <h2 className="text-xl font-bold text-slate-900">
                   {editingRedirect ? 'Edit Redirect' : 'Add Redirect'}
                 </h2>
-                <button onClick={resetForm} className="text-gray-400 hover:text-gray-600">
+                <button onClick={resetForm} className="text-slate-400 hover:text-slate-600">
                   <X className="h-6 w-6" />
                 </button>
               </div>
 
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">From URL</label>
+                  <label className="block text-sm font-medium text-slate-700 mb-2">From URL</label>
                   <Input
                     value={formData.from_url}
                     onChange={(e) => setFormData({...formData, from_url: e.target.value})}
                     placeholder="/old-page"
                   />
-                  <p className="text-xs text-gray-500 mt-1">The URL to redirect from (relative path)</p>
+                  <p className="text-xs text-slate-500 mt-1">The URL to redirect from (relative path)</p>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">To URL</label>
+                  <label className="block text-sm font-medium text-slate-700 mb-2">To URL</label>
                   <Input
                     value={formData.to_url}
                     onChange={(e) => setFormData({...formData, to_url: e.target.value})}
                     placeholder="/new-page or https://external-site.com"
                   />
-                  <p className="text-xs text-gray-500 mt-1">The destination URL (relative or absolute)</p>
+                  <p className="text-xs text-slate-500 mt-1">The destination URL (relative or absolute)</p>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Redirect Type</label>
+                  <label className="block text-sm font-medium text-slate-700 mb-2">Redirect Type</label>
                   <select
                     value={formData.redirect_type}
                     onChange={(e) => setFormData({...formData, redirect_type: e.target.value as '301' | '302' | '307'})}
@@ -399,13 +407,13 @@ export default function URLRedirectsPage() {
                       <option key={code} value={code}>{info.name}</option>
                     ))}
                   </select>
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className="text-xs text-slate-500 mt-1">
                     {REDIRECT_TYPES[formData.redirect_type].description}
                   </p>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Status</label>
+                  <label className="block text-sm font-medium text-slate-700 mb-2">Status</label>
                   <select
                     value={formData.status}
                     onChange={(e) => setFormData({...formData, status: e.target.value as 'active' | 'inactive'})}
@@ -417,7 +425,7 @@ export default function URLRedirectsPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                  <label className="block text-sm font-medium text-slate-700 mb-2">Description</label>
                   <Textarea
                     value={formData.description}
                     onChange={(e) => setFormData({...formData, description: e.target.value})}
@@ -428,7 +436,7 @@ export default function URLRedirectsPage() {
               </div>
 
               <div className="flex gap-3 mt-6">
-                <Button onClick={handleSave} className="flex-1 bg-blue-600 hover:bg-blue-700">
+                <Button onClick={handleSave} className="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800">
                   <Save className="h-4 w-4 mr-2" />
                   {editingRedirect ? 'Update' : 'Save'} Redirect
                 </Button>
@@ -445,15 +453,15 @@ export default function URLRedirectsPage() {
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
             <div className="bg-white rounded-lg p-6 w-full max-w-3xl max-h-[90vh] overflow-y-auto">
               <div className="flex justify-between items-center mb-6">
-                <h2 className="text-xl font-bold text-gray-900">Bulk Import Redirects</h2>
-                <button onClick={() => setIsBulkModalOpen(false)} className="text-gray-400 hover:text-gray-600">
+                <h2 className="text-xl font-bold text-slate-900">Bulk Import Redirects</h2>
+                <button onClick={() => setIsBulkModalOpen(false)} className="text-slate-400 hover:text-slate-600">
                   <X className="h-6 w-6" />
                 </button>
               </div>
 
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">CSV Data</label>
+                  <label className="block text-sm font-medium text-slate-700 mb-2">CSV Data</label>
                   <Textarea
                     value={bulkData}
                     onChange={(e) => setBulkData(e.target.value)}
@@ -461,7 +469,7 @@ export default function URLRedirectsPage() {
                     rows={10}
                     className="font-mono text-sm"
                   />
-                  <div className="mt-2 text-xs text-gray-500">
+                  <div className="mt-2 text-xs text-slate-500">
                     <p>Format: from_url,to_url,redirect_type,description</p>
                     <p>One redirect per line. Redirect type is optional (defaults to 301).</p>
                   </div>
@@ -469,7 +477,7 @@ export default function URLRedirectsPage() {
               </div>
 
               <div className="flex gap-3 mt-6">
-                <Button onClick={handleBulkImport} className="flex-1 bg-blue-600 hover:bg-blue-700">
+                <Button onClick={handleBulkImport} className="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800">
                   <Upload className="h-4 w-4 mr-2" />
                   Import Redirects
                 </Button>
