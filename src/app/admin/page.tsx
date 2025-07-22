@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Building2, Users, MapPin, MessageSquare, Newspaper, HelpCircle, Home, Link as LinkIcon, LogOut } from 'lucide-react'
+import { Building2, Users, MapPin, MessageSquare, Newspaper, HelpCircle, Home, Link as LinkIcon, LogOut, Settings } from 'lucide-react'
 import Link from 'next/link'
 import { useAuth } from '@/contexts/AuthContext'
 
@@ -66,31 +66,26 @@ export default function AdminDashboard() {
       icon: LinkIcon,
       href: '/admin/internal-links',
       color: 'bg-cyan-500'
+    },
+    {
+      title: 'Our Process',
+      description: 'Manage the 7-step process content',
+      icon: Settings,
+      href: '/admin/our-process',
+      color: 'bg-yellow-500'
     }
   ]
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="p-6 bg-gray-50 min-h-full">
       {/* Header */}
-      <div className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4 py-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900">Admin Dashboard</h1>
-              <p className="text-gray-600">Welcome, {user?.email}</p>
-            </div>
-            <div className="flex gap-4">
-              <Button onClick={signOut} variant="outline">
-                <LogOut className="h-4 w-4 mr-2" />
-                Sign Out
-              </Button>
-            </div>
-          </div>
-        </div>
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
+        <p className="text-gray-600 mt-1">Welcome to your Aman Modular CMS dashboard</p>
       </div>
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 py-8">
+      <div className="space-y-8">
         {/* Quick Stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <Card>
@@ -125,51 +120,52 @@ export default function AdminDashboard() {
           </Card>
         </div>
 
-        {/* Admin Sections */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {adminSections.map((section) => (
-            <Link key={section.title} href={section.href}>
-              <Card className="hover:shadow-lg transition-shadow cursor-pointer">
-                <CardHeader>
-                  <div className="flex items-center space-x-4">
-                    <div className={`p-2 rounded-lg ${section.color}`}>
-                      <section.icon className="h-6 w-6 text-white" />
+        {/* Quick Actions Grid */}
+        <div>
+          <h2 className="text-xl font-semibold text-gray-900 mb-4">Quick Actions</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {adminSections.map((section) => (
+              <Link key={section.title} href={section.href}>
+                <Card className="hover:shadow-md transition-all duration-200 cursor-pointer hover:border-blue-300">
+                  <CardHeader className="pb-4">
+                    <div className="flex items-center space-x-3">
+                      <div className={`p-2 rounded-lg ${section.color}`}>
+                        <section.icon className="h-5 w-5 text-white" />
+                      </div>
+                      <div>
+                        <CardTitle className="text-base font-medium">{section.title}</CardTitle>
+                        <CardDescription className="text-sm text-gray-500">{section.description}</CardDescription>
+                      </div>
                     </div>
-                    <div>
-                      <CardTitle className="text-lg">{section.title}</CardTitle>
-                      <CardDescription>{section.description}</CardDescription>
-                    </div>
-                  </div>
-                </CardHeader>
-              </Card>
-            </Link>
-          ))}
+                  </CardHeader>
+                </Card>
+              </Link>
+            ))}
+          </div>
         </div>
 
-        {/* Quick Actions */}
-        <div className="mt-8">
+        {/* Recent Activity */}
+        <div>
+          <h2 className="text-xl font-semibold text-gray-900 mb-4">Recent Activity</h2>
           <Card>
-            <CardHeader>
-              <CardTitle>Quick Actions</CardTitle>
-              <CardDescription>Common administrative tasks</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="flex flex-wrap gap-4">
-                <Button variant="outline">
-                  <Link href="/admin/solutions/new">Add New Solution</Link>
-                </Button>
-                <Button variant="outline">
-                  <Link href="/admin/testimonials/new">Add New Testimonial</Link>
-                </Button>
-                <Button variant="outline">
-                  <Link href="/admin/news-insights/new">Add News Article</Link>
-                </Button>
-                <Button variant="outline">
-                  <Link href="/admin/faqs/new">Add New FAQ</Link>
-                </Button>
-                <Button variant="outline">
-                  <Link href="/admin/homepage/new">Add Homepage Content</Link>
-                </Button>
+            <CardContent className="pt-6">
+              <div className="space-y-4">
+                <div className="flex items-center space-x-3">
+                  <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                  <span className="text-sm text-gray-600">Database initialized with sample data</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+                  <span className="text-sm text-gray-600">Admin panel created</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
+                  <span className="text-sm text-gray-600">Supabase integration active</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
+                  <span className="text-sm text-gray-600">SEO system implemented</span>
+                </div>
               </div>
             </CardContent>
           </Card>
