@@ -27,10 +27,10 @@ const {
   Code,
   FileText,
   Search,
-  Award
+  Award,
+  Brain
 } = Icons
 
-// Use RotateCcw as Redirect
 const Redirect = RotateCcw
 
 interface AdminLayoutProps {
@@ -135,38 +135,61 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
       href: '/admin/robots',
       icon: FileText,
       current: pathname.startsWith('/admin/robots')
+    },
+    {
+      name: '🤖 AI Analytics',
+      href: '/admin/ai-analytics',
+      icon: Brain,
+      current: pathname.startsWith('/admin/ai-analytics')
     }
   ]
 
-  return (
-    <div className="flex h-screen bg-slate-50">
-      {/* Mobile sidebar overlay */}
-      {sidebarOpen && (
-        <div className="fixed inset-0 z-40 lg:hidden">
-          <div className="fixed inset-0 bg-slate-900 bg-opacity-50" onClick={() => setSidebarOpen(false)} />
+  const SidebarContent = () => (
+    <>
+      <div className="flex items-center justify-between h-16 px-4 border-b border-slate-700">
+        <div className="flex items-center">
+          <Building2 className="h-8 w-8 text-blue-400" />
+          <span className="ml-2 text-lg font-bold text-white">AM Site Admin</span>
         </div>
-      )}
+        <button
+          className="lg:hidden text-slate-400 hover:text-white"
+          onClick={() => setSidebarOpen(false)}
+        >
+          <X className="h-6 w-6" />
+        </button>
+      </div>
 
-      {/* Sidebar */}
-      <div className={`fixed inset-y-0 left-0 z-50 w-64 bg-slate-900 shadow-xl transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0 ${
-        sidebarOpen ? 'translate-x-0' : '-translate-x-full'
-      }`}>
-        <div className="flex items-center justify-between h-16 px-4 border-b border-slate-700">
-          <div className="flex items-center">
-            <Building2 className="h-8 w-8 text-blue-400" />
-            <span className="ml-2 text-lg font-bold text-white">AM Site Admin</span>
+      <nav className="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
+        <div className="space-y-1">
+          {navigationItems.map((item) => {
+            const Icon = item.icon
+            return (
+              <Link
+                key={item.name}
+                href={item.href}
+                className={`group flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
+                  item.current
+                    ? 'bg-blue-600 text-white shadow-lg'
+                    : 'text-slate-300 hover:bg-slate-800 hover:text-white'
+                }`}
+              >
+                <Icon className={`mr-3 h-5 w-5 flex-shrink-0 ${
+                  item.current ? 'text-blue-200' : 'text-slate-400 group-hover:text-blue-200'
+                }`} />
+                {item.name}
+              </Link>
+            )
+          })}
+        </div>
+
+        <div className="pt-6">
+          <div className="px-3 mb-2">
+            <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
+              SEO & Technical
+            </h3>
           </div>
-          <button
-            className="lg:hidden text-slate-400 hover:text-white"
-            onClick={() => setSidebarOpen(false)}
-          >
-            <X className="h-6 w-6" />
-          </button>
-        </div>
-
-        <nav className="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
           <div className="space-y-1">
-            {navigationItems.map((item) => {
+            {seoItems.map((item) => {
               const Icon = item.icon
               return (
                 <Link
@@ -174,111 +197,105 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                   href={item.href}
                   className={`group flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
                     item.current
-                      ? 'bg-blue-600 text-white shadow-lg'
+                      ? 'bg-purple-600 text-white shadow-lg'
                       : 'text-slate-300 hover:bg-slate-800 hover:text-white'
                   }`}
                 >
                   <Icon className={`mr-3 h-5 w-5 flex-shrink-0 ${
-                    item.current ? 'text-blue-200' : 'text-slate-400 group-hover:text-blue-200'
+                    item.current ? 'text-purple-200' : 'text-slate-400 group-hover:text-purple-200'
                   }`} />
                   {item.name}
                 </Link>
               )
             })}
           </div>
+        </div>
+      </nav>
 
-          {/* SEO Section */}
-          <div className="pt-6">
-            <div className="px-3 mb-2">
-              <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
-                SEO & Technical
-              </h3>
-            </div>
-            <div className="space-y-1">
-              {seoItems.map((item) => {
-                const Icon = item.icon
-                return (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    className={`group flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
-                      item.current
-                        ? 'bg-purple-600 text-white shadow-lg'
-                        : 'text-slate-300 hover:bg-slate-800 hover:text-white'
-                    }`}
-                  >
-                    <Icon className={`mr-3 h-5 w-5 flex-shrink-0 ${
-                      item.current ? 'text-purple-200' : 'text-slate-400 group-hover:text-purple-200'
-                    }`} />
-                    {item.name}
-                  </Link>
-                )
-              })}
+      <div className="flex-shrink-0 border-t border-slate-700 p-4">
+        <div className="flex items-center mb-3">
+          <div className="flex-shrink-0">
+            <div className="h-8 w-8 bg-blue-500 rounded-full flex items-center justify-center">
+              <span className="text-sm font-medium text-white">
+                {user?.email?.charAt(0).toUpperCase() || 'A'}
+              </span>
             </div>
           </div>
-        </nav>
+          <div className="ml-3">
+            <p className="text-sm font-medium text-white">Admin User</p>
+            <p className="text-xs text-slate-400">Dashboard Mode</p>
+          </div>
+        </div>
+        <div className="flex space-x-2">
+          <Button
+            variant="outline"
+            size="sm"
+            className="flex-1 bg-blue-600 border-blue-600 text-white hover:bg-blue-700 hover:border-blue-700"
+            asChild
+          >
+            <Link href="/">
+              <Eye className="h-4 w-4 mr-1" />
+              View Site
+            </Link>
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            className="bg-blue-600 border-blue-600 text-white hover:bg-blue-700 hover:border-blue-700"
+            onClick={signOut}
+          >
+            <LogOut className="h-4 w-4" />
+          </Button>
+        </div>
+      </div>
+    </>
+  )
 
-        {/* User section */}
-        <div className="flex-shrink-0 border-t border-slate-700 p-4">
-          <div className="flex items-center mb-3">
-            <div className="flex-shrink-0">
-              <div className="h-8 w-8 bg-blue-500 rounded-full flex items-center justify-center">
-                <span className="text-sm font-medium text-white">
-                  {user?.email?.charAt(0).toUpperCase() || 'A'}
-                </span>
-              </div>
-            </div>
-            <div className="ml-3">
-              <p className="text-sm font-medium text-white">Admin User</p>
-              <p className="text-xs text-slate-400">Dashboard Mode</p>
-            </div>
-          </div>
-          <div className="flex space-x-2">
-            <Button
-              variant="outline"
-              size="sm"
-              className="flex-1 bg-blue-600 border-blue-600 text-white hover:bg-blue-700 hover:border-blue-700"
-              asChild
-            >
-              <Link href="/">
-                <Eye className="h-4 w-4 mr-1" />
-                View Site
-              </Link>
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              className="bg-blue-600 border-blue-600 text-white hover:bg-blue-700 hover:border-blue-700"
-              onClick={signOut}
-            >
-              <LogOut className="h-4 w-4" />
-            </Button>
-          </div>
+  return (
+    <div className="min-h-screen bg-slate-50">
+      {/* Mobile overlay */}
+      {sidebarOpen && (
+        <div className="fixed inset-0 z-40 lg:hidden">
+          <div className="fixed inset-0 bg-slate-900 bg-opacity-50" onClick={() => setSidebarOpen(false)} />
+        </div>
+      )}
+
+      {/* Single Sidebar - Responsive */}
+      <div className="fixed inset-y-0 left-0 z-50 w-64">
+        {/* Desktop version - always visible on lg+ */}
+        <div className="hidden lg:flex flex-col h-full bg-slate-900 shadow-xl">
+          <SidebarContent />
+        </div>
+        
+        {/* Mobile version - only when sidebarOpen */}
+        <div className={`lg:hidden flex flex-col h-full bg-slate-900 shadow-xl transform transition-transform duration-300 ease-in-out ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+          <SidebarContent />
         </div>
       </div>
 
-      {/* Main content */}
-      <div className="flex-1 flex flex-col overflow-hidden">
-        {/* Top bar */}
-        <header className="bg-white shadow-sm border-b border-slate-200 lg:hidden">
-          <div className="flex items-center justify-between h-16 px-4">
-            <button
-              onClick={() => setSidebarOpen(true)}
-              className="text-slate-600 hover:text-slate-900"
-            >
-              <Menu className="h-6 w-6" />
-            </button>
-            <h1 className="text-lg font-medium text-slate-900">Content Management</h1>
-            <div className="w-6" /> {/* Spacer for alignment */}
-          </div>
-        </header>
+      <div className="flex">
 
-        {/* Page content */}
-        <main className="flex-1 overflow-auto bg-slate-50">
-          <div className="h-full">
-            {children}
+        {/* Main content area */}
+        <div className="lg:pl-64 flex flex-col flex-1">
+          {/* Mobile header */}
+          <div className="lg:hidden bg-white shadow-sm border-b border-slate-200">
+            <div className="flex items-center justify-between h-16 px-4">
+              <button
+                onClick={() => setSidebarOpen(true)}
+                className="text-slate-600 hover:text-slate-900"
+              >
+                <Menu className="h-6 w-6" />
+              </button>
+              <h1 className="text-lg font-medium text-slate-900">Content Management</h1>
+              <div className="w-6" />
+            </div>
           </div>
-        </main>
+
+          {/* Page content */}
+          <main className="flex-1 p-6">
+            {children}
+          </main>
+        </div>
       </div>
     </div>
   )

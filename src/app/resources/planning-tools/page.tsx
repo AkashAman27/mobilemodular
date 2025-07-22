@@ -13,6 +13,9 @@ import { getSEOPageData, getSEOSettings, generateMetadata as generateSEOMetadata
 import type { Metadata } from 'next'
 import { createClient } from '@/lib/supabase/server'
 
+// Client-side AI Calculator Component
+import AISmartCalculator from '@/components/ai/AISmartCalculator'
+
 // Generate metadata for SEO
 export async function generateMetadata(): Promise<Metadata> {
   const seoData = await getSEOPageData('/resources/planning-tools')
@@ -180,13 +183,29 @@ export default async function PlanningToolsPage() {
         ]}
       />
 
-      {/* Interactive Calculators */}
+      {/* AI Smart Calculator */}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-navy-600 mb-6">Interactive Calculators</h2>
+            <h2 className="text-4xl font-bold text-navy-600 mb-6">🤖 AI-Powered Smart Calculator</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Get instant estimates and recommendations using our specialized planning calculators.
+              Experience our revolutionary AI calculator that provides intelligent recommendations based on your specific needs, location, and real-time market conditions.
+            </p>
+          </div>
+
+          <div className="max-w-6xl mx-auto mb-16">
+            <AISmartCalculator />
+          </div>
+        </div>
+      </section>
+
+      {/* Traditional Calculators */}
+      <section className="py-20 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-navy-600 mb-6">Additional Planning Tools</h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Quick calculation tools for specific requirements and comparisons.
             </p>
           </div>
 
