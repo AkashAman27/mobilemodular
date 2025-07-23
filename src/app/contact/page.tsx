@@ -1,12 +1,13 @@
 import PageLayout from '@/components/layout/PageLayout'
 import PageHeader from '@/components/layout/PageHeader'
-import { Phone, Mail, MapPin, Clock, MessageSquare, ArrowRight } from 'lucide-react'
+import { Phone, Mail, MapPin, Clock, MessageSquare } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import FAQ from '@/components/FAQ'
 import { generalFAQs } from '@/data/faq-data'
 import { StructuredData, BreadcrumbStructuredData } from '@/components/seo/StructuredData'
 import { getSEOPageData, getSEOSettings, generateMetadata as generateSEOMetadata, getBreadcrumbs } from '@/lib/seo'
 import SEOContent from '@/components/SEOContent'
+import ContactForm from '@/components/ContactForm'
 import type { Metadata } from 'next'
 
 // Generate metadata for SEO
@@ -148,84 +149,7 @@ export default async function ContactPage() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Form */}
-            <div className="bg-white rounded-2xl shadow-lg p-8">
-              <h2 className="text-3xl font-bold text-navy-600 mb-6">Send Us a Message</h2>
-              <form className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">First Name *</label>
-                    <input
-                      type="text"
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-steel-500 focus:border-transparent"
-                      placeholder="John"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Last Name *</label>
-                    <input
-                      type="text"
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-steel-500 focus:border-transparent"
-                      placeholder="Doe"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Email *</label>
-                    <input
-                      type="email"
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-steel-500 focus:border-transparent"
-                      placeholder="john@company.com"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Phone</label>
-                    <input
-                      type="tel"
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-steel-500 focus:border-transparent"
-                      placeholder="(555) 123-4567"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Company</label>
-                  <input
-                    type="text"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-steel-500 focus:border-transparent"
-                    placeholder="Company Name"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">How can we help? *</label>
-                  <select className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-steel-500 focus:border-transparent">
-                    <option value="">Select a topic</option>
-                    <option value="quote">Request a Quote</option>
-                    <option value="rental">Rental Information</option>
-                    <option value="purchase">Purchase Options</option>
-                    <option value="lease">Lease Information</option>
-                    <option value="support">Customer Support</option>
-                    <option value="other">Other</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Message</label>
-                  <textarea
-                    rows={4}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-steel-500 focus:border-transparent resize-vertical"
-                    placeholder="Tell us about your project requirements..."
-                  />
-                </div>
-
-                <Button variant="gradient" size="lg" className="w-full group">
-                  Send Message
-                  <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                </Button>
-              </form>
-            </div>
+            <ContactForm />
 
             {/* Contact Info */}
             <div className="space-y-8">
@@ -358,7 +282,7 @@ export default async function ContactPage() {
                 Emergency Contact: (866) 819-9018
                 <Phone className="ml-2 h-5 w-5" />
               </Button>
-              <Button variant="outline" size="xl" className="border-white/30 text-white hover:bg-white/10">
+              <Button variant="outline" size="xl" className="bg-white text-slate-800 border-white hover:bg-white hover:text-slate-800">
                 Live Chat Support
               </Button>
             </div>
