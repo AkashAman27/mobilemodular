@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
-import { FileText, Save, RefreshCw, Eye, Bot, Shield, Search, Globe, AlertCircle, CheckCircle } from 'lucide-react'
+import { FileText, Save, RefreshCw, Eye, Bot, Shield, Globe, AlertCircle, CheckCircle } from 'lucide-react'
 
 interface RobotsConfig {
   content: string
@@ -69,8 +69,34 @@ export default function RobotsPage() {
   const [newDisallowPattern, setNewDisallowPattern] = useState('')
 
   useEffect(() => {
-    loadDefaultConfig()
+    loadRobotsConfig()
   }, [])
+
+  const loadRobotsConfig = async () => {
+    try {
+      const response = await fetch('/api/robots')
+      const result = await response.json()
+      
+      if (result.success && result.data.content) {
+        const content = result.data.content
+        const parsedConfig = parseRobotsContent(content)
+        setRobotsConfig({
+          content,
+          sitemap_urls: parsedConfig.sitemap_urls || [],
+          user_agents: parsedConfig.user_agents || [],
+          last_updated: new Date().toISOString(),
+          validation_status: 'valid',
+          validation_messages: ['Robots.txt loaded successfully']
+        })
+        updateValidation(content)
+      } else {
+        loadDefaultConfig()
+      }
+    } catch (error) {
+      console.error('Error loading robots config:', error)
+      loadDefaultConfig()
+    }
+  }
 
   const loadDefaultConfig = () => {
     const defaultConfig: RobotsConfig = {
@@ -90,8 +116,8 @@ export default function RobotsPage() {
           crawl_delay: 1,
           is_active: true
         }
-      ], ['https://amanmodular.com/sitemap.xml']),
-      sitemap_urls: ['https://amanmodular.com/sitemap.xml'],
+      ], ['https://mobilemodular.vercel.app/sitemap.xml']),
+      sitemap_urls: ['https://mobilemodular.vercel.app/sitemap.xml'],
       user_agents: [
         {
           id: '1',
@@ -114,6 +140,54 @@ export default function RobotsPage() {
       validation_messages: []
     }
     setRobotsConfig(defaultConfig)
+  }
+
+  const parseRobotsContent = (content: string): Partial<RobotsConfig> => {
+    const userAgents: UserAgentRule[] = []
+    const sitemapUrls: string[] = []
+    const lines = content.split('\n')
+    
+    let currentUserAgent: Partial<UserAgentRule> | null = null
+    let currentId = 1
+
+    lines.forEach(line => {
+      const trimmedLine = line.trim()
+      if (!trimmedLine || trimmedLine.startsWith('#')) return
+
+      if (trimmedLine.toLowerCase().startsWith('user-agent:')) {
+        if (currentUserAgent) {
+          userAgents.push(currentUserAgent as UserAgentRule)
+        }
+        currentUserAgent = {
+          id: (currentId++).toString(),
+          user_agent: trimmedLine.split(':')[1]?.trim() || '*',
+          allow: [],
+          disallow: [],
+          is_active: true
+        }
+      } else if (trimmedLine.toLowerCase().startsWith('allow:') && currentUserAgent) {
+        const pattern = trimmedLine.split(':')[1]?.trim()
+        if (pattern) currentUserAgent.allow?.push(pattern)
+      } else if (trimmedLine.toLowerCase().startsWith('disallow:') && currentUserAgent) {
+        const pattern = trimmedLine.split(':')[1]?.trim()
+        if (pattern) currentUserAgent.disallow?.push(pattern)
+      } else if (trimmedLine.toLowerCase().startsWith('crawl-delay:') && currentUserAgent) {
+        const delay = parseInt(trimmedLine.split(':')[1]?.trim() || '0')
+        if (delay > 0) currentUserAgent.crawl_delay = delay
+      } else if (trimmedLine.toLowerCase().startsWith('sitemap:')) {
+        const url = trimmedLine.split(':')[1]?.trim()
+        if (url) sitemapUrls.push(url)
+      }
+    })
+
+    if (currentUserAgent) {
+      userAgents.push(currentUserAgent as UserAgentRule)
+    }
+
+    return {
+      user_agents: userAgents,
+      sitemap_urls: sitemapUrls
+    }
   }
 
   const generateRobotsContent = (userAgents: UserAgentRule[], sitemapUrls: string[]): string => {
@@ -354,13 +428,49 @@ export default function RobotsPage() {
   }
 
   const saveRobots = async () => {
-    // In a real implementation, this would save to the server
-    alert(`Robots.txt saved successfully!\n\nIn production, this would:\n- Save robots.txt to the public directory\n- Update server configuration\n- Notify search engines of changes`)
-  }
+    try {
+      const response = await fetch('/api/robots', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          content: robotsConfig.content
+        })
+      })
 
-  const testRobots = async () => {
-    // Simulate robots.txt testing
-    alert(`Testing robots.txt...\n\nIn a real implementation, this would:\n- Validate syntax and directives\n- Test against common bot behaviors\n- Check for conflicts and issues\n- Verify sitemap accessibility`)
+      const result = await response.json()
+
+      if (result.success) {
+        setRobotsConfig(prev => ({
+          ...prev,
+          last_updated: new Date().toISOString(),
+          validation_status: 'valid',
+          validation_messages: ['Robots.txt saved successfully!']
+        }))
+        
+        // Show success message that will auto-close
+        const originalMessages = robotsConfig.validation_messages
+        const originalStatus = robotsConfig.validation_status
+        
+        setTimeout(() => {
+          updateValidation(robotsConfig.content)
+        }, 3000)
+      } else {
+        setRobotsConfig(prev => ({
+          ...prev,
+          validation_status: 'error',
+          validation_messages: ['Error saving robots.txt: ' + (result.error || 'Unknown error')]
+        }))
+      }
+    } catch (error) {
+      console.error('Error saving robots.txt:', error)
+      setRobotsConfig(prev => ({
+        ...prev,
+        validation_status: 'error',
+        validation_messages: ['Network error while saving robots.txt']
+      }))
+    }
   }
 
   return (
@@ -372,10 +482,6 @@ export default function RobotsPage() {
             <p className="text-slate-600 mt-1">Manage search engine crawling rules and directives</p>
           </div>
           <div className="flex gap-2">
-            <Button onClick={testRobots} variant="outline">
-              <Search className="h-4 w-4 mr-2" />
-              Test
-            </Button>
             <Button onClick={() => setManualEdit(!manualEdit)} variant="outline">
               {manualEdit ? <Bot className="h-4 w-4 mr-2" /> : <FileText className="h-4 w-4 mr-2" />}
               {manualEdit ? 'Visual Editor' : 'Manual Edit'}
