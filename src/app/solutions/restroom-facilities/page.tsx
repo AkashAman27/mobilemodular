@@ -42,28 +42,28 @@ export default function RestroomFacilitiesPage() {
       size: '4\' x 8\'',
       capacity: '1 person',
       price: 'Starting at $175/month',
-      image: 'https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?w=400&h=300&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/restroom_single_single_restroom_unit_interior_4x8.webp'
     },
     {
       title: 'Double Unit',
       size: '8\' x 8\'',
       capacity: '2 stalls',
       price: 'Starting at $275/month',
-      image: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=400&h=300&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/restroom_double_double_restroom_unit_interior_8x8.webp'
     },
     {
       title: 'ADA Accessible',
       size: '8\' x 10\'',
       capacity: '1 person + wheelchair',
       price: 'Starting at $225/month',
-      image: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=300&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/restroom_ada_ada_accessible_restroom_interior_8x10.webp'
     },
     {
       title: 'Multi-Stall Complex',
       size: '12\' x 24\'',
       capacity: '6+ stalls',
       price: 'Starting at $650/month',
-      image: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=400&h=300&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/restroom_complex_multi_stall_restroom_complex_inte.webp'
     }
   ]
 
@@ -168,7 +168,7 @@ export default function RestroomFacilitiesPage() {
             </div>
             <div className="relative h-96 rounded-2xl overflow-hidden">
               <Image
-                src="https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?w=600&h=400&fit=crop"
+                src="https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/feature_restroom_professional_restroom_facility_cl.webp"
                 alt="Professional restroom facility"
                 fill
                 className="object-cover"

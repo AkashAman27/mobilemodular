@@ -175,7 +175,7 @@ export default async function PlanningToolsPage() {
         subtitle="Resources"
         title="Planning Tools & Calculators"
         description="Use our interactive tools to plan your modular building project with precision. Get accurate estimates, timelines, and requirements to make informed decisions."
-        backgroundImage="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1200&h=600&fit=crop"
+        backgroundImage="https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/hero_background_modern_modular_building_complex_ae.webp"
         breadcrumbs={[
           { label: 'Home', href: '/' },
           { label: 'Resources', href: '/resources' },

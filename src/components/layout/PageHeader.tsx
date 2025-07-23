@@ -66,9 +66,18 @@ const PageHeader: React.FC<PageHeaderProps> = ({
           {subtitle && (
             <motion.p
               initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-yellow-400 font-semibold text-sm uppercase tracking-wide mb-4"
+              animate={{ 
+                opacity: [1, 0.6, 1], 
+                y: 0,
+                scale: [1, 1.02, 1]
+              }}
+              transition={{ 
+                duration: 0.6, 
+                delay: 0.1,
+                opacity: { repeat: Infinity, duration: 1.5, ease: "easeInOut" },
+                scale: { repeat: Infinity, duration: 1.5, ease: "easeInOut" }
+              }}
+              className="text-yellow-400 font-bold text-sm uppercase tracking-wide mb-4"
             >
               {subtitle}
             </motion.p>

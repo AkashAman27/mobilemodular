@@ -42,28 +42,28 @@ export default function SecurityBuildingsPage() {
       size: '4\' x 6\'',
       capacity: '1 officer',
       price: 'Starting at $350/month',
-      image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/security_booth_small_security_guard_booth_interior.webp'
     },
     {
       title: 'Security Station',
       size: '8\' x 10\'',
       capacity: '2-3 officers',
       price: 'Starting at $650/month',
-      image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/security_station_security_station_modular_building.webp'
     },
     {
       title: 'Checkpoint Building',
       size: '12\' x 16\'',
       capacity: '4-6 officers',
       price: 'Starting at $1,200/month',
-      image: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=400&h=300&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/security_checkpoint_checkpoint_security_building_i.webp'
     },
     {
       title: 'Command Center',
       size: '16\' x 24\'',
       capacity: '8+ officers',
       price: 'Starting at $2,400/month',
-      image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=300&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/security_command_security_command_center_interior.webp'
     }
   ]
 
@@ -84,22 +84,22 @@ export default function SecurityBuildingsPage() {
     {
       title: 'Corporate Campus Security',
       description: 'Main gate security stations for corporate facilities and business parks.',
-      image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=250&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/security_corporate_corporate_campus_security_check.webp'
     },
     {
       title: 'Government Facilities',
       description: 'High-security checkpoints for government buildings and military installations.',
-      image: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=400&h=250&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/security_government_government_facility_security_s.webp'
     },
     {
       title: 'Industrial Sites',
       description: 'Perimeter security for manufacturing facilities, warehouses, and industrial complexes.',
-      image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=250&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/security_industrial_industrial_site_security_booth.webp'
     },
     {
       title: 'Event Security',
       description: 'Temporary security stations for large events, festivals, and public gatherings.',
-      image: 'https://images.unsplash.com/photo-1494522358652-f30e61a60313?w=400&h=250&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/security_event_event_security_command_center_festi.webp'
     }
   ]
 
@@ -138,7 +138,7 @@ export default function SecurityBuildingsPage() {
         <div className="container mx-auto px-4">
           <div className="relative h-96 rounded-2xl overflow-hidden mb-12">
             <Image
-              src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&h=400&fit=crop"
+              src="https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/hero_security_modern_security_checkpoint_building.webp"
               alt="Modern security checkpoint building"
               fill
               className="object-cover"
@@ -215,7 +215,7 @@ export default function SecurityBuildingsPage() {
             </div>
             <div className="relative h-96 rounded-2xl overflow-hidden">
               <Image
-                src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&h=400&fit=crop"
+                src="https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/feature_security_security_checkpoint_with_advanced.webp"
                 alt="Security checkpoint with advanced features"
                 fill
                 className="object-cover"

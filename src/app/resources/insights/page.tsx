@@ -17,7 +17,7 @@ const insights = [
     title: 'The Future of Modular Construction in Education',
     excerpt: 'How portable classrooms are revolutionizing school expansion projects across the nation.',
     content: 'Discover how educational institutions are leveraging modular construction to rapidly expand capacity while maintaining quality learning environments.',
-    image: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=600&h=400&fit=crop',
+    image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/classroom_standard_standard_modular_classroom_inte.webp',
     readTime: '5 min read',
     publishDate: '2024-07-10',
     author: 'Education Team'
@@ -28,7 +28,7 @@ const insights = [
     title: 'Construction Site Efficiency with Modular Offices',
     excerpt: 'Learn how on-site modular offices improve project management and worker productivity.',
     content: 'Explore the benefits of temporary office solutions for construction sites and how they enhance project coordination and safety.',
-    image: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=600&h=400&fit=crop',
+    image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp',
     readTime: '4 min read',
     publishDate: '2024-07-08',
     author: 'Construction Team'
@@ -39,7 +39,7 @@ const insights = [
     title: 'Healthcare Facility Solutions for Emergency Response',
     excerpt: 'Rapid deployment medical facilities for disaster relief and emergency healthcare needs.',
     content: 'Learn about specialized healthcare modular buildings designed for emergency response and temporary medical facilities.',
-    image: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&h=400&fit=crop',
+    image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/healthcare_exam_medical_examination_room_interior.webp',
     readTime: '6 min read',
     publishDate: '2024-07-05',
     author: 'Healthcare Team'
@@ -50,7 +50,7 @@ const insights = [
     title: 'Sustainable Building Practices in Modular Construction',
     excerpt: 'Environmental benefits and energy efficiency in modern modular building solutions.',
     content: 'Discover how modular construction contributes to sustainable building practices and environmental conservation.',
-    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=400&fit=crop',
+    image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/industry_construction_modular_office_trailer_on_co.webp',
     readTime: '7 min read',
     publishDate: '2024-07-01',
     author: 'Sustainability Team'
@@ -61,7 +61,7 @@ const insights = [
     title: 'Smart Building Technology in Modular Structures',
     excerpt: 'Integration of IoT and smart systems in portable buildings for enhanced efficiency.',
     content: 'Explore how modern technology is being integrated into modular buildings for improved operations and user experience.',
-    image: 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=600&h=400&fit=crop',
+    image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp',
     readTime: '5 min read',
     publishDate: '2024-06-28',
     author: 'Technology Team'
@@ -72,7 +72,7 @@ const insights = [
     title: 'Government Facility Solutions: Meeting Public Sector Needs',
     excerpt: 'How modular buildings serve government agencies and public sector requirements.',
     content: 'Learn about specialized solutions for government facilities including security features and compliance requirements.',
-    image: 'https://images.unsplash.com/photo-1494522358652-f30e61a60313?w=600&h=400&fit=crop',
+    image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/security_booth_small_security_guard_booth_interior.webp',
     readTime: '6 min read',
     publishDate: '2024-06-25',
     author: 'Government Team'

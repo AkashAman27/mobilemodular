@@ -36,21 +36,21 @@ export default async function GovernmentIndustryPage() {
       title: 'Administrative Offices',
       description: 'Secure government offices with advanced security features and compliance standards.',
       features: ['Security access control', 'SCIF-ready options', 'Compliance certified', 'Professional finishes'],
-      image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&h=300&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp'
     },
     {
       icon: Lock,
       title: 'Security Buildings',
       description: 'High-security facilities for checkpoints, guard stations, and secure operations.',
       features: ['Ballistic protection available', 'Advanced surveillance ready', 'Access control systems', 'Emergency communications'],
-      image: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=400&h=300&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/security_booth_small_security_guard_booth_interior.webp'
     },
     {
       icon: Radio,
       title: 'Emergency Command Centers',
       description: 'Mission-critical command and control facilities for emergency response operations.',
       features: ['Redundant power systems', 'Communications infrastructure', 'Climate controlled', 'Rapid deployment ready'],
-      image: 'https://images.unsplash.com/photo-1551434678-e076c223a692?w=400&h=300&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/security_booth_small_security_guard_booth_interior.webp'
     }
   ]
 
@@ -82,19 +82,19 @@ export default async function GovernmentIndustryPage() {
       title: 'Federal Border Security Station',
       description: 'High-security checkpoint facility with ballistic protection and advanced surveillance systems.',
       results: ['ATFP Level A certification', '24/7 operational capability', 'Integrated security systems'],
-      image: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=400&h=250&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/security_booth_small_security_guard_booth_interior.webp'
     },
     {
       title: 'Emergency Operations Center',
       description: 'Rapid deployment command center for disaster response coordination during hurricane season.',
       results: ['48-hour deployment time', 'Full communications suite', 'Multi-agency coordination'],
-      image: 'https://images.unsplash.com/photo-1551434678-e076c223a692?w=400&h=250&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp'
     },
     {
       title: 'Municipal Administration Annex',
       description: 'Temporary government offices during main building renovation for city administration.',
       results: ['Zero service disruption', 'Public access maintained', 'Secure document storage'],
-      image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&h=250&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp'
     }
   ]
 

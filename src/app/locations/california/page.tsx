@@ -83,19 +83,19 @@ export default async function CaliforniaLocationPage() {
       title: 'Hollywood Film Studio Offices',
       location: 'Los Angeles County',
       description: 'Provided 12 luxury office trailers for major motion picture production.',
-      image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=250&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp'
     },
     {
       title: 'Stanford University Labs',
       location: 'Palo Alto',
       description: 'Temporary research facilities during science building renovation.',
-      image: 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=400&h=250&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp'
     },
     {
       title: 'San Diego Hospital Expansion',
       location: 'San Diego County',
       description: 'Emergency medical facilities during hospital capacity expansion.',
-      image: 'https://images.unsplash.com/photo-1631815589968-fdb09a223b1e?w=400&h=250&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/healthcare_exam_medical_examination_room_interior.webp'
     }
   ]
 

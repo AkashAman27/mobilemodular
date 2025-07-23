@@ -132,7 +132,7 @@ export default function SEOMetaTags({
               "@type": "Organization",
               "name": "Aman Modular",
               "url": "https://amanmodular.com",
-              "logo": "https://amanmodular.com/logo.png",
+              "logo": "https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/company_logo_professional_aman_modular_constructio.webp",
               "contactPoint": {
                 "@type": "ContactPoint",
                 "telephone": "(866) 819-9017",

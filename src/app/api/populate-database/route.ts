@@ -70,28 +70,28 @@ export async function POST(request: NextRequest) {
               size: '8\' x 20\'',
               capacity: '2-4 people',
               price: 'Starting at $850/month',
-              image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=300&fit=crop'
+              image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp'
             },
             {
               title: 'Double Office',
               size: '16\' x 20\'',
               capacity: '4-8 people',
               price: 'Starting at $1,200/month',
-              image: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=400&h=300&fit=crop'
+              image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp'
             },
             {
               title: 'Conference Room',
               size: '12\' x 24\'',
               capacity: '8-12 people',
               price: 'Starting at $1,500/month',
-              image: 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=400&h=300&fit=crop'
+              image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp'
             },
             {
               title: 'Multi-Room Complex',
               size: '24\' x 60\'',
               capacity: '15-25 people',
               price: 'Starting at $2,800/month',
-              image: 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=400&h=300&fit=crop'
+              image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp'
             }
           ],
           included_items: [
@@ -104,7 +104,7 @@ export async function POST(request: NextRequest) {
             'Entry door with lock',
             'ADA-compliant options available'
           ],
-          included_image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&h=400&fit=crop'
+          included_image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp'
         }
       }
 
@@ -123,11 +123,11 @@ export async function POST(request: NextRequest) {
             size: solution.specifications.dimensions || 'Custom sizes available',
             capacity: solution.specifications.capacity || 'Varies by configuration',
             price: solution.startingPrice || 'Contact for pricing',
-            image: solution.imageUrl || 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=300&fit=crop'
+            image: solution.imageUrl || 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp'
           }
         ],
         included_items: solution.features,
-        included_image: solution.imageUrl || 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&h=400&fit=crop'
+        included_image: solution.imageUrl || 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp'
       }
     })
 

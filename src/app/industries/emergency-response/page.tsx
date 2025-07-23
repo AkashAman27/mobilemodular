@@ -36,21 +36,21 @@ export default async function EmergencyResponseIndustryPage() {
       title: 'Command Centers',
       description: 'Mobile command and control facilities for coordinating emergency response operations.',
       features: ['Communications equipment ready', 'Multi-agency coordination', 'Power redundancy systems', 'Climate controlled'],
-      image: 'https://images.unsplash.com/photo-1551434678-e076c223a692?w=400&h=300&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/healthcare_exam_medical_examination_room_interior.webp'
     },
     {
       icon: Heart,
       title: 'Medical Triage',
       description: 'Emergency medical facilities for disaster response and mass casualty events.',
       features: ['Medical equipment ready', 'Triage workflow design', 'Emergency power backup', 'Rapid deployment'],
-      image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=400&h=300&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/healthcare_exam_medical_examination_room_interior.webp'
     },
     {
       icon: Home,
       title: 'Temporary Shelters',
       description: 'Emergency housing and shelter facilities for disaster victims and displaced populations.',
       features: ['Quick assembly design', 'Weather resistant', 'Basic living amenities', 'Scalable configurations'],
-      image: 'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=400&h=300&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/industry_emergency_emergency_response_modular_comm.webp'
     }
   ]
 
@@ -82,19 +82,19 @@ export default async function EmergencyResponseIndustryPage() {
       title: 'Hurricane Response Command Center',
       description: 'Rapid deployment emergency command center during Category 4 hurricane for FEMA coordination.',
       results: ['12-hour deployment time', 'Multi-agency coordination hub', '72-hour continuous operation'],
-      image: 'https://images.unsplash.com/photo-1551434678-e076c223a692?w=400&h=250&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/healthcare_exam_medical_examination_room_interior.webp'
     },
     {
       title: 'Wildfire Medical Triage Station',
       description: 'Emergency medical facility for wildfire evacuation center treating smoke inhalation victims.',
       results: ['200+ patients treated', 'Mobile medical unit', 'Coordinated with local hospitals'],
-      image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=400&h=250&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/healthcare_exam_medical_examination_room_interior.webp'
     },
     {
       title: 'Flood Emergency Shelter',
       description: 'Temporary housing facility for 100+ families displaced by major flood event.',
       results: ['Housing for 100+ families', '30-day emergency shelter', 'Essential services provided'],
-      image: 'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=400&h=250&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/industry_emergency_emergency_response_modular_comm.webp'
     }
   ]
 

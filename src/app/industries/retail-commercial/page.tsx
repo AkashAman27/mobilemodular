@@ -36,21 +36,21 @@ export default async function RetailCommercialIndustryPage() {
       title: 'Pop-up Stores',
       description: 'Attractive retail spaces with professional finishes and customer-friendly layouts.',
       features: ['Modern retail finishes', 'Display-ready interiors', 'Customer access ramps', 'Point-of-sale ready'],
-      image: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&h=300&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp'
     },
     {
       icon: Phone,
       title: 'Sales Offices',
       description: 'Professional sales environments designed to close deals and impress customers.',
       features: ['Professional meeting spaces', 'Presentation capabilities', 'Climate controlled comfort', 'Flexible configurations'],
-      image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=300&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp'
     },
     {
       icon: Users,
       title: 'Customer Service Centers',
       description: 'Dedicated customer service facilities with professional appearance and functionality.',
       features: ['Customer-focused design', 'Private consultation areas', 'Technology integration', 'Brand customization'],
-      image: 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=400&h=300&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp'
     }
   ]
 
@@ -82,19 +82,19 @@ export default async function RetailCommercialIndustryPage() {
       title: 'Seasonal Holiday Retail',
       description: 'Pop-up Christmas store for major retailer during peak holiday shopping season.',
       results: ['6-week seasonal deployment', '40% increase in sales coverage', 'Zero construction delays'],
-      image: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&h=250&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp'
     },
     {
       title: 'Car Dealership Sales Office',
       description: 'Temporary sales facility during main showroom renovation for luxury car dealership.',
       results: ['Maintained full sales operations', 'Professional customer experience', 'Zero revenue disruption'],
-      image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=250&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp'
     },
     {
       title: 'Real Estate Sales Center',
       description: 'On-site sales office for new residential development with model home displays.',
       results: ['Premium location presence', 'Increased buyer engagement', '6-month sales campaign'],
-      image: 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=400&h=250&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp'
     }
   ]
 

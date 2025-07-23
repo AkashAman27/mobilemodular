@@ -38,7 +38,7 @@ export const solutions: Solution[] = [
     name: 'Office Buildings',
     description: 'Professional modular office spaces designed for productivity and comfort',
     features: ['Climate Control', 'Professional Interior', 'Flexible Layouts', 'High-Speed Internet Ready'],
-    imageUrl: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=600&fit=crop',
+    imageUrl: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp',
     category: 'office',
     startingPrice: '$850/month',
     specifications: {
@@ -53,7 +53,7 @@ export const solutions: Solution[] = [
     name: 'Portable Classrooms',
     description: 'Educational spaces that meet modern learning requirements',
     features: ['ADA Compliant', 'Smart Board Ready', 'Energy Efficient', 'Sound Insulation'],
-    imageUrl: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=800&h=600&fit=crop',
+    imageUrl: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/classroom_standard_standard_modular_classroom_inte.webp',
     category: 'education',
     startingPrice: '$1,200/month',
     specifications: {
@@ -68,7 +68,7 @@ export const solutions: Solution[] = [
     name: 'Storage Containers',
     description: 'Secure portable storage solutions for equipment and materials',
     features: ['Weather Resistant', 'Multiple Lock Options', 'Shelving Available', 'Ground Level Access'],
-    imageUrl: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&h=600&fit=crop',
+    imageUrl: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp',
     category: 'storage',
     startingPrice: '$125/month',
     specifications: {
@@ -83,7 +83,7 @@ export const solutions: Solution[] = [
     name: 'Healthcare Facilities',
     description: 'Medical-grade modular buildings for healthcare applications',
     features: ['Medical Grade Flooring', 'HVAC Filtration', 'Emergency Power', 'ADA Compliant'],
-    imageUrl: 'https://images.unsplash.com/photo-1631815589968-fdb09a223b1e?w=800&h=600&fit=crop',
+    imageUrl: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/healthcare_exam_medical_examination_room_interior.webp',
     category: 'healthcare',
     startingPrice: '$1,500/month',
     specifications: {
@@ -98,7 +98,7 @@ export const solutions: Solution[] = [
     name: 'Security Buildings',
     description: 'Secure guard stations and security checkpoints',
     features: ['Bullet Resistant Options', '360° Visibility', 'Communication Ready', 'Climate Control'],
-    imageUrl: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=800&h=600&fit=crop',
+    imageUrl: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/security_booth_small_security_guard_booth_interior.webp',
     category: 'security',
     startingPrice: '$650/month',
     specifications: {
@@ -113,7 +113,7 @@ export const solutions: Solution[] = [
     name: 'Restaurant & Food Service',
     description: 'Food service buildings with commercial kitchen capabilities',
     features: ['Commercial Kitchen', 'Grease Trap Ready', 'Ventilation System', 'Health Code Compliant'],
-    imageUrl: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&h=600&fit=crop',
+    imageUrl: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/restaurant_truck_chef_plating_gourmet_dish_in_upsc.webp',
     category: 'restaurant',
     startingPrice: '$1,800/month',
     specifications: {
@@ -128,7 +128,7 @@ export const solutions: Solution[] = [
     name: 'Restroom Facilities',
     description: 'Clean, ADA-compliant portable restroom facilities for events, construction sites, and temporary needs',
     features: ['ADA Compliant', 'Running Water', 'Waste Management', 'Ventilation System', 'Hand Sanitizer Stations'],
-    imageUrl: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=800&h=600&fit=crop',
+    imageUrl: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/restroom_single_single_restroom_unit_interior_4x8.webp',
     category: 'storage',
     startingPrice: '$275/month',
     specifications: {
@@ -146,7 +146,7 @@ export const industries: Industry[] = [
     name: 'Education',
     description: 'Flexible learning spaces for schools and universities',
     solutions: ['portable-classrooms', 'office-buildings', 'storage-containers'],
-    imageUrl: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&h=600&fit=crop',
+    imageUrl: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/classroom_standard_standard_modular_classroom_inte.webp',
     caseStudies: 15
   },
   {
@@ -154,7 +154,7 @@ export const industries: Industry[] = [
     name: 'Construction',
     description: 'On-site offices and storage for construction projects',
     solutions: ['office-buildings', 'storage-containers', 'security-buildings'],
-    imageUrl: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&h=600&fit=crop',
+    imageUrl: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/industry_construction_modular_office_trailer_on_co.webp',
     caseStudies: 28
   },
   {
@@ -162,7 +162,7 @@ export const industries: Industry[] = [
     name: 'Healthcare',
     description: 'Medical facilities and emergency response buildings',
     solutions: ['healthcare-facilities', 'office-buildings'],
-    imageUrl: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=800&h=600&fit=crop',
+    imageUrl: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/industry_healthcare_modular_medical_building_at_ho.webp',
     caseStudies: 12
   },
   {
@@ -170,7 +170,7 @@ export const industries: Industry[] = [
     name: 'Government',
     description: 'Secure buildings for government and municipal use',
     solutions: ['office-buildings', 'security-buildings', 'storage-containers'],
-    imageUrl: 'https://images.unsplash.com/photo-1589578527966-fdac0f44566c?w=800&h=600&fit=crop',
+    imageUrl: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/industry_government_government_modular_office_buil.webp',
     caseStudies: 22
   },
   {
@@ -178,7 +178,7 @@ export const industries: Industry[] = [
     name: 'Retail & Commercial',
     description: 'Pop-up stores and temporary commercial spaces',
     solutions: ['office-buildings', 'restaurant-facilities', 'storage-containers'],
-    imageUrl: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&h=600&fit=crop',
+    imageUrl: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/industry_retail_modular_retail_store_in_commercial.webp',
     caseStudies: 18
   },
   {
@@ -186,7 +186,7 @@ export const industries: Industry[] = [
     name: 'Emergency Response',
     description: 'Rapid deployment buildings for emergency situations',
     solutions: ['office-buildings', 'healthcare-facilities', 'storage-containers'],
-    imageUrl: 'https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?w=800&h=600&fit=crop',
+    imageUrl: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/industry_emergency_emergency_response_modular_comm.webp',
     caseStudies: 9
   }
 ]
@@ -242,7 +242,7 @@ export const testimonials = [
     role: 'Project Manager',
     content: 'The modular office buildings from Aman Modular provided exactly what we needed for our construction site. Professional, quick setup, and great customer service.',
     rating: 5,
-    imageUrl: 'https://images.unsplash.com/photo-1494790108755-2616b612b830?w=150&h=150&fit=crop&crop=face'
+    imageUrl: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/testimonial_business_happy_business_owner_outside.webp'
   },
   {
     id: '2',
@@ -251,7 +251,7 @@ export const testimonials = [
     role: 'Facilities Director',
     content: 'Our portable classrooms have been essential during our campus renovation. The quality and functionality exceeded our expectations.',
     rating: 5,
-    imageUrl: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face'
+    imageUrl: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/testimonial_education_school_principal_at_modular.webp'
   },
   {
     id: '3',
@@ -260,7 +260,7 @@ export const testimonials = [
     role: 'CEO',
     content: 'Perfect solution for our growing startup. The modular office gave us professional space without the long-term commitment.',
     rating: 5,
-    imageUrl: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face'
+    imageUrl: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/testimonial_healthcare_doctor_at_modular_medical_c.webp'
   }
 ]
 
@@ -269,7 +269,7 @@ export const newsInsights = [
     id: '1',
     title: 'The Future of Modular Construction in Education',
     excerpt: 'How portable classrooms are revolutionizing school expansion projects across the nation.',
-    imageUrl: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=400&h=250&fit=crop',
+    imageUrl: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/classroom_standard_standard_modular_classroom_inte.webp',
     date: '2024-07-10',
     category: 'Education',
     readTime: '5 min read'
@@ -278,7 +278,7 @@ export const newsInsights = [
     id: '2',
     title: 'Construction Site Efficiency with Modular Offices',
     excerpt: 'Learn how on-site modular offices improve project management and worker productivity.',
-    imageUrl: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400&h=250&fit=crop',
+    imageUrl: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp',
     date: '2024-07-08',
     category: 'Construction',
     readTime: '4 min read'
@@ -287,7 +287,7 @@ export const newsInsights = [
     id: '3',
     title: 'Healthcare Facility Solutions for Emergency Response',
     excerpt: 'Rapid deployment medical facilities for disaster relief and emergency healthcare needs.',
-    imageUrl: 'https://images.unsplash.com/photo-1631815589968-fdb09a223b1e?w=400&h=250&fit=crop',
+    imageUrl: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/healthcare_exam_medical_examination_room_interior.webp',
     date: '2024-07-05',
     category: 'Healthcare',
     readTime: '6 min read'
@@ -296,7 +296,7 @@ export const newsInsights = [
     id: '4',
     title: 'Sustainable Building Practices in Modular Construction',
     excerpt: 'Environmental benefits and energy efficiency in modern modular building solutions.',
-    imageUrl: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=250&fit=crop',
+    imageUrl: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/industry_construction_modular_office_trailer_on_co.webp',
     date: '2024-07-01',
     category: 'Sustainability',
     readTime: '7 min read'

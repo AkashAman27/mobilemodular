@@ -17,11 +17,11 @@ const caseStudies = {
     challenge: 'Needed 12 additional classrooms for growing enrollment while main building was under construction.',
     solution: 'Deployed 12 portable classrooms with full ADA compliance and technology integration.',
     results: ['Zero disruption to school year', '300 students accommodated', '18-month successful operation', 'Saved $2M vs permanent construction'],
-    image: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=800&h=600&fit=crop',
+    image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/industry_construction_modular_office_trailer_on_co.webp',
     gallery: [
-      'https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=400&h=300&fit=crop',
-      'https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=400&h=300&fit=crop',
-      'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=400&h=300&fit=crop'
+      'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp',
+      'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp',
+      'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp'
     ],
     fullContent: {
       overview: `Riverside School District faced a critical challenge when their main building renovation project coincided with unexpectedly high enrollment growth. With 300 additional students needing classroom space and construction preventing the use of existing facilities, the district needed an immediate, reliable solution that wouldn't compromise educational quality.`,
@@ -101,11 +101,11 @@ const caseStudies = {
     challenge: 'Urgent need for additional patient care facilities during hospital renovation.',
     solution: 'Rapid deployment of medical-grade modular units with specialized HVAC and power systems.',
     results: ['24-hour installation', '50 additional patient beds', 'Full medical equipment integration', 'Maintained patient care quality'],
-    image: 'https://images.unsplash.com/photo-1631815589968-fdb09a223b1e?w=800&h=600&fit=crop',
+    image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/healthcare_exam_medical_examination_room_interior.webp',
     gallery: [
-      'https://images.unsplash.com/photo-1631815589968-fdb09a223b1e?w=400&h=300&fit=crop',
-      'https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=400&h=300&fit=crop',
-      'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&h=300&fit=crop'
+      'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/healthcare_exam_medical_examination_room_interior.webp',
+      'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/healthcare_exam_medical_examination_room_interior.webp',
+      'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/healthcare_exam_medical_examination_room_interior.webp'
     ],
     fullContent: {
       overview: `Metropolitan Hospital faced an unprecedented challenge when their emergency department renovation coincided with a seasonal surge in patient admissions. The hospital needed immediate additional capacity without compromising patient care quality or safety standards.`,
@@ -173,11 +173,11 @@ const caseStudies = {
     challenge: 'Fast-growing startup needed immediate office space for 100 employees.',
     solution: 'Modular office complex with modern amenities and flexible workspace design.',
     results: ['Immediate occupancy', '100 employees housed', 'Professional environment', '40% cost savings'],
-    image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=600&fit=crop',
+    image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp',
     gallery: [
-      'https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=300&fit=crop',
-      'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=400&h=300&fit=crop',
-      'https://images.unsplash.com/photo-1556761175-4b46a572b786?w=400&h=300&fit=crop'
+      'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp',
+      'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp',
+      'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp'
     ],
     fullContent: {
       overview: `TechCorp, a rapidly scaling AI startup, secured major funding and needed to triple their workforce within 90 days. Traditional office leasing couldn't meet their timeline, and they needed a flexible solution that could adapt to their uncertain growth trajectory.`,

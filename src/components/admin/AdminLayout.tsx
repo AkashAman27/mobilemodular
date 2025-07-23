@@ -71,7 +71,13 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
       name: 'Locations',
       href: '/admin/locations',
       icon: MapPin,
-      current: pathname.startsWith('/admin/locations')
+      current: pathname.startsWith('/admin/locations') && !pathname.startsWith('/admin/cities')
+    },
+    {
+      name: 'Cities',
+      href: '/admin/cities',
+      icon: Building2,
+      current: pathname.startsWith('/admin/cities')
     },
     {
       name: 'Our Process',

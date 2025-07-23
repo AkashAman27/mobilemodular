@@ -36,21 +36,21 @@ export default async function ConstructionIndustryPage() {
       title: 'On-Site Offices',
       description: 'Professional office spaces for project management, meetings, and administrative work.',
       features: ['Climate controlled', 'Professional interiors', 'Network ready', 'Security features'],
-      image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=300&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp'
     },
     {
       icon: FileText,
       title: 'Plan Review Rooms',
       description: 'Dedicated spaces for blueprint review, planning meetings, and project coordination.',
       features: ['Large work surfaces', 'Proper lighting', 'Storage solutions', 'Meeting capabilities'],
-      image: 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=400&h=300&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/security_booth_small_security_guard_booth_interior.webp'
     },
     {
       icon: Shield,
       title: 'Security Buildings',
       description: 'Guard stations and security checkpoints for site access control and monitoring.',
       features: ['Visibility windows', 'Communication systems', 'Climate control', 'Secure storage'],
-      image: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=400&h=300&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/security_booth_small_security_guard_booth_interior.webp'
     }
   ]
 
@@ -82,19 +82,19 @@ export default async function ConstructionIndustryPage() {
       title: 'Downtown High-Rise Project',
       description: 'Complete site office solution for 18-month commercial construction project.',
       results: ['12-person office complex', 'Plan review room', 'Security checkpoint'],
-      image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400&h=250&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp'
     },
     {
       title: 'Highway Infrastructure Build',
       description: 'Mobile offices and storage for multi-phase road construction project.',
       results: ['Relocatable office units', 'Secure tool storage', '24-month rental term'],
-      image: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=400&h=250&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp'
     },
     {
       title: 'Residential Development',
       description: 'Sales office and model home support for new subdivision development.',
       results: ['Professional sales center', 'Customer parking area', 'Model home coordination'],
-      image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=250&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp'
     }
   ]
 

@@ -23,7 +23,7 @@ export default function CaseStudiesPage() {
       challenge: 'Needed 12 additional classrooms for growing enrollment while main building was under construction.',
       solution: 'Deployed 12 portable classrooms with full ADA compliance and technology integration.',
       results: ['Zero disruption to school year', '300 students accommodated', '18-month successful operation', 'Saved $2M vs permanent construction'],
-      image: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=600&h=400&fit=crop',
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/industry_construction_modular_office_trailer_on_co.webp',
       featured: true
     },
     {
@@ -35,7 +35,7 @@ export default function CaseStudiesPage() {
       challenge: 'Urgent need for additional patient care facilities during hospital renovation.',
       solution: 'Rapid deployment of medical-grade modular units with specialized HVAC and power systems.',
       results: ['24-hour installation', '50 additional patient beds', 'Full medical equipment integration', 'Maintained patient care quality'],
-      image: 'https://images.unsplash.com/photo-1631815589968-fdb09a223b1e?w=600&h=400&fit=crop',
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/healthcare_exam_medical_examination_room_interior.webp',
       featured: true
     },
     {
@@ -47,7 +47,7 @@ export default function CaseStudiesPage() {
       challenge: 'Fast-growing startup needed immediate office space for 100 employees.',
       solution: 'Modular office complex with modern amenities and flexible workspace design.',
       results: ['Immediate occupancy', '100 employees housed', 'Professional environment', '40% cost savings'],
-      image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&h=400&fit=crop',
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp',
       featured: false
     },
     {
@@ -59,7 +59,7 @@ export default function CaseStudiesPage() {
       challenge: 'City operations needed to continue during 2-year renovation project.',
       solution: 'Temporary government offices with security features and public access.',
       results: ['Uninterrupted city services', 'Secure document handling', 'Public accessibility maintained', '24-month operation'],
-      image: 'https://images.unsplash.com/photo-1589578527966-fdac0f44566c?w=600&h=400&fit=crop',
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp',
       featured: false
     },
     {
@@ -71,7 +71,7 @@ export default function CaseStudiesPage() {
       challenge: 'Multi-year highway project required on-site offices and facilities.',
       solution: 'Complete site office complex with meeting rooms, storage, and restroom facilities.',
       results: ['Mobile solution for 50-mile project', 'Weather-resistant construction', 'Improved project coordination', '3-year successful operation'],
-      image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&h=400&fit=crop',
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/industry_construction_modular_office_trailer_on_co.webp',
       featured: false
     },
     {
@@ -83,7 +83,7 @@ export default function CaseStudiesPage() {
       challenge: 'Hurricane season required mobile command center for emergency response.',
       solution: 'Rapid-deployment command center with advanced communications and power systems.',
       results: ['2-hour deployment time', 'Full communication capabilities', 'Weather-resistant design', 'Successful emergency coordination'],
-      image: 'https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?w=600&h=400&fit=crop',
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/classroom_standard_standard_modular_classroom_inte.webp',
       featured: false
     }
   ]

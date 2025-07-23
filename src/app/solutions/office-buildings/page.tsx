@@ -42,28 +42,28 @@ export default function OfficeBuildingsPage() {
       size: '8\' x 20\'',
       capacity: '2-4 people',
       price: 'Starting at $850/month',
-      image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=300&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp'
     },
     {
       title: 'Double Office',
       size: '16\' x 20\'',
       capacity: '4-8 people',
       price: 'Starting at $1,200/month',
-      image: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=400&h=300&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_double_double_office_modular_building_inter.webp'
     },
     {
       title: 'Conference Room',
       size: '12\' x 24\'',
       capacity: '8-12 people',
       price: 'Starting at $1,500/month',
-      image: 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=400&h=300&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_conference_conference_room_modular_building.webp'
     },
     {
       title: 'Multi-Room Complex',
       size: '24\' x 60\'',
       capacity: '15-25 people',
       price: 'Starting at $2,800/month',
-      image: 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=400&h=300&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_complex_multi_room_office_complex_interior.webp'
     }
   ]
 
@@ -166,7 +166,7 @@ export default function OfficeBuildingsPage() {
             </div>
             <div className="relative h-96 rounded-2xl overflow-hidden">
               <Image
-                src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&h=400&fit=crop"
+                src="https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/feature_office_professional_office_interior_modern.webp"
                 alt="Professional office interior"
                 fill
                 className="object-cover"

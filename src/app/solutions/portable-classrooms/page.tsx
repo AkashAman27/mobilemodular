@@ -42,28 +42,28 @@ export default function PortableClassroomsPage() {
       size: '24\' x 32\'',
       capacity: '20-25 students',
       price: 'Starting at $1,200/month',
-      image: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=400&h=300&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/classroom_standard_standard_modular_classroom_inte.webp'
     },
     {
       title: 'Large Classroom',
       size: '28\' x 40\'',
       capacity: '25-30 students',
       price: 'Starting at $1,500/month',
-      image: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=400&h=300&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/classroom_large_large_modular_classroom_interior_2.webp'
     },
     {
       title: 'Science Lab',
       size: '24\' x 40\'',
       capacity: '20-24 students',
       price: 'Starting at $1,800/month',
-      image: 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=400&h=300&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/classroom_multipurpose_alt_multi_purpose_education.webp'
     },
     {
       title: 'Multi-Purpose Room',
       size: '32\' x 40\'',
       capacity: '30-40 students',
       price: 'Starting at $2,200/month',
-      image: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?w=400&h=300&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/classroom_standard_standard_modular_classroom_inte.webp'
     }
   ]
 
@@ -115,7 +115,7 @@ export default function PortableClassroomsPage() {
         <div className="container mx-auto px-4">
           <div className="relative h-96 rounded-2xl overflow-hidden mb-12">
             <Image
-              src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=1200&h=400&fit=crop"
+              src="https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/classroom_standard_standard_modular_classroom_inte.webp"
               alt="Modern portable classroom interior"
               fill
               className="object-cover"
@@ -199,7 +199,7 @@ export default function PortableClassroomsPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="relative h-96 rounded-2xl overflow-hidden">
               <Image
-                src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=600&h=400&fit=crop"
+                src="https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/classroom_large_large_modular_classroom_interior_2.webp"
                 alt="Students in modern classroom"
                 fill
                 className="object-cover"

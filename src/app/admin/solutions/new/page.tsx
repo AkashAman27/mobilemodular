@@ -109,7 +109,7 @@ export default function NewSolution() {
         size: '8\' x 20\'',
         capacity: '2-4 people',
         price: 'Starting at $850/month',
-        image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=300&fit=crop'
+        image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp'
       }
     ],
     included_title: 'What\'s Included',
@@ -124,7 +124,7 @@ export default function NewSolution() {
       'Entry door with lock',
       'ADA-compliant options available'
     ],
-    included_image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&h=400&fit=crop',
+    included_image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp',
     cta_title: 'Ready to Get Started?',
     cta_subtitle: 'Get a custom quote for your modular building project. We\'ll work with you to find the perfect solution.',
     cta_primary_text: 'Get Custom Quote',
@@ -199,7 +199,7 @@ export default function NewSolution() {
       size: '',
       capacity: '',
       price: '',
-      image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=300&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp'
     }
     handleInputChange('specifications', [...formData.specifications, newSpec])
   }

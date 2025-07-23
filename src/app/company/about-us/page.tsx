@@ -85,19 +85,19 @@ export default async function AboutUsPage() {
       name: 'Sarah Johnson',
       title: 'Chief Executive Officer',
       bio: '25+ years in modular construction, leading company growth and strategic initiatives.',
-      image: 'https://images.unsplash.com/photo-1494790108755-2616b612b830?w=300&h=300&fit=crop&crop=face'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp'
     },
     {
       name: 'Michael Chen',
       title: 'Chief Operations Officer',
       bio: 'Operations expert ensuring quality delivery and customer satisfaction nationwide.',
-      image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop&crop=face'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp'
     },
     {
       name: 'Emily Rodriguez',
       title: 'VP of Engineering',
       bio: 'Leading engineering innovation and sustainable building design initiatives.',
-      image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&h=300&fit=crop&crop=face'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp'
     }
   ]
 
@@ -159,7 +159,7 @@ export default async function AboutUsPage() {
             </div>
             <div className="relative h-96 rounded-2xl overflow-hidden">
               <Image
-                src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&h=400&fit=crop"
+                src="https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/industry_construction_modular_office_trailer_on_co.webp"
                 alt="Modern modular building construction"
                 fill
                 className="object-cover"

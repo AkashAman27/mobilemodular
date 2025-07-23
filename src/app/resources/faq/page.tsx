@@ -135,7 +135,7 @@ export default async function FAQPage() {
         subtitle="Resources"
         title="Frequently Asked Questions"
         description="Find answers to common questions about modular buildings, our services, and processes. Can't find what you're looking for? Our experts are here to help."
-        backgroundImage="https://images.unsplash.com/photo-1544717297-fa95b6ee9643?w=1200&h=600&fit=crop"
+        backgroundImage="https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/hero_background_modern_modular_building_complex_ae.webp"
         breadcrumbs={[
           { label: 'Home', href: '/' },
           { label: 'Resources', href: '/resources' },

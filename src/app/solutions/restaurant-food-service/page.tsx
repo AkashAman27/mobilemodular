@@ -42,28 +42,28 @@ export default function RestaurantFoodServicePage() {
       size: '8\' x 16\'',
       capacity: '2-3 staff',
       price: 'Starting at $2,800/month',
-      image: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&h=300&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/restaurant_truck_chef_plating_gourmet_dish_in_upsc.webp'
     },
     {
       title: 'Quick Service Restaurant',
       size: '12\' x 24\'',
       capacity: '4-6 staff',
       price: 'Starting at $4,200/month',
-      image: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=400&h=300&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/restaurant_quick_busy_restaurant_interior_with_ope.webp'
     },
     {
       title: 'Full Service Kitchen',
       size: '16\' x 32\'',
       capacity: '8-12 staff',
       price: 'Starting at $6,800/month',
-      image: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=300&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/restaurant_full_couple_cooking_together_in_modern.webp'
     },
     {
       title: 'Catering Complex',
       size: '20\' x 40\'',
       capacity: '15+ staff',
       price: 'Starting at $9,500/month',
-      image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/restaurant_catering_person_doing_yogaexercise_outd.webp'
     }
   ]
 
@@ -84,22 +84,22 @@ export default function RestaurantFoodServicePage() {
     {
       title: 'Pop-Up Restaurants',
       description: 'Temporary dining concepts and seasonal restaurant operations.',
-      image: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&h=250&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/food_popup_chef_plating_gourmet_dish_in_upscale_re.webp'
     },
     {
       title: 'Catering Operations',
       description: 'Commercial kitchens for catering businesses and event food service.',
-      image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=250&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/food_catering_ops_person_doing_yogaexercise_outdoo.webp'
     },
     {
       title: 'Event Food Service',
       description: 'Temporary food service for festivals, fairs, and large events.',
-      image: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=400&h=250&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/food_event_service_busy_restaurant_interior_with_o.webp'
     },
     {
       title: 'Franchise Expansion',
       description: 'Quick deployment for restaurant franchises and chain expansions.',
-      image: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=250&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/food_franchise_couple_cooking_together_in_modern_h.webp'
     }
   ]
 
@@ -138,7 +138,7 @@ export default function RestaurantFoodServicePage() {
         <div className="container mx-auto px-4">
           <div className="relative h-96 rounded-2xl overflow-hidden mb-12">
             <Image
-              src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1200&h=400&fit=crop"
+              src="https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/hero_restaurant_modern_commercial_kitchen_interior.webp"
               alt="Modern commercial kitchen interior"
               fill
               className="object-cover"
@@ -215,7 +215,7 @@ export default function RestaurantFoodServicePage() {
             </div>
             <div className="relative h-96 rounded-2xl overflow-hidden">
               <Image
-                src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&h=400&fit=crop"
+                src="https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/feature_restaurant_commercial_kitchen_with_profess.webp"
                 alt="Commercial kitchen with professional equipment"
                 fill
                 className="object-cover"

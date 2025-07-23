@@ -35,21 +35,21 @@ export default async function EducationIndustryPage() {
       title: 'Portable Classrooms',
       description: 'Modern learning environments with technology integration and optimal acoustics.',
       features: ['Smart board ready', 'Energy efficient HVAC', 'ADA compliant', 'Sound insulation'],
-      image: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=400&h=300&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp'
     },
     {
       icon: Calculator,
       title: 'Administrative Offices',
       description: 'Professional office spaces for school administration, counseling, and meetings.',
       features: ['Climate controlled', 'Professional finishes', 'Flexible layouts', 'Security features'],
-      image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=300&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp'
     },
     {
       icon: Beaker,
       title: 'Specialized Labs',
       description: 'Science labs, computer labs, and specialized learning environments.',
       features: ['Lab-grade utilities', 'Ventilation systems', 'Technology infrastructure', 'Safety compliant'],
-      image: 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=400&h=300&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp'
     }
   ]
 
@@ -81,19 +81,19 @@ export default async function EducationIndustryPage() {
       title: 'Riverside Elementary Expansion',
       description: 'Provided 8 portable classrooms to accommodate 200 additional students during permanent building construction.',
       results: ['Zero disruption to classes', '18-month rental term', 'ADA compliant installation'],
-      image: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=400&h=250&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/industry_construction_modular_office_trailer_on_co.webp'
     },
     {
       title: 'State University Research Labs',
       description: 'Temporary science labs during renovation of the chemistry building.',
       results: ['Full lab capabilities maintained', 'Specialized ventilation systems', 'Research continuity preserved'],
-      image: 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=400&h=250&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp'
     },
     {
       title: 'Metro High School Offices',
       description: 'Administrative offices during main building renovation project.',
       results: ['Professional work environment', 'Secure document storage', 'Meeting room facilities'],
-      image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=250&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp'
     }
   ]
 

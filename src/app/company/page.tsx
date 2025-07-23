@@ -107,7 +107,7 @@ export default async function CompanyPage() {
         subtitle="Learn About Us"
         title="Aman Modular Buildings"
         description="For over 80 years, we've been America's trusted partner for modular building solutions. From humble beginnings to industry leadership, our commitment to quality and innovation remains unwavering."
-        backgroundImage="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1200&h=600&fit=crop"
+        backgroundImage="https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/hero_background_modern_modular_building_complex_ae.webp"
         breadcrumbs={[
           { label: 'Home', href: '/' },
           { label: 'Company', href: '/company' }
@@ -147,7 +147,7 @@ export default async function CompanyPage() {
             </div>
             <div className="relative h-96 rounded-2xl overflow-hidden">
               <Image
-                src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&h=400&fit=crop"
+                src="https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/facility_manufacturing_factory_workers_building_mo.webp"
                 alt="Aman Modular Buildings facility"
                 fill
                 className="object-cover"
@@ -251,7 +251,7 @@ export default async function CompanyPage() {
             >
               <div className="relative h-48">
                 <Image
-                  src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&h=300&fit=crop"
+                  src="https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp"
                   alt="About Aman Modular"
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-300"
@@ -278,7 +278,7 @@ export default async function CompanyPage() {
             >
               <div className="relative h-48">
                 <Image
-                  src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&h=300&fit=crop"
+                  src="https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/process_consultation_business_meeting_with_clients.webp"
                   alt="Our Process"
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-300"
@@ -305,7 +305,7 @@ export default async function CompanyPage() {
             >
               <div className="relative h-48">
                 <Image
-                  src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=600&h=300&fit=crop"
+                  src="https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp"
                   alt="Quality Standards"
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-300"

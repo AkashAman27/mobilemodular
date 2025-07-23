@@ -42,28 +42,28 @@ export default function HealthcareFacilitiesPage() {
       size: '8\' x 12\'',
       capacity: '1 patient + staff',
       price: 'Starting at $1,800/month',
-      image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=400&h=300&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/healthcare_exam_medical_examination_room_interior.webp'
     },
     {
       title: 'Medical Clinic',
       size: '12\' x 24\'',
       capacity: '4-6 exam rooms',
       price: 'Starting at $3,200/month',
-      image: 'https://images.unsplash.com/photo-1631815589968-fdb09a223b1e?w=400&h=300&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/healthcare_clinic_medical_clinic_modular_building.webp'
     },
     {
       title: 'Emergency Medical Unit',
       size: '16\' x 32\'',
       capacity: '8-10 treatment areas',
       price: 'Starting at $5,800/month',
-      image: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=400&h=300&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/healthcare_emergency_emergency_medical_unit_interi.webp'
     },
     {
       title: 'Medical Complex',
       size: '24\' x 48\'',
       capacity: '15+ treatment rooms',
       price: 'Starting at $8,500/month',
-      image: 'https://images.unsplash.com/photo-1551190822-a9333d879b1f?w=400&h=300&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/healthcare_complex_medical_complex_interior_24x48.webp'
     }
   ]
 
@@ -84,22 +84,22 @@ export default function HealthcareFacilitiesPage() {
     {
       title: 'Temporary Clinics',
       description: 'Mobile medical clinics and temporary healthcare facilities for underserved areas.',
-      image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=400&h=250&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/healthcare_temp_clinic_temporary_medical_clinic_ex.webp'
     },
     {
       title: 'Emergency Response',
       description: 'Rapid deployment medical facilities for disaster relief and emergency healthcare.',
-      image: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=400&h=250&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/healthcare_emergency_response_emergency_response_m.webp'
     },
     {
       title: 'Hospital Expansion',
       description: 'Additional patient care space during hospital renovations or capacity increases.',
-      image: 'https://images.unsplash.com/photo-1631815589968-fdb09a223b1e?w=400&h=250&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/healthcare_hospital_expansion_hospital_campus_with.webp'
     },
     {
       title: 'Specialty Care Centers',
       description: 'Specialized medical facilities for testing, treatment, and specialized care.',
-      image: 'https://images.unsplash.com/photo-1551190822-a9333d879b1f?w=400&h=250&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/healthcare_specialty_care_specialty_care_center_in.webp'
     }
   ]
 
@@ -138,7 +138,7 @@ export default function HealthcareFacilitiesPage() {
         <div className="container mx-auto px-4">
           <div className="relative h-96 rounded-2xl overflow-hidden mb-12">
             <Image
-              src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=1200&h=400&fit=crop"
+              src="https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/hero_healthcare_modern_healthcare_facility_interio.webp"
               alt="Modern healthcare facility interior"
               fill
               className="object-cover"
@@ -215,7 +215,7 @@ export default function HealthcareFacilitiesPage() {
             </div>
             <div className="relative h-96 rounded-2xl overflow-hidden">
               <Image
-                src="https://images.unsplash.com/photo-1631815589968-fdb09a223b1e?w=600&h=400&fit=crop"
+                src="https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/feature_healthcare_healthcare_facility_with_medica.webp"
                 alt="Healthcare facility with medical equipment"
                 fill
                 className="object-cover"

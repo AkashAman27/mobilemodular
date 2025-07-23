@@ -112,7 +112,7 @@ export default function EditSolution() {
     included_title: 'What\'s Included',
     included_subtitle: 'Every modular building comes fully equipped and ready for immediate occupancy.',
     included_items: [],
-    included_image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&h=400&fit=crop',
+    included_image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp',
     cta_title: 'Ready to Get Started?',
     cta_subtitle: 'Get a custom quote for your modular building project. We\'ll work with you to find the perfect solution.',
     cta_primary_text: 'Get Custom Quote',
@@ -194,7 +194,7 @@ export default function EditSolution() {
           name: 'Office Buildings (Demo)',
           description: 'Professional modular office spaces designed for productivity and comfort. Perfect for temporary offices, construction site headquarters, or permanent workspace solutions.',
           features: ['Climate Control', 'Professional Interior', 'Flexible Layouts', 'High-Speed Internet Ready'],
-          image_url: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=600&fit=crop',
+          image_url: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp',
           category: 'office',
           starting_price: '$850/month',
           dimensions: '8\' x 20\' to 24\' x 60\'',
@@ -215,13 +215,13 @@ export default function EditSolution() {
           specifications_title: 'Available Configurations',
           specifications_subtitle: 'Choose from our standard configurations or let us customize a solution for your specific needs.',
           specifications: [
-            { title: 'Single Office', size: '8\' x 20\'', capacity: '2-4 people', price: 'Starting at $850/month', image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=300&fit=crop' },
-            { title: 'Multi-Office', size: '12\' x 32\'', capacity: '6-10 people', price: 'Starting at $1,200/month', image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=300&fit=crop' }
+            { title: 'Single Office', size: '8\' x 20\'', capacity: '2-4 people', price: 'Starting at $850/month', image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp' },
+            { title: 'Multi-Office', size: '12\' x 32\'', capacity: '6-10 people', price: 'Starting at $1,200/month', image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp' }
           ],
           included_title: 'What\'s Included',
           included_subtitle: 'Every modular building comes fully equipped and ready for immediate occupancy.',
           included_items: ['Professional flooring', 'Climate control system', 'Electrical outlets', 'Lighting fixtures', 'Windows with blinds', 'Entry door with lock'],
-          included_image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&h=400&fit=crop',
+          included_image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp',
           cta_title: 'Ready to Get Started?',
           cta_subtitle: 'Get a custom quote for your modular building project. We\'ll work with you to find the perfect solution.',
           cta_primary_text: 'Get Custom Quote',
@@ -274,7 +274,7 @@ export default function EditSolution() {
           included_title: demoSolution.included_title || 'What\'s Included',
           included_subtitle: demoSolution.included_subtitle || 'Every modular building comes fully equipped and ready for immediate occupancy.',
           included_items: demoSolution.included_items || [],
-          included_image: demoSolution.included_image || 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&h=400&fit=crop',
+          included_image: demoSolution.included_image || 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp',
           cta_title: demoSolution.cta_title || 'Ready to Get Started?',
           cta_subtitle: demoSolution.cta_subtitle || 'Get a custom quote for your modular building project. We\'ll work with you to find the perfect solution.',
           cta_primary_text: demoSolution.cta_primary_text || 'Get Custom Quote',
@@ -330,7 +330,7 @@ export default function EditSolution() {
           included_title: data.included_title || 'What\'s Included',
           included_subtitle: data.included_subtitle || 'Every modular building comes fully equipped and ready for immediate occupancy.',
           included_items: data.included_items || [],
-          included_image: data.included_image || 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&h=400&fit=crop',
+          included_image: data.included_image || 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp',
           cta_title: data.cta_title || 'Ready to Get Started?',
           cta_subtitle: data.cta_subtitle || 'Get a custom quote for your modular building project. We\'ll work with you to find the perfect solution.',
           cta_primary_text: data.cta_primary_text || 'Get Custom Quote',
@@ -434,7 +434,7 @@ export default function EditSolution() {
       size: '',
       capacity: '',
       price: '',
-      image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=300&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp'
     }
     handleInputChange('specifications', [...formData.specifications, newSpec])
   }

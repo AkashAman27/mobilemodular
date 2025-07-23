@@ -68,7 +68,7 @@ export default function SolutionPreview({ solution }: SolutionPreviewProps) {
       size: solution.dimensions || "Custom sizes available",
       capacity: solution.capacity || "Varies by configuration",
       price: solution.starting_price || "Contact for pricing",
-      image: solution.image_url || 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=300&fit=crop'
+      image: solution.image_url || 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp'
     }
   ]
 
@@ -242,7 +242,7 @@ export default function SolutionPreview({ solution }: SolutionPreviewProps) {
             </div>
             <div className="relative h-96 rounded-2xl overflow-hidden">
               <Image
-                src={solution.image_url || "https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&h=400&fit=crop"}
+                src={solution.image_url || "https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp"}
                 alt={`Professional ${solution.category} interior`}
                 fill
                 className="object-cover"

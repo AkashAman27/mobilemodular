@@ -1,6 +1,6 @@
 import PageLayout from '@/components/layout/PageLayout'
 import PageHeader from '@/components/layout/PageHeader'
-import { Calculator, BookOpen, FileText, Download, ArrowRight, Users, Clock, Award, CheckCircle } from 'lucide-react'
+import { Calculator, BookOpen, FileText, Download, ArrowRight, Users, Clock, Award, CheckCircle, Building } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
@@ -93,6 +93,15 @@ export default async function ResourcesPage() {
   // Define resource sections with their details
   const resourceSections = [
     {
+      title: 'Live Inventory',
+      description: 'Browse our current inventory of available modular buildings. Filter by type, size, and location to find the perfect solution.',
+      href: '/resources/live-inventory',
+      icon: Building,
+      color: 'from-navy-600 to-steel-700',
+      bgColor: 'bg-navy-50',
+      features: ['Available Buildings', 'Real-time Inventory', 'Detailed Specifications', 'Instant Quotes']
+    },
+    {
       title: 'Planning Tools',
       description: 'Interactive calculators and planning resources to help determine your exact needs and requirements.',
       href: '/resources/planning-tools',
@@ -166,7 +175,7 @@ export default async function ResourcesPage() {
         subtitle="Resource Center"
         title={overviewContent?.title || "Resources & Planning Tools"}
         description={overviewContent?.description || "Access comprehensive tools, guides, and resources to plan, implement, and manage your modular building projects with confidence."}
-        backgroundImage={overviewContent?.image_url || "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1200&h=600&fit=crop"}
+        backgroundImage={overviewContent?.image_url || "https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/hero_background_modern_modular_building_complex_ae.webp"}
         breadcrumbs={[
           { label: 'Home', href: '/' },
           { label: 'Resources', href: '/resources' }

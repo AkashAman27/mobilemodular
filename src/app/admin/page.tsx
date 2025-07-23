@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Building2, Users, MapPin, MessageSquare, Newspaper, HelpCircle, Home, Link as LinkIcon, LogOut, Settings } from 'lucide-react'
+import { Building2, Users, MapPin, MessageSquare, Newspaper, HelpCircle, Home, Link as LinkIcon, LogOut, Settings, Package } from 'lucide-react'
 import Link from 'next/link'
 import { useAuth } from '@/contexts/AuthContext'
 
@@ -11,6 +11,13 @@ export default function AdminDashboard() {
   const { signOut, user } = useAuth()
 
   const adminSections = [
+    {
+      title: 'Live Inventory',
+      description: 'Manage inventory items and floorplans',
+      icon: Package,
+      href: '/admin/inventory',
+      color: 'bg-navy-500'
+    },
     {
       title: 'Solutions',
       description: 'Manage modular building solutions',

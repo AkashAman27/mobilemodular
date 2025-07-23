@@ -36,21 +36,21 @@ export default async function HealthcareIndustryPage() {
       title: 'Medical Facilities',
       description: 'State-of-the-art modular medical facilities with advanced filtration and medical-grade infrastructure.',
       features: ['HEPA filtration systems', 'Medical gas connections', 'Emergency power backup', 'Infection control design'],
-      image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=400&h=300&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/healthcare_exam_medical_examination_room_interior.webp'
     },
     {
       icon: Activity,
       title: 'Emergency Response Units',
       description: 'Rapid deployment medical units for emergency situations and disaster response.',
       features: ['Quick deployment capability', 'Self-contained utilities', 'Telemedicine ready', 'Triage capabilities'],
-      image: 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&h=300&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/healthcare_exam_medical_examination_room_interior.webp'
     },
     {
       icon: Stethoscope,
       title: 'Administrative Offices',
       description: 'Professional healthcare administration spaces with HIPAA-compliant design features.',
       features: ['HIPAA compliant design', 'Secure document storage', 'Climate controlled', 'Professional finishes'],
-      image: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=400&h=300&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp'
     }
   ]
 
@@ -82,19 +82,19 @@ export default async function HealthcareIndustryPage() {
       title: 'Regional Hospital Expansion',
       description: 'Provided temporary patient care units during main hospital renovation, maintaining full capacity.',
       results: ['Zero patient displacement', '50-bed capacity maintained', 'Full medical infrastructure'],
-      image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=400&h=250&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/healthcare_exam_medical_examination_room_interior.webp'
     },
     {
       title: 'Emergency COVID Testing Site',
       description: 'Rapid deployment of testing facilities during pandemic response for community health center.',
       results: ['48-hour deployment', '500+ tests daily capacity', 'Safe patient flow design'],
-      image: 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&h=250&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/healthcare_exam_medical_examination_room_interior.webp'
     },
     {
       title: 'Rural Clinic Expansion',
       description: 'Extended healthcare services to underserved rural community with specialized medical facility.',
       results: ['Brought specialists to rural area', 'Telemedicine capabilities', 'Year-round healthcare access'],
-      image: 'https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=400&h=250&fit=crop'
+      image: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/healthcare_exam_medical_examination_room_interior.webp'
     }
   ]
 
