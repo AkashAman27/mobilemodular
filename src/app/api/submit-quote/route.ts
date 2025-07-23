@@ -18,8 +18,8 @@ async function sendEmailNotification(submissionData: any) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: 'quotes@amanmodular.com',
-        to: ['akashaman0426@gmail.com'],
+        from: 'onboarding@resend.dev',
+        to: ['aka8292@gmail.com'],
         subject: 'New Quote Request - Aman Modular',
         html: `
           <h2>New Quote Request Received</h2>
@@ -48,9 +48,14 @@ async function sendEmailNotification(submissionData: any) {
     });
 
     if (!response.ok) {
-      console.error('Failed to send email:', await response.text());
+      const errorText = await response.text();
+      console.error('Failed to send email. Status:', response.status);
+      console.error('Error response:', errorText);
       return false;
     }
+
+    const result = await response.json();
+    console.log('Email sent successfully:', result);
 
     return true;
   } catch (error) {

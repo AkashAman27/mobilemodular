@@ -1,0 +1,83 @@
+company-logo: Professional "Aman Modular" construction company logo, modern industrial design, navy blue and gray
+hero-background: Modern modular building complex aerial view, professional construction facility, golden hour lighting
+office-single: Single office modular building interior, 8x20 size, 2-4 people, desk and chairs, professional workspace
+office-double: Double office modular building interior, 16x20 size, meeting table, 4-8 people, modern office furniture
+office-conference: Conference room modular building interior, 12x24 size, large meeting table, 8-12 people, presentation screen
+office-complex: Multi-room office complex interior, 24x60 size, multiple workstations, 15-25 people, open floor plan
+security-booth: Small security guard booth interior, 4x6 size, 1 officer, monitoring equipment, checkpoint setting
+security-station: Security station modular building interior, 8x10 size, 2-3 officers, security monitors, professional booth
+security-checkpoint: Checkpoint security building interior, 12x16 size, 4-6 officers, multiple monitors, entrance control
+security-command: Security command center interior, 16x24 size, 8+ officers, surveillance wall, professional control room
+security-corporate: Corporate campus security checkpoint, business setting, professional guards, modern office building
+security-government: Government facility security station, official building, federal checkpoint, high-security entrance
+security-industrial: Industrial site security booth, factory background, hard hat workers, manufacturing facility
+security-event: Event security command center, festival or concert venue, crowd control, temporary security setup
+classroom-standard: Standard modular classroom interior, 24x32 size, 20-25 students, desks, whiteboard, educational setting
+classroom-large: Large modular classroom interior, 28x40 size, 25-30 students, modern furniture, bright learning space
+classroom-lab: Science lab modular classroom interior, 24x40 size, 20-24 students, lab tables, equipment, STEM education
+classroom-multipurpose: Multi-purpose classroom interior, 32x40 size, 30-40 students, flexible seating, presentation area
+healthcare-exam: Medical examination room interior, 8x12 size, exam table, medical equipment, sterile environment
+healthcare-clinic: Medical clinic modular building interior, 12x24 size, 4-6 exam rooms, reception area, professional medical
+healthcare-emergency: Emergency medical unit interior, 16x32 size, 8-10 treatment areas, medical equipment, ambulance nearby
+healthcare-complex: Medical complex interior, 24x48 size, 15+ treatment rooms, hospital-grade facility, comprehensive care
+healthcare-temp-clinic: Temporary medical clinic exterior, modular building with medical signage, patients entering
+healthcare-emergency-response: Emergency response medical unit at disaster site, ambulances, first responders
+healthcare-hospital-expansion: Hospital campus with modular expansion buildings, modern medical facility exterior
+healthcare-specialty-care: Specialty care center interior, advanced medical equipment, specialized treatment room
+restaurant-truck: Chef plating gourmet dish in upscale restaurant kitchen, fine dining presentation, professional plating
+restaurant-quick: Busy restaurant interior with open kitchen, industrial design, customers dining, modern eatery
+restaurant-full: Couple cooking together in modern home kitchen, casual interaction, residential kitchen appliances
+restaurant-catering: Person doing yoga/exercise outdoors, peaceful natural setting, wellness and fitness concept
+food-popup: Chef plating gourmet dish in upscale restaurant kitchen, fine dining presentation, professional plating
+food-catering-ops: Person doing yoga/exercise outdoors, peaceful natural setting, wellness and fitness concept
+food-event-service: Busy restaurant interior with open kitchen, industrial design, customers dining, modern eatery
+food-franchise: Couple cooking together in modern home kitchen, casual interaction, residential kitchen appliances
+restroom-single: Single restroom unit interior, 4x8 size, 1 person, clean portable facility, standard design
+restroom-double: Double restroom unit interior, 8x8 size, 2 stalls, public facility, clean design
+restroom-ada: ADA accessible restroom interior, 8x10 size, wheelchair accessible, compliant design, spacious layout
+restroom-complex: Multi-stall restroom complex interior, 12x24 size, 6+ stalls, commercial facility, modern fixtures
+industry-education: Modular classroom buildings on school campus, students walking, educational environment
+industry-construction: Modular office trailer on construction site, hard hats, equipment, industrial setting
+industry-healthcare: Modular medical building at hospital campus, ambulance, healthcare professionals
+industry-government: Government modular office building, official setting, municipal flags, professional appearance
+industry-retail: Modular retail store in commercial plaza, customers shopping, business district
+industry-emergency: Emergency response modular command center, disaster relief vehicles, FEMA operation
+facility-exterior: Aman Modular headquarters building, modern industrial facility, company signage, professional property
+facility-manufacturing: Factory workers building modular units, assembly line, quality construction process
+facility-fleet: Delivery trucks with Aman Modular branding, professional transport vehicles, logistics operation
+facility-quality: Quality inspector checking modular building, professional standards, inspection process
+process-consultation: Business meeting with clients, plans on table, professional consultation, handshake
+process-design: Engineers designing modular building on computer, CAD software, blueprints, technical planning
+process-manufacturing: Workers assembling modular unit in factory, construction tools, skilled craftsmanship
+process-delivery: Truck transporting modular building, professional logistics, safe transportation
+process-installation: Crane placing modular building on site, construction crew, professional installation
+process-inspection: Final walkthrough with client, quality check, completed building, customer satisfaction
+testimonial-business: Happy business owner outside modular office, professional attire, satisfied customer
+testimonial-education: School principal at modular classroom, educational setting, positive testimonial
+testimonial-healthcare: Doctor at modular medical clinic, healthcare professional, quality care setting
+hero-healthcare: Modern healthcare facility interior, medical equipment, professional medical environment
+hero-classrooms: Modern portable classroom interior, students at desks, educational setting, bright lighting
+hero-restaurant: Modern commercial kitchen interior, professional cooking equipment, stainless steel surfaces
+hero-security: Modern security checkpoint building, professional security facility, surveillance equipment
+feature-office: Professional office interior, modern workspace, business furniture, productive environment
+feature-healthcare: Healthcare facility with medical equipment, sterile environment, professional medical setting
+feature-classroom: Students in modern classroom, educational technology, learning environment
+feature-restaurant: Commercial kitchen with professional equipment, food service workspace, culinary setting
+feature-restroom: Professional restroom facility, clean modern fixtures, sanitary environment
+feature-security: Security checkpoint with advanced features, surveillance equipment, professional security setup
+office-double-alt: Modern office meeting space, conference table, professional business environment
+office-conference-alt: Conference room with presentation screen, meeting table, professional business setting
+office-complex-alt: Multi-room office complex, open floor plan, multiple workstations, collaborative workspace
+classroom-large-alt: Large classroom with students, modern educational furniture, bright learning space
+classroom-lab-alt: Science laboratory classroom, lab tables, scientific equipment, STEM education environment
+classroom-multipurpose-alt: Multi-purpose educational room, flexible seating, presentation area, versatile space
+healthcare-exam-alt: Medical examination room, doctor equipment, clinical setting, patient care environment
+healthcare-emergency-alt: Emergency medical treatment area, medical equipment, urgent care facility
+healthcare-complex-alt: Large medical facility, hospital-grade equipment, comprehensive care environment
+restaurant-quick-alt: Quick service restaurant kitchen, fast food preparation, efficient food service
+restaurant-full-alt: Full service restaurant kitchen, complete cooking equipment, professional culinary space
+security-station-alt: Multi-officer security station, professional monitoring equipment, security booth
+security-checkpoint-alt: Large security checkpoint facility, entrance control, professional security building
+security-command-alt: Security command center, surveillance monitoring, professional control room
+restroom-ada-alt: Wheelchair accessible restroom, ADA compliant design, spacious accessible layout
+restroom-complex-alt: Multi-stall restroom complex, commercial facility, modern restroom fixtures

@@ -40,8 +40,8 @@ export async function POST(request: NextRequest) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: 'contact@amanmodular.com',
-        to: ['akashaman0426@gmail.com'],
+        from: 'onboarding@resend.dev',
+        to: ['aka8292@gmail.com'],
         subject: `New Contact Form Submission - ${topic}`,
         html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
