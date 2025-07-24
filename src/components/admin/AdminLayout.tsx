@@ -114,6 +114,12 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
       href: '/admin/internal-links',
       icon: LinkIcon,
       current: pathname.startsWith('/admin/internal-links')
+    },
+    {
+      name: 'Footer Content',
+      href: '/admin/footer-content',
+      icon: FileText,
+      current: pathname.startsWith('/admin/footer-content')
     }
   ]
 

@@ -89,6 +89,13 @@ export default function AdminDashboard() {
       color: 'bg-cyan-500'
     },
     {
+      title: 'Footer Content',
+      description: 'Manage all footer content including navigation, social links, and company info',
+      icon: FileText,
+      href: '/admin/footer-content',
+      color: 'bg-slate-500'
+    },
+    {
       title: 'Our Process',
       description: 'Manage the 7-step process content',
       icon: Settings,
