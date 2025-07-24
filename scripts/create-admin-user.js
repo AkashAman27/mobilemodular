@@ -18,28 +18,51 @@ async function createAdminUser() {
     }
   })
 
-  const email = 'akashaman0426@gmail.com'
-  const password = 'AdminPassword123!' // You should change this
+  // Get admin credentials from environment variables or command line args
+  const email = process.env.ADMIN_EMAIL || process.argv[2]
+  const password = process.env.ADMIN_PASSWORD || process.argv[3]
+
+  if (!email || !password) {
+    console.error('❌ Missing admin credentials!')
+    console.log('Usage:')
+    console.log('1. Set environment variables: ADMIN_EMAIL and ADMIN_PASSWORD')
+    console.log('2. Or pass as arguments: node create-admin-user.js email@example.com securePassword123')
+    console.log('')
+    console.log('⚠️  For security reasons, credentials are not hardcoded.')
+    console.log('   Please use a strong password (min 12 characters, mixed case, numbers, symbols)')
+    return
+  }
+
+  // Basic password strength validation
+  if (password.length < 12) {
+    console.error('❌ Password too weak! Must be at least 12 characters long.')
+    return
+  }
 
   try {
     const { data, error } = await supabase.auth.admin.createUser({
       email: email,
       password: password,
-      email_confirm: true // This confirms the email automatically
+      email_confirm: true,
+      user_metadata: {
+        role: 'admin', // Set admin role in metadata
+        created_by: 'setup_script',
+        created_at: new Date().toISOString()
+      }
     })
 
     if (error) {
-      console.error('Error creating user:', error.message)
+      console.error('❌ Error creating user:', error.message)
       return
     }
 
-    console.log('Admin user created successfully!')
-    console.log('Email:', email)
-    console.log('Password:', password)
-    console.log('User ID:', data.user.id)
+    console.log('✅ Admin user created successfully!')
+    console.log('📧 Email:', email)
+    console.log('🔑 User ID:', data.user.id)
+    console.log('👑 Role: admin')
     console.log('')
-    console.log('You can now login to /admin with these credentials.')
-    console.log('IMPORTANT: Please change the password after first login!')
+    console.log('🚀 You can now login to /admin with your credentials.')
+    console.log('🔒 IMPORTANT: Store your password securely and never share it!')
 
   } catch (error) {
     console.error('Unexpected error:', error)

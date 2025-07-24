@@ -1,9 +1,18 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
+import { withAdminAuth, auditLog } from '@/lib/auth-utils'
 
-export async function POST() {
-  try {
-    console.log('Temporarily disabling RLS for page_faqs table...')
+export async function POST(request: NextRequest) {
+  return withAdminAuth(request, async (req, user) => {
+    try {
+      // Audit log this critical security operation
+      await auditLog(user, 'DISABLE_RLS', 'database_security', {
+        action: 'disable_rls',
+        table: 'page_faqs',
+        reason: 'temporary_admin_operation'
+      })
+
+      console.log(`🚨 SECURITY: Admin ${user.email} is disabling RLS for page_faqs table...`)
 
     // Use raw SQL to disable RLS - this should work with the existing client
     const { data, error } = await supabase.rpc('exec_sql', {
@@ -34,14 +43,15 @@ export async function POST() {
       message: 'RLS disabled for page_faqs table'
     })
 
-  } catch (error) {
-    console.error('RLS disable error:', error)
-    return NextResponse.json({
-      success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
-      suggestion: 'Please disable RLS manually in Supabase dashboard for page_faqs table'
-    }, { status: 500 })
-  }
+    } catch (error) {
+      console.error('RLS disable error:', error)
+      return NextResponse.json({
+        success: false,
+        error: error instanceof Error ? error.message : 'Unknown error',
+        suggestion: 'Please disable RLS manually in Supabase dashboard for page_faqs table'
+      }, { status: 500 })
+    }
+  })
 }
 
 export async function GET() {

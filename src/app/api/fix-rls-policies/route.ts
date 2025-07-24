@@ -1,9 +1,20 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { supabase } from '@/lib/supabase'
+import { supabase, requireServiceRoleKey } from '@/lib/supabase'
+import { withAdminAuth, auditLog } from '@/lib/auth-utils'
 
-export async function POST() {
-  try {
-    console.log('Fixing RLS policies for admin access...')
+export async function POST(request: NextRequest) {
+  return withAdminAuth(request, async (req, user) => {
+    try {
+      // Ensure we have proper service role privileges
+      requireServiceRoleKey()
+
+      // Audit log this critical security operation
+      await auditLog(user, 'MODIFY_RLS_POLICIES', 'database_security', {
+        action: 'fix_rls_policies',
+        tables: ['pages', 'page_faqs']
+      })
+
+      console.log(`🔐 Admin ${user.email} is modifying RLS policies...`)
 
     // Drop existing policies that might be too restrictive
     const dropPolicies = `
@@ -49,14 +60,15 @@ export async function POST() {
       message: 'RLS policies updated for admin access'
     })
 
-  } catch (error) {
-    console.error('RLS policy fix error:', error)
-    return NextResponse.json({
-      success: false,
-      error: 'Failed to fix RLS policies',
-      details: error instanceof Error ? error.message : 'Unknown error'
-    }, { status: 500 })
-  }
+    } catch (error) {
+      console.error('RLS policy fix error:', error)
+      return NextResponse.json({
+        success: false,
+        error: 'Failed to fix RLS policies',
+        details: error instanceof Error ? error.message : 'Unknown error'
+      }, { status: 500 })
+    }
+  })
 }
 
 export async function GET() {

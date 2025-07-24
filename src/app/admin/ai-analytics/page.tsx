@@ -262,10 +262,10 @@ export default function AIAnalyticsPage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="grid gap-6 md:grid-cols-3">
+            <div className="grid gap-4 md:grid-cols-3">
               <div>
                 <h4 className="font-semibold text-gray-900 mb-2">💸 Cost Savings</h4>
-                <div className="space-y-2 text-sm">
+                <div className="space-y-1 text-sm">
                   <div className="flex justify-between">
                     <span>Weather optimization:</span>
                     <span className="font-semibold text-green-600">$127,430</span>
@@ -283,7 +283,7 @@ export default function AIAnalyticsPage() {
 
               <div>
                 <h4 className="font-semibold text-gray-900 mb-2">📈 Revenue Impact</h4>
-                <div className="space-y-2 text-sm">
+                <div className="space-y-1 text-sm">
                   <div className="flex justify-between">
                     <span>Increased conversions:</span>
                     <span className="font-semibold text-blue-600">+34.2%</span>
@@ -301,7 +301,7 @@ export default function AIAnalyticsPage() {
 
               <div>
                 <h4 className="font-semibold text-gray-900 mb-2">⚡ Efficiency Gains</h4>
-                <div className="space-y-2 text-sm">
+                <div className="space-y-1 text-sm">
                   <div className="flex justify-between">
                     <span>Faster quotes:</span>
                     <span className="font-semibold text-purple-600">-67% time</span>
@@ -318,7 +318,7 @@ export default function AIAnalyticsPage() {
               </div>
             </div>
 
-            <div className="mt-6 p-4 bg-green-50 rounded-lg border border-green-200">
+            <div className="mt-4 p-4 bg-green-50 rounded-lg border border-green-200">
               <div className="flex items-center justify-between">
                 <div>
                   <div className="text-2xl font-bold text-green-900">$2.4M</div>
