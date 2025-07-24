@@ -179,7 +179,7 @@ export default function InventoryEditPage() {
       await fetchData()
     } catch (error) {
       console.error('Error saving item:', error)
-      toast.error(`Failed to save inventory item: ${error.message}`)
+      toast.error(`Failed to save inventory item: ${error instanceof Error ? error.message : 'Unknown error'}`)
     } finally {
       setSaving(false)
     }

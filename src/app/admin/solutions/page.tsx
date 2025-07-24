@@ -8,6 +8,7 @@ import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
 import PreviewModal from '@/components/admin/PreviewModal'
 import SolutionPreview from '@/components/admin/SolutionPreview'
+import PreviewButton from '@/components/admin/PreviewButton'
 
 interface Solution {
   id: string
@@ -149,12 +150,20 @@ export default function SolutionsAdmin() {
                 <p className="text-gray-600">Manage modular building solutions</p>
               </div>
             </div>
-            <Link href="/admin/solutions/new">
-              <Button className="bg-navy-600 hover:bg-navy-700">
-                <Plus className="h-4 w-4 mr-2" />
-                Add New Solution
-              </Button>
-            </Link>
+            <div className="flex space-x-2">
+              <PreviewButton 
+                href="/solutions"
+                label="Preview Solutions Page"
+                variant="outline"
+                size="sm"
+              />
+              <Link href="/admin/solutions/new">
+                <Button className="bg-navy-600 hover:bg-navy-700">
+                  <Plus className="h-4 w-4 mr-2" />
+                  Add New Solution
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
       </div>

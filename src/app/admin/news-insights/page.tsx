@@ -9,6 +9,7 @@ import { supabase } from '@/lib/supabase'
 import Image from 'next/image'
 import PreviewModal from '@/components/admin/PreviewModal'
 import NewsPreview from '@/components/admin/NewsPreview'
+import PreviewButton from '@/components/admin/PreviewButton'
 
 interface NewsInsight {
   id: string
@@ -131,12 +132,20 @@ export default function NewsInsightsAdmin() {
                 <p className="text-gray-600">Manage blog posts and news articles</p>
               </div>
             </div>
-            <Link href="/admin/news-insights/new">
-              <Button className="bg-navy-600 hover:bg-navy-700">
-                <Plus className="h-4 w-4 mr-2" />
-                Add New Article
-              </Button>
-            </Link>
+            <div className="flex space-x-2">
+              <PreviewButton 
+                href="/news-insights"
+                label="Preview News & Insights Page"
+                variant="outline"
+                size="sm"
+              />
+              <Link href="/admin/news-insights/new">
+                <Button className="bg-navy-600 hover:bg-navy-700">
+                  <Plus className="h-4 w-4 mr-2" />
+                  Add New Article
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
       </div>

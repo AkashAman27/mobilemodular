@@ -22,6 +22,7 @@ import {
 } from '@/components/ui/table'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
+import PreviewButton from '@/components/admin/PreviewButton'
 
 async function getPlanningTools() {
   const supabase = createClient()
@@ -57,6 +58,12 @@ export default async function AdminPlanningToolsPage() {
             </div>
           </div>
           <div className="flex space-x-2">
+            <PreviewButton 
+              href="/resources/planning-tools"
+              label="Preview Planning Tools"
+              variant="outline"
+              size="sm"
+            />
             <Link href="/admin/resources/planning-tools/new">
               <Button>
                 <Plus className="mr-2 h-4 w-4" />

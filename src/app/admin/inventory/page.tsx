@@ -21,6 +21,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
+import PreviewButton from '@/components/admin/PreviewButton'
 
 interface InventoryItem {
   id: string
@@ -194,12 +195,20 @@ export default function InventoryAdminPage() {
           <h1 className="text-3xl font-bold text-gray-900">Inventory Management</h1>
           <p className="text-gray-600 mt-1">Manage your modular building inventory</p>
         </div>
-        <Button asChild>
-          <Link href="/admin/inventory/new">
-            <Plus className="h-4 w-4 mr-2" />
-            Add New Item
-          </Link>
-        </Button>
+        <div className="flex space-x-2">
+          <PreviewButton 
+            href="/resources/live-inventory"
+            label="Preview Live Inventory"
+            variant="outline"
+            size="sm"
+          />
+          <Button asChild>
+            <Link href="/admin/inventory/new">
+              <Plus className="h-4 w-4 mr-2" />
+              Add New Item
+            </Link>
+          </Button>
+        </div>
       </div>
 
       {/* Stats Cards */}

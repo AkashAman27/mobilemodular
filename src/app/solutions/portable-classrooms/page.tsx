@@ -11,13 +11,10 @@ export const metadata = {
   description: 'Professional portable classrooms for schools and educational facilities. ADA compliant, energy efficient, and designed for modern learning environments.',
 }
 
-interface LocationProps {
-  locationName?: string
-  locationType?: 'state' | 'city'
-  stateName?: string
-}
-
-export default function PortableClassroomsPage({ locationName, locationType, stateName }: LocationProps = {}) {
+export default function PortableClassroomsPage() {
+  const locationName = undefined
+  const locationType = undefined  
+  const stateName = undefined
   const features = [
     {
       icon: GraduationCap,
@@ -89,7 +86,7 @@ export default function PortableClassroomsPage({ locationName, locationType, sta
     if (locationType === 'city' && stateName) {
       return `${locationName}, ${stateName}`
     }
-    return locationName
+    return locationName || ''
   }
 
   const pageTitle = locationName 

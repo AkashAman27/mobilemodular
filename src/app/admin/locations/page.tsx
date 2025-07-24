@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Plus, Edit, Trash2, ArrowLeft, MapPin, Phone, Users, Building, RefreshCw } from 'lucide-react'
 import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
+import PreviewButton from '@/components/admin/PreviewButton'
 
 interface StateLocationData {
   id: string
@@ -354,6 +355,12 @@ export default function LocationsAdmin() {
               </div>
             </div>
             <div className="flex space-x-3">
+              <PreviewButton 
+                href="/locations"
+                label="Preview Locations Page"
+                variant="outline"
+                size="sm"
+              />
               <Button 
                 onClick={populateFromStatesData}
                 disabled={populating}

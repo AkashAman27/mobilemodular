@@ -11,6 +11,7 @@ import PreviewModal from '@/components/admin/PreviewModal'
 import SolutionPreview from '@/components/admin/SolutionPreview'
 import SEOFormFields from '@/components/seo/SEOFormFields'
 import ImageUpload from '@/components/ui/image-upload'
+import PreviewButton from '@/components/admin/PreviewButton'
 
 interface FeatureCard {
   icon: string
@@ -549,6 +550,14 @@ export default function EditSolution() {
                   </div>
                 )}
               </div>
+            </div>
+            <div className="flex space-x-2">
+              <PreviewButton 
+                href={`/solutions/${formData.slug}`}
+                label="Preview Live Page"
+                variant="outline"
+                size="sm"
+              />
             </div>
           </div>
         </div>

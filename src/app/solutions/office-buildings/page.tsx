@@ -11,14 +11,10 @@ export const metadata = {
   description: 'Professional modular office buildings for construction sites, temporary offices, and permanent installations. Flexible rental, purchase, and lease options available.',
 }
 
-interface LocationProps {
-  locationName?: string
-  locationType?: 'state' | 'city'
-  stateName?: string
-}
-
-export default function OfficeBuildingsPage(props: LocationProps = {}) {
-  const { locationName, locationType, stateName } = props
+export default function OfficeBuildingsPage() {
+  const locationName = undefined
+  const locationType = undefined  
+  const stateName = undefined
   const features = [
     {
       icon: Building2,
@@ -88,7 +84,7 @@ export default function OfficeBuildingsPage(props: LocationProps = {}) {
     if (locationType === 'city' && stateName) {
       return `${locationName}, ${stateName}`
     }
-    return locationName
+    return locationName || ''
   }
 
   const pageTitle = locationName 

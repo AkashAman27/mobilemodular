@@ -8,6 +8,7 @@ import { Badge } from '@/components/ui/badge'
 import { Plus, Edit, Trash2, ArrowLeft, Settings, Eye, Star, Hash } from 'lucide-react'
 import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
+import PreviewButton from '@/components/admin/PreviewButton'
 
 interface FAQ {
   id: string
@@ -274,6 +275,14 @@ export default function PageFAQsAdmin() {
               </div>
             </div>
             <div className="flex space-x-2">
+              {selectedPageData && (
+                <PreviewButton 
+                  href={selectedPageData.slug === 'home' ? '/' : `/${selectedPageData.slug}`}
+                  label={`Preview ${selectedPageData.title}`}
+                  variant="outline"
+                  size="sm"
+                />
+              )}
               <Link href="/admin/faqs">
                 <Button variant="outline">
                   <Settings className="h-4 w-4 mr-2" />

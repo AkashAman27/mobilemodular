@@ -85,11 +85,5 @@ export default function LocationSpecificPortableClassrooms({ params }: Props) {
   }
 
   // Pass location information as props to the base component
-  const locationProps = {
-    locationName,
-    locationType,
-    stateName: locationType === 'city' ? stateName : undefined
-  }
-
-  return <PortableClassrooms {...locationProps} />
+  return <PortableClassrooms />
 }

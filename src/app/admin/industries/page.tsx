@@ -7,6 +7,7 @@ import { Plus, Edit, Trash2, ArrowLeft, Users } from 'lucide-react'
 import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
 import Image from 'next/image'
+import PreviewButton from '@/components/admin/PreviewButton'
 
 interface Industry {
   id: string
@@ -99,12 +100,20 @@ export default function IndustriesAdmin() {
                 <p className="text-gray-600">Manage industry-specific content</p>
               </div>
             </div>
-            <Link href="/admin/industries/new">
-              <Button className="bg-navy-600 hover:bg-navy-700">
-                <Plus className="h-4 w-4 mr-2" />
-                Add New Industry
-              </Button>
-            </Link>
+            <div className="flex space-x-2">
+              <PreviewButton 
+                href="/industries"
+                label="Preview Industries Page"
+                variant="outline"
+                size="sm"
+              />
+              <Link href="/admin/industries/new">
+                <Button className="bg-navy-600 hover:bg-navy-700">
+                  <Plus className="h-4 w-4 mr-2" />
+                  Add New Industry
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
       </div>

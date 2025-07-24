@@ -26,6 +26,13 @@ export default function AdminDashboard() {
       color: 'bg-blue-500'
     },
     {
+      title: 'Solutions Page Content',
+      description: 'Manage all static content on the main solutions page',
+      icon: Building2,
+      href: '/admin/solutions-page',
+      color: 'bg-sky-500'
+    },
+    {
       title: 'Industries',
       description: 'Manage industry content',
       icon: Users,
@@ -38,6 +45,13 @@ export default function AdminDashboard() {
       icon: MapPin,
       href: '/admin/locations',
       color: 'bg-orange-500'
+    },
+    {
+      title: 'Locations Page Content',
+      description: 'Manage all static content on locations pages including state & city templates',
+      icon: MapPin,
+      href: '/admin/locations-page',
+      color: 'bg-amber-500'
     },
     {
       title: 'Testimonials',
@@ -62,9 +76,9 @@ export default function AdminDashboard() {
     },
     {
       title: 'Homepage Content',
-      description: 'Manage homepage sections and content',
+      description: 'Manage ALL homepage content including branding & static text',
       icon: Home,
-      href: '/admin/homepage',
+      href: '/admin/homepage/complete',
       color: 'bg-teal-500'
     },
     {

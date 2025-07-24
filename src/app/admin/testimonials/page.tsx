@@ -9,6 +9,7 @@ import { supabase } from '@/lib/supabase'
 import Image from 'next/image'
 import PreviewModal from '@/components/admin/PreviewModal'
 import TestimonialPreview from '@/components/admin/TestimonialPreview'
+import PreviewButton from '@/components/admin/PreviewButton'
 
 interface Testimonial {
   id: string
@@ -120,12 +121,20 @@ export default function TestimonialsAdmin() {
                 <p className="text-gray-600">Manage customer testimonials</p>
               </div>
             </div>
-            <Link href="/admin/testimonials/new">
-              <Button className="bg-navy-600 hover:bg-navy-700">
-                <Plus className="h-4 w-4 mr-2" />
-                Add New Testimonial
-              </Button>
-            </Link>
+            <div className="flex space-x-2">
+              <PreviewButton 
+                href="/"
+                label="Preview Homepage (Testimonials)"
+                variant="outline"
+                size="sm"
+              />
+              <Link href="/admin/testimonials/new">
+                <Button className="bg-navy-600 hover:bg-navy-700">
+                  <Plus className="h-4 w-4 mr-2" />
+                  Add New Testimonial
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
       </div>
