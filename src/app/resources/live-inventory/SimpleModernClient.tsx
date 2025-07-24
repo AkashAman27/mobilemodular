@@ -29,22 +29,14 @@ interface EnhancedInventoryItem {
   availability_status: 'available' | 'rented' | 'maintenance' | 'reserved'
   main_image_url: string
   features: string[]
-  amenities: string[]
-  base_price_monthly: number
-  setup_fee: number
-  delivery_fee: number
+  rental_price_monthly: number
   is_featured: boolean
-  is_new_arrival: boolean
-  is_popular: boolean
   rating: number
   review_count: number
-  view_count: number
-  ai_tags: string[]
   category: {
     id: string
     name: string
     slug: string
-    color_hex: string
   }
 }
 
@@ -75,15 +67,14 @@ export default function SimpleModernClient() {
       setLoading(true)
       
       const { data: itemsData } = await supabase
-        .from('inventory_items_enhanced')
+        .from('inventory_items')
         .select(`
           *,
-          category:inventory_categories_enhanced(id, name, slug, color_hex)
+          category:inventory_categories(id, name, slug)
         `)
         .eq('is_active', true)
         .order('is_featured', { ascending: false })
         .order('rating', { ascending: false })
-        .limit(20)
 
       if (itemsData) {
         setItems(itemsData as EnhancedInventoryItem[])
@@ -115,9 +106,9 @@ export default function SimpleModernClient() {
       (filters.size === 'large' && item.square_feet >= 1000)
     
     const matchesPriceRange = filters.priceRange === 'all' ||
-      (filters.priceRange === 'budget' && item.base_price_monthly < 1000) ||
-      (filters.priceRange === 'mid' && item.base_price_monthly >= 1000 && item.base_price_monthly < 2500) ||
-      (filters.priceRange === 'premium' && item.base_price_monthly >= 2500)
+      (filters.priceRange === 'budget' && item.rental_price_monthly < 1000) ||
+      (filters.priceRange === 'mid' && item.rental_price_monthly >= 1000 && item.rental_price_monthly < 2500) ||
+      (filters.priceRange === 'premium' && item.rental_price_monthly >= 2500)
     
     return matchesSearch && matchesCategory && matchesLocation && matchesAvailability && matchesSize && matchesPriceRange
   }).sort((a, b) => {
@@ -125,9 +116,9 @@ export default function SimpleModernClient() {
       case 'featured':
         return (b.is_featured ? 1 : 0) - (a.is_featured ? 1 : 0)
       case 'price_low':
-        return a.base_price_monthly - b.base_price_monthly
+        return a.rental_price_monthly - b.rental_price_monthly
       case 'price_high':
-        return b.base_price_monthly - a.base_price_monthly
+        return b.rental_price_monthly - a.rental_price_monthly
       case 'size_large':
         return b.square_feet - a.square_feet
       case 'size_small':
@@ -135,7 +126,7 @@ export default function SimpleModernClient() {
       case 'rating':
         return b.rating - a.rating
       case 'newest':
-        return (b.is_new_arrival ? 1 : 0) - (a.is_new_arrival ? 1 : 0)
+        return (b.is_featured ? 1 : 0) - (a.is_featured ? 1 : 0)
       default:
         return 0
     }
@@ -465,17 +456,6 @@ function EnhancedInventoryCard({
             </Badge>
           )}
           
-          {item.is_new_arrival && (
-            <Badge className="bg-gradient-to-r from-green-500 to-emerald-500 text-white border-0">
-              New
-            </Badge>
-          )}
-          
-          {item.is_popular && (
-            <Badge className="bg-gradient-to-r from-purple-500 to-indigo-500 text-white border-0">
-              Popular
-            </Badge>
-          )}
           
           <Badge 
             className={`${
@@ -498,10 +478,6 @@ function EnhancedInventoryCard({
               <Badge 
                 variant="outline" 
                 className="text-xs"
-                style={{ 
-                  borderColor: item.category?.color_hex,
-                  color: item.category?.color_hex 
-                }}
               >
                 {item.category?.name}
               </Badge>
@@ -544,7 +520,7 @@ function EnhancedInventoryCard({
           
           <div className="flex items-center bg-gray-50 p-2 rounded">
             <DollarSign className="h-4 w-4 text-gray-400 mr-2" />
-            <span>${item.base_price_monthly}/mo</span>
+            <span>${item.rental_price_monthly}/mo</span>
           </div>
         </div>
 
@@ -553,11 +529,8 @@ function EnhancedInventoryCard({
           <div className="flex justify-between items-center">
             <div>
               <div className="text-2xl font-bold text-navy-600">
-                ${item.base_price_monthly}
+                ${item.rental_price_monthly}
                 <span className="text-sm font-normal text-gray-600">/month</span>
-              </div>
-              <div className="text-sm text-gray-600">
-                Setup: ${item.setup_fee} • Delivery: ${item.delivery_fee}
               </div>
             </div>
           </div>
@@ -579,22 +552,6 @@ function EnhancedInventoryCard({
           </Button>
         </div>
 
-        {/* AI Insights */}
-        {item.ai_tags.length > 0 && (
-          <div className="mt-4 pt-4 border-t border-gray-100">
-            <div className="flex items-center text-xs text-purple-600 mb-2">
-              <Brain className="h-3 w-3 mr-1" />
-              AI Insights
-            </div>
-            <div className="flex flex-wrap gap-1">
-              {item.ai_tags.slice(0, 3).map((tag, index) => (
-                <span key={index} className="text-xs bg-purple-50 text-purple-700 px-2 py-1 rounded">
-                  {tag}
-                </span>
-              ))}
-            </div>
-          </div>
-        )}
       </CardContent>
     </Card>
   )

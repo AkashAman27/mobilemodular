@@ -165,15 +165,55 @@ export default function InventoryItemClient({ item }: Props) {
                     <TabsContent value="specifications" className="mt-6">
                       <div className="space-y-4">
                         <h3 className="text-lg font-semibold">Technical Specifications</h3>
-                        {item.specifications && (
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            {Object.entries(item.specifications).map(([key, value]) => (
-                              <div key={key} className="flex justify-between p-3 bg-gray-50 rounded">
-                                <span className="font-medium capitalize">{key.replace('_', ' ')}:</span>
-                                <span className="text-gray-600">{value as string}</span>
-                              </div>
-                            ))}
+                        
+                        {/* Basic Specifications from Item Data */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                          <div className="flex justify-between p-3 bg-gray-50 rounded">
+                            <span className="font-medium">Dimensions:</span>
+                            <span className="text-gray-600">{item.width_feet}' × {item.length_feet}'</span>
                           </div>
+                          <div className="flex justify-between p-3 bg-gray-50 rounded">
+                            <span className="font-medium">Square Footage:</span>
+                            <span className="text-gray-600">{item.square_feet} sq ft</span>
+                          </div>
+                          <div className="flex justify-between p-3 bg-gray-50 rounded">
+                            <span className="font-medium">Category:</span>
+                            <span className="text-gray-600">{item.category?.name}</span>
+                          </div>
+                          <div className="flex justify-between p-3 bg-gray-50 rounded">
+                            <span className="font-medium">Model Number:</span>
+                            <span className="text-gray-600">{item.model_number}</span>
+                          </div>
+                        </div>
+
+                        {/* Additional Specifications from Database */}
+                        {item.specifications && Object.keys(item.specifications).length > 0 && (
+                          <>
+                            <h4 className="text-md font-semibold text-gray-700 mt-6 mb-3">Detailed Technical Specifications</h4>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                              {Object.entries(item.specifications).map(([key, value]) => (
+                                <div key={key} className="flex justify-between p-3 bg-gray-50 rounded">
+                                  <span className="font-medium capitalize">{key.replace(/_/g, ' ')}:</span>
+                                  <span className="text-gray-600">{value as string}</span>
+                                </div>
+                              ))}
+                            </div>
+                          </>
+                        )}
+
+                        {/* Features as Specifications */}
+                        {item.features && item.features.length > 0 && (
+                          <>
+                            <h4 className="text-md font-semibold text-gray-700 mt-6 mb-3">Included Features</h4>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                              {item.features.map((feature, index) => (
+                                <div key={index} className="flex items-center p-2 bg-green-50 rounded">
+                                  <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                                  <span className="text-gray-700">{feature}</span>
+                                </div>
+                              ))}
+                            </div>
+                          </>
                         )}
                       </div>
                     </TabsContent>
