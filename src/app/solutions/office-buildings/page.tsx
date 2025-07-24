@@ -4,15 +4,21 @@ import SEOContentWrapper from '@/components/SEOContentWrapper'
 import { Building2, Users, Zap, Shield, ArrowRight, CheckCircle } from 'lucide-react'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
-import FAQ from '@/components/FAQ'
-import { solutionsFAQs } from '@/data/faq-data'
+import PageFAQs from '@/components/PageFAQs'
 
 export const metadata = {
   title: 'Modular Office Buildings - Rent, Buy, Lease | Aman Modular',
   description: 'Professional modular office buildings for construction sites, temporary offices, and permanent installations. Flexible rental, purchase, and lease options available.',
 }
 
-export default function OfficeBuildingsPage() {
+interface LocationProps {
+  locationName?: string
+  locationType?: 'state' | 'city'
+  stateName?: string
+}
+
+export default function OfficeBuildingsPage(props: LocationProps = {}) {
+  const { locationName, locationType, stateName } = props
   const features = [
     {
       icon: Building2,
@@ -78,17 +84,41 @@ export default function OfficeBuildingsPage() {
     'ADA-compliant options available'
   ]
 
+  const getLocationDisplayName = () => {
+    if (locationType === 'city' && stateName) {
+      return `${locationName}, ${stateName}`
+    }
+    return locationName
+  }
+
+  const pageTitle = locationName 
+    ? `Office Buildings in ${getLocationDisplayName()}`
+    : "Modular Office Buildings"
+
+  const pageDescription = locationName
+    ? `Professional modular office spaces in ${getLocationDisplayName()}. Perfect for construction sites, temporary offices, and permanent installations with flexible rental, purchase, and lease options.`
+    : "Professional modular office spaces designed for productivity and comfort. Perfect for construction sites, temporary offices, and permanent installations with flexible rental, purchase, and lease options."
+
+  const breadcrumbs = locationName
+    ? [
+        { label: 'Home', href: '/' },
+        { label: 'Solutions', href: '/solutions' },
+        { label: 'Office Buildings', href: '/solutions/office-buildings' },
+        { label: getLocationDisplayName(), href: '#' }
+      ]
+    : [
+        { label: 'Home', href: '/' },
+        { label: 'Solutions', href: '/solutions' },
+        { label: 'Office Buildings', href: '/solutions/office-buildings' }
+      ]
+
   return (
     <PageLayout>
       <PageHeader
         subtitle="Professional Solutions"
-        title="Modular Office Buildings"
-        description="Professional modular office spaces designed for productivity and comfort. Perfect for construction sites, temporary offices, and permanent installations with flexible rental, purchase, and lease options."
-        breadcrumbs={[
-          { label: 'Home', href: '/' },
-          { label: 'Solutions', href: '/solutions' },
-          { label: 'Office Buildings', href: '/solutions/office-buildings' }
-        ]}
+        title={pageTitle}
+        description={pageDescription}
+        breadcrumbs={breadcrumbs}
       />
 
       {/* Features Section */}
@@ -184,7 +214,19 @@ export default function OfficeBuildingsPage() {
       />
 
       {/* FAQ Section */}
-      <FAQ faqs={solutionsFAQs} />
+      <section className="py-20 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <PageFAQs 
+            pageSlug="office-buildings"
+            title="Office Buildings FAQs"
+            subtitle="Common questions about our modular office building solutions"
+            showSearch={false}
+            showFilters={false}
+            showFeatured={false}
+            showCategories={false}
+          />
+        </div>
+      </section>
 
       {/* CTA Section */}
       <section className="py-20 hero-gradient">

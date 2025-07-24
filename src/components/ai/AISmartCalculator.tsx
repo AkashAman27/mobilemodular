@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
+import Link from 'next/link'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -360,11 +361,15 @@ export default function AISmartCalculator() {
           <Button onClick={() => setStep(1)} variant="outline">
             Recalculate
           </Button>
-          <Button className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800">
-            Get Detailed Quote
+          <Button asChild className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800">
+            <Link href="/quote">
+              Get Detailed Quote
+            </Link>
           </Button>
-          <Button variant="outline">
-            Schedule Consultation
+          <Button asChild variant="outline">
+            <Link href="/contact">
+              Schedule Consultation
+            </Link>
           </Button>
         </div>
       </div>

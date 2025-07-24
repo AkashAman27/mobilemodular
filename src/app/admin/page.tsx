@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Building2, Users, MapPin, MessageSquare, Newspaper, HelpCircle, Home, Link as LinkIcon, LogOut, Settings, Package } from 'lucide-react'
+import { Building2, Users, MapPin, MessageSquare, Newspaper, HelpCircle, Home, Link as LinkIcon, LogOut, Settings, Package, FileText } from 'lucide-react'
 import Link from 'next/link'
 import { useAuth } from '@/contexts/AuthContext'
 
@@ -54,10 +54,10 @@ export default function AdminDashboard() {
       color: 'bg-red-500'
     },
     {
-      title: 'FAQs',
-      description: 'Manage frequently asked questions',
+      title: 'FAQs Management',
+      description: 'Manage and assign FAQs to specific pages',
       icon: HelpCircle,
-      href: '/admin/faqs',
+      href: '/admin/page-faqs',
       color: 'bg-indigo-500'
     },
     {

@@ -21,13 +21,22 @@ interface InternalLinksProps {
   maxLinks?: number
   excludeUrls?: string[]
   className?: string
+  pageContext?: {
+    type: 'homepage' | 'location' | 'solution' | 'industry'
+    locationName?: string
+    locationType?: 'state' | 'city'
+    stateName?: string
+    solutionType?: string
+    currentUrl?: string
+  }
 }
 
 const InternalLinks: React.FC<InternalLinksProps> = ({ 
   title = "Explore More",
   maxLinks = 10,
   excludeUrls = [],
-  className = ""
+  className = "",
+  pageContext
 }) => {
   const [links, setLinks] = useState<InternalLink[]>([])
   const [loading, setLoading] = useState(true)

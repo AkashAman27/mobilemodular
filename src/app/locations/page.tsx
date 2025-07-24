@@ -1,8 +1,10 @@
 'use client'
 
 import React from 'react'
+import Link from 'next/link'
 import PageLayout from '@/components/layout/PageLayout'
 import USMapSelector from '@/components/USMapSelector'
+import PageFAQs from '@/components/PageFAQs'
 import { motion } from 'framer-motion'
 import { MapPin, Phone, Clock, Users, Building, Shield } from 'lucide-react'
 
@@ -193,6 +195,21 @@ const LocationsPage = () => {
         </div>
       </section>
 
+      {/* FAQ Section */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <PageFAQs 
+            pageSlug="locations"
+            title="Location & Service Area FAQs"
+            subtitle="Common questions about our service areas and delivery options"
+            showSearch={false}
+            showFilters={false}
+            showFeatured={false}
+            showCategories={false}
+          />
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
@@ -204,20 +221,23 @@ const LocationsPage = () => {
               Contact your local office or get a quote online. Our team is ready to help you find the perfect modular building solution.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <motion.button
+              <Link href="/quote">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-blue-700 transition-colors"
+                >
+                  Get Free Quote
+                </motion.button>
+              </Link>
+              <motion.a
+                href="tel:(866) 819-9017"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-blue-700 transition-colors"
-              >
-                Get Free Quote
-              </motion.button>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="border-2 border-blue-600 text-blue-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-blue-50 transition-colors"
+                className="border-2 border-blue-600 text-blue-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-blue-50 transition-colors inline-block text-center"
               >
                 Call (866) 819-9017
-              </motion.button>
+              </motion.a>
             </div>
           </div>
         </div>

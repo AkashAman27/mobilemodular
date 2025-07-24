@@ -105,9 +105,9 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
     },
     {
       name: 'FAQs',
-      href: '/admin/faqs',
+      href: '/admin/page-faqs',
       icon: HelpCircle,
-      current: pathname.startsWith('/admin/faqs')
+      current: pathname.startsWith('/admin/page-faqs') || pathname.startsWith('/admin/faqs')
     },
     {
       name: 'Internal Links',

@@ -1,15 +1,25 @@
+'use client'
+
 import React from 'react'
 import Link from 'next/link'
 import InternalLinks from './InternalLinks'
+import { usePathname } from 'next/navigation'
 
 const SimpleFooter: React.FC = () => {
+  const pathname = usePathname()
+  
+  // Don't show global internal links on location pages since they have contextual ones
+  const isLocationPage = pathname?.startsWith('/locations/')
+  
   return (
     <>
-      {/* Internal Links Section */}
-      <InternalLinks 
-        title="Explore More"
-        maxLinks={8}
-      />
+      {/* Internal Links Section - Only show on non-location pages */}
+      {!isLocationPage && (
+        <InternalLinks 
+          title="Explore More"
+          maxLinks={8}
+        />
+      )}
       
       <footer className="bg-navy-600 text-white py-16">
         <div className="container mx-auto px-4">

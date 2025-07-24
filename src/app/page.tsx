@@ -4,6 +4,7 @@ import SolutionsGrid from '@/components/SolutionsGrid'
 import ValueProposition from '@/components/ValueProposition'
 import NewsInsights from '@/components/NewsInsights'
 import LocationsMap from '@/components/LocationsMap'
+import PageFAQs from '@/components/PageFAQs'
 import SimpleFooter from '@/components/SimpleFooter'
 import { GlobalStructuredData } from '@/components/seo/StructuredData'
 import { getSEOPageData, getSEOSettings, generateMetadata as generateSEOMetadata } from '@/lib/seo'
@@ -40,6 +41,23 @@ export default async function Home() {
         <ValueProposition />
         <NewsInsights />
         <LocationsMap />
+        
+        {/* FAQ Section */}
+        <section className="py-20 bg-gray-50">
+          <div className="container mx-auto px-4">
+            <PageFAQs 
+              pageSlug="home"
+              title="Frequently Asked Questions"
+              subtitle="Common questions about our modular building solutions"
+              showSearch={false}
+              showFilters={false}
+              showFeatured={false}
+              showCategories={false}
+              maxItems={10}
+            />
+          </div>
+        </section>
+        
         <SimpleFooter />
       </main>
     </>

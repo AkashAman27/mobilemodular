@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button'
 import LoadingSpinner from '@/components/ui/LoadingSpinner'
 import { supabase } from '@/lib/supabase'
 import PageLayout from '@/components/layout/PageLayout'
+import ContextualInternalLinks from '@/components/ContextualInternalLinks'
 import Image from 'next/image'
 
 interface CityData {
@@ -518,6 +519,17 @@ const CityPage = () => {
             </div>
           </section>
         )}
+
+        {/* Context-Aware Internal Links */}
+        <ContextualInternalLinks 
+          pageContext={{
+            type: 'location',
+            locationName: cityData.city_name,
+            locationType: 'city',
+            stateName: cityData.state_name
+          }}
+          maxLinks={8}
+        />
       </div>
     </PageLayout>
   )

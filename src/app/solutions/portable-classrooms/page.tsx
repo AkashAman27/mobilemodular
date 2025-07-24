@@ -4,15 +4,20 @@ import SEOContentWrapper from '@/components/SEOContentWrapper'
 import { GraduationCap, Users, Book, Shield, ArrowRight, CheckCircle } from 'lucide-react'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
-import FAQ from '@/components/FAQ'
-import { solutionsFAQs } from '@/data/faq-data'
+import PageFAQs from '@/components/PageFAQs'
 
 export const metadata = {
   title: 'Portable Classrooms - Educational Modular Buildings | Aman Modular',
   description: 'Professional portable classrooms for schools and educational facilities. ADA compliant, energy efficient, and designed for modern learning environments.',
 }
 
-export default function PortableClassroomsPage() {
+interface LocationProps {
+  locationName?: string
+  locationType?: 'state' | 'city'
+  stateName?: string
+}
+
+export default function PortableClassroomsPage({ locationName, locationType, stateName }: LocationProps = {}) {
   const features = [
     {
       icon: GraduationCap,
@@ -80,17 +85,41 @@ export default function PortableClassroomsPage() {
     'Fire suppression system'
   ]
 
+  const getLocationDisplayName = () => {
+    if (locationType === 'city' && stateName) {
+      return `${locationName}, ${stateName}`
+    }
+    return locationName
+  }
+
+  const pageTitle = locationName 
+    ? `Portable Classrooms in ${getLocationDisplayName()}`
+    : "Portable Classrooms"
+
+  const pageDescription = locationName
+    ? `Modern portable classrooms in ${getLocationDisplayName()}. Energy efficient, technology-ready, and fully compliant with educational building standards.`
+    : "Modern portable classrooms designed for optimal learning environments. Energy efficient, technology-ready, and fully compliant with educational building standards."
+
+  const breadcrumbs = locationName
+    ? [
+        { label: 'Home', href: '/' },
+        { label: 'Solutions', href: '/solutions' },
+        { label: 'Portable Classrooms', href: '/solutions/portable-classrooms' },
+        { label: getLocationDisplayName(), href: '#' }
+      ]
+    : [
+        { label: 'Home', href: '/' },
+        { label: 'Solutions', href: '/solutions' },
+        { label: 'Portable Classrooms', href: '/solutions/portable-classrooms' }
+      ]
+
   return (
     <PageLayout>
       <PageHeader
         subtitle="Educational Solutions"
-        title="Portable Classrooms"
-        description="Modern portable classrooms designed for optimal learning environments. Energy efficient, technology-ready, and fully compliant with educational building standards."
-        breadcrumbs={[
-          { label: 'Home', href: '/' },
-          { label: 'Solutions', href: '/solutions' },
-          { label: 'Portable Classrooms', href: '/solutions/portable-classrooms' }
-        ]}
+        title={pageTitle}
+        description={pageDescription}
+        breadcrumbs={breadcrumbs}
       />
 
       {/* Features Section */}
@@ -234,7 +263,19 @@ export default function PortableClassroomsPage() {
       />
 
       {/* FAQ Section */}
-      <FAQ faqs={solutionsFAQs} />
+      <section className="py-20 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <PageFAQs 
+            pageSlug="portable-classrooms"
+            title="Portable Classrooms FAQs"
+            subtitle="Common questions about our portable classroom solutions"
+            showSearch={false}
+            showFilters={false}
+            showFeatured={false}
+            showCategories={false}
+          />
+        </div>
+      </section>
 
       {/* CTA Section */}
       <section className="py-20 hero-gradient">

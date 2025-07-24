@@ -2,6 +2,7 @@
 
 import React from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { MapPin, Phone, ArrowRight } from 'lucide-react'
 import { locations } from '@/data/demo-data'
@@ -48,13 +49,17 @@ const LocationsMap = () => {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button variant="gradient" size="lg" className="group">
-                Get a Quote
-                <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-              </Button>
-              <button className="h-10 px-8 border border-white/30 text-white hover:bg-white/10 bg-transparent rounded-md font-medium transition-colors">
-                Find a Branch
-              </button>
+              <Link href="/quote">
+                <Button variant="gradient" size="lg" className="group">
+                  Get a Quote
+                  <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </Link>
+              <Link href="/locations">
+                <button className="h-10 px-8 border border-white/30 text-white hover:bg-white/10 bg-transparent rounded-md font-medium transition-colors">
+                  Find a Branch
+                </button>
+              </Link>
             </div>
           </motion.div>
 
@@ -105,9 +110,11 @@ const LocationsMap = () => {
               transition={{ duration: 0.6, delay: 0.6 }}
               className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
             >
-              <button className="bg-white text-gray-800 px-6 py-3 rounded-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 border border-gray-200 hover:bg-gray-50">
-                See all locations
-              </button>
+              <Link href="/locations">
+                <button className="bg-white text-gray-800 px-6 py-3 rounded-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 border border-gray-200 hover:bg-gray-50">
+                  See all locations
+                </button>
+              </Link>
             </motion.div>
           </motion.div>
         </div>

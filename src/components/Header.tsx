@@ -76,24 +76,6 @@ const Header = () => {
       icon: Package,
       description: 'Browse Available Buildings'
     },
-    { 
-      name: 'Fleet For Sale', 
-      href: '/fleet-for-sale', 
-      icon: null,
-      description: null
-    },
-    { 
-      name: 'Request Service', 
-      href: '/request-service', 
-      icon: null,
-      description: null
-    },
-    { 
-      name: 'CustomerHub', 
-      href: '/customer-hub', 
-      icon: Users,
-      description: null
-    },
   ]
 
   return (
@@ -143,7 +125,7 @@ const Header = () => {
       </div>
 
       {/* Main Navigation Bar */}
-      <div className="bg-gradient-to-r from-navy-600 to-steel-600 border-b border-white/20">
+      <div className="bg-gradient-to-r from-navy-600 to-steel-600">
         <div className="container mx-auto px-4">
           <div className="flex h-16 items-center">
             {/* Logo */}
