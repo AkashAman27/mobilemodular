@@ -1,36 +1,39 @@
-import React from 'react'
+'use client'
+
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import PageLayout from '@/components/layout/PageLayout'
 import USMapSelector from '@/components/USMapSelector'
 import PageFAQs from '@/components/PageFAQs'
 import { MapPin, Phone, Clock, Users, Building, Shield } from 'lucide-react'
-import { supabaseAdmin } from '@/lib/supabase'
+import { supabase } from '@/lib/supabase'
 import LocationsClientWrapper from '@/components/LocationsClientWrapper'
 
-// Get locations page content from CMS with graceful fallback
-async function getLocationsPageContent() {
-  try {
-    const { data, error } = await supabaseAdmin
-      .from('locations_page_content')
-      .select('*')
-      .single()
+const LocationsPage = () => {
+  const [locationsContent, setLocationsContent] = useState<any>(null)
+  const [loading, setLoading] = useState(true)
 
-    if (error) {
-      // If table doesn't exist, return null to use fallback data
-      console.log('Locations page content table not found, using fallback data')
-      return null
+  useEffect(() => {
+    const fetchLocationsContent = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('locations_page_content')
+          .select('*')
+          .single()
+
+        if (!error) {
+          setLocationsContent(data)
+        }
+      } catch (error) {
+        console.log('Using fallback data for locations page content')
+      } finally {
+        setLoading(false)
+      }
     }
 
-    return data || null
-  } catch (error) {
-    console.log('Using fallback data for locations page content')
-    return null
-  }
-}
-
-const LocationsPage = async () => {
-  const locationsContent = await getLocationsPageContent()
+    fetchLocationsContent()
+  }, [])
 
   // Default fallback content
   const heroTitle = locationsContent?.hero_title || 'Find Your Local'
@@ -38,6 +41,20 @@ const LocationsPage = async () => {
   const heroDescription = locationsContent?.hero_description || 'With 275+ locations across all 50 states, we\'re always nearby to serve your modular building needs with local expertise and nationwide resources.'
   const heroPhone = locationsContent?.hero_phone || '(866) 819-9017'
   const heroSupport = locationsContent?.hero_support_text || '24/7 Emergency Support'
+
+  if (loading) {
+    return (
+      <PageLayout>
+        <div className="min-h-screen flex items-center justify-center">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+            <p className="text-gray-600">Loading locations...</p>
+          </div>
+        </div>
+      </PageLayout>
+    )
+  }
+
   return (
     <PageLayout>
       <LocationsClientWrapper
