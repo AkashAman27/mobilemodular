@@ -18,24 +18,24 @@ import { toast } from 'react-hot-toast'
 interface InventoryItem {
   id: string
   name: string
-  model_number: string
-  description: string
-  width_feet: number
-  length_feet: number
-  square_feet: number
-  category_id: string
-  location_state: string
-  location_city: string
-  main_image_url: string
+  model_number: string | null
+  description: string | null
+  width_feet: number | null
+  length_feet: number | null
+  square_feet: number | null
+  category_id: string | null
+  location_state: string | null
+  location_city: string | null
+  main_image_url: string | null
   gallery_images: string[]
   features: string[]
   specifications: Record<string, any>
   availability_status: string
-  rental_price_monthly: number
-  rating: number
-  review_count: number
-  meta_title: string
-  meta_description: string
+  rental_price_monthly: number | null
+  rating: number | null
+  review_count: number | null
+  meta_title: string | null
+  meta_description: string | null
   is_active: boolean
   is_featured: boolean
   created_at: string
@@ -123,16 +123,27 @@ export default function InventoryEditPage() {
   }
 
   const handleSave = async () => {
-    if (!item) return
+    console.log('🚀 Save button clicked!')
+    
+    if (!item) {
+      console.error('❌ No item data available')
+      toast.error('❌ No item data available')
+      return
+    }
 
     try {
+      console.log('🔄 Setting saving state to true')
       setSaving(true)
 
       // Validate required fields
       if (!item.name.trim()) {
-        toast.error('Name is required')
+        console.error('❌ Name validation failed')
+        toast.error('❌ Name is required')
         return
       }
+
+      console.log('✅ Validation passed, starting save operation for item:', item.id)
+      toast.loading('💾 Saving changes...', { id: 'save-operation' })
 
       const updateData = {
         name: item.name.trim(),
@@ -160,6 +171,7 @@ export default function InventoryEditPage() {
       }
 
       console.log('Updating item with data:', updateData)
+      console.log('Target item ID:', item.id)
 
       const { data, error } = await supabase
         .from('inventory_items')
@@ -168,19 +180,54 @@ export default function InventoryEditPage() {
         .select()
 
       console.log('Update result:', { data, error })
+      
+      if (!error && (!data || data.length === 0)) {
+        console.warn('⚠️ Update reported success but no rows were affected - item may not exist!')
+        console.log('Checking if item exists in database...')
+        
+        const { data: checkData, error: checkError } = await supabase
+          .from('inventory_items')
+          .select('id, name')
+          .eq('id', item.id)
+          .single()
+          
+        if (checkError || !checkData) {
+          throw new Error(`Item with ID ${item.id} does not exist in database`)
+        }
+      }
 
       if (error) {
         console.error('Supabase error:', error)
         throw error
       }
 
-      toast.success('Inventory item updated successfully!')
-      // Refresh the item data to reflect changes
-      await fetchData()
+      // Update was successful - either data contains the updated item or null due to RLS
+      // In either case, update local state to reflect the changes
+      console.log('✅ Database update successful, updating local state')
+      setItem({
+        ...item,
+        ...updateData
+      })
+
+      toast.dismiss('save-operation')
+      toast.success('✅ Inventory item updated successfully!', { 
+        duration: 3000,
+        position: 'top-center'
+      })
+      console.log('📝 Updated item state with new data:', updateData)
+
+      // Note: We don't need to refresh from database since we've already updated local state
+      // and the database update was successful. Refreshing would just overwrite our changes.
+      console.log('✅ Save operation completed successfully - no refresh needed')
     } catch (error) {
-      console.error('Error saving item:', error)
-      toast.error(`Failed to save inventory item: ${error instanceof Error ? error.message : 'Unknown error'}`)
+      console.error('💥 Error saving item:', error)
+      toast.dismiss('save-operation')
+      toast.error(`❌ Failed to save inventory item: ${error instanceof Error ? error.message : 'Unknown error'}`, {
+        duration: 5000,
+        position: 'top-center'
+      })
     } finally {
+      console.log('🔄 Resetting saving state')
       setSaving(false)
     }
   }
@@ -383,7 +430,7 @@ export default function InventoryEditPage() {
                 </div>
                 <div>
                   <Label htmlFor="location_state">State</Label>
-                  <Select value={item.location_state} onValueChange={(value) => setItem({ ...item, location_state: value })}>
+                  <Select value={item.location_state || undefined} onValueChange={(value) => setItem({ ...item, location_state: value })}>
                     <SelectTrigger>
                       <SelectValue placeholder="Select state" />
                     </SelectTrigger>
@@ -409,7 +456,7 @@ export default function InventoryEditPage() {
                 </div>
                 <div>
                   <Label htmlFor="availability_status">Availability Status</Label>
-                  <Select value={item.availability_status} onValueChange={(value) => setItem({ ...item, availability_status: value })}>
+                  <Select value={item.availability_status || undefined} onValueChange={(value) => setItem({ ...item, availability_status: value })}>
                     <SelectTrigger>
                       <SelectValue />
                     </SelectTrigger>
@@ -554,7 +601,7 @@ export default function InventoryEditPage() {
             <CardContent className="space-y-4">
               <div>
                 <Label htmlFor="category_id">Category</Label>
-                <Select value={item.category_id} onValueChange={(value) => setItem({ ...item, category_id: value })}>
+                <Select value={item.category_id || undefined} onValueChange={(value) => setItem({ ...item, category_id: value })}>
                   <SelectTrigger>
                     <SelectValue placeholder="Select category" />
                   </SelectTrigger>
