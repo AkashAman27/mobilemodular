@@ -442,7 +442,7 @@ function EnhancedInventoryCard({
         viewMode === 'list' ? 'w-80 flex-shrink-0' : 'h-72'
       }`}>
         <Image
-          src={item.main_image_url || '/images/generated/hero_background_modern_modular_building_complex_ae.webp'}
+          src={item.main_image_url || 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/hero_background_modern_modular_building_complex_ae.webp'}
           alt={item.name}
           fill
           className="object-cover group-hover:scale-110 transition-transform duration-700"
