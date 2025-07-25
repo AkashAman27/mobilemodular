@@ -77,10 +77,15 @@ export default async function IndustriesPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
             {industries.map((industry) => {
               // Handle both CMS data structure and demo data structure
-              const industryId = industry.id || industry.slug || industry.name.toLowerCase().replace(/\s+/g, '-')
+              const industryId = industry.slug || industry.id || industry.name.toLowerCase().replace(/[\s&]/g, '-').replace(/--+/g, '-')
               const imageUrl = industry.image_url || industry.imageUrl || 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/industry-default.webp'
               const caseStudiesCount = industry.case_studies_count || industry.caseStudies || 0
               const solutions = industry.solutions || []
+              
+              // Skip if no valid ID can be generated
+              if (!industryId || industryId === 'undefined') {
+                return null
+              }
               
               return (
                 <Card key={industryId} className="group hover:shadow-lg transition-all duration-300">
