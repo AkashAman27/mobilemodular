@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
+import { setAdminContext } from '@/lib/admin-auth'
 
 export async function POST(request: NextRequest) {
   try {
@@ -51,6 +52,9 @@ export async function POST(request: NextRequest) {
       console.error('Session creation error:', sessionError)
       return NextResponse.json({ error: 'Failed to create session' }, { status: 500 })
     }
+
+    // Set admin context for this session
+    await setAdminContext(sessionToken)
 
     // Update last login
     await supabase

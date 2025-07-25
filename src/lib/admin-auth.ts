@@ -73,9 +73,8 @@ export async function requireAdmin(request: NextRequest): Promise<AdminUser | Re
 
 export async function setAdminContext(sessionToken: string) {
   // Set the admin token in Supabase context for RLS bypass
-  const { error } = await supabase.rpc('set_config', {
-    parameter: 'app.admin_token',
-    value: sessionToken
+  const { error } = await supabase.rpc('set_admin_context', {
+    session_token: sessionToken
   })
 
   if (error) {
