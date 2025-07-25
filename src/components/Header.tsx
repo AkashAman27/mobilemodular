@@ -91,7 +91,7 @@ const Header = ({
   return (
     <header className="sticky top-0 z-50 w-full">
       {/* Top Menu Bar */}
-      <div className="bg-navy-800 border-b border-navy-700">
+      <div className="bg-navy-800">
         <div className="container mx-auto px-4">
           <div className="flex h-12 items-center justify-end">
             {/* Left - Empty space for future expansion */}
