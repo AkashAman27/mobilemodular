@@ -135,16 +135,14 @@ export default function PageFAQsAdmin() {
     setAssignLoading(true)
     try {
       // Use API endpoint with service role key to bypass RLS
-      const response = await fetch('/api/assign-faq-to-page', {
+      const response = await fetch('/api/assign-faq-to-page-admin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          page_id: selectedPage,
-          faq_id: faqId,
-          display_order: pageFaqs.length > 0 ? Math.max(...pageFaqs.map(pf => pf.display_order)) + 1 : 1,
-          is_featured: false
+          pageSlug: selectedPage,
+          faqId: faqId
         })
       })
 
@@ -170,8 +168,22 @@ export default function PageFAQsAdmin() {
     if (!confirm('Remove this FAQ from the page?')) return
 
     try {
-      const response = await fetch(`/api/assign-faq-to-page?id=${pageFaqId}`, {
-        method: 'DELETE'
+      // Find the assignment to get page and FAQ IDs
+      const assignment = assignedFaqs.find(pf => pf.id === pageFaqId)
+      if (!assignment) {
+        alert('Assignment not found')
+        return
+      }
+
+      const response = await fetch(`/api/assign-faq-to-page-admin`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          pageSlug: assignment.page_id,
+          faqId: assignment.faq_id
+        })
       })
 
       const result = await response.json()
