@@ -8,7 +8,7 @@ import FAQ from '@/components/FAQ'
 import { solutionsFAQs } from '@/data/faq-data'
 
 export const metadata = {
-  title: 'Healthcare Facilities - Medical Modular Buildings | Aman Modular',
+  title: 'Healthcare Facilities - Medical Modular Buildings | Modular Building Solutions',
   description: 'Professional healthcare facilities and medical modular buildings. HIPAA compliant, medical-grade construction, and designed for patient care environments.',
 }
 

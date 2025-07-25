@@ -15,7 +15,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const seoData = await getSEOPageData('/industries/emergency-response')
   const seoSettings = await getSEOSettings()
   
-  const fallbackTitle = 'Emergency Response Industry Solutions - Disaster Relief | Aman Modular'
+  const fallbackTitle = 'Emergency Response Industry Solutions - Disaster Relief | Modular Building Solutions'
   const fallbackDescription = 'Emergency response modular building solutions for disaster relief and crisis management. Command centers, medical triage, temporary shelters, and rapid deployment facilities.'
   
   return generateSEOMetadata(
@@ -108,7 +108,7 @@ export default async function EmergencyResponseIndustryPage() {
           description: 'Emergency response modular building solutions for disaster relief and crisis management',
           url: `${seoSettings.site_url}/industries/emergency-response`,
           serviceType: 'Emergency Response Facility Solutions',
-          provider: seoSettings.organization_name || 'Aman Modular Buildings',
+          provider: seoSettings.organization_name || 'Modular Building Solutions',
           areaServed: 'United States',
           category: 'Emergency Response',
           offers: [

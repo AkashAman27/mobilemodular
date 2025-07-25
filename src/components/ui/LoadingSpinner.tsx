@@ -182,12 +182,12 @@ const LoadingSpinner = ({
               <div className="relative h-12 w-12">
                 <Image
                   src="https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/company_logo_professional_aman_modular_constructio.webp"
-                  alt="Aman Modular Logo"
+                  alt="Modular Building Logo"
                   fill
                   className="object-contain"
                 />
               </div>
-              <div className="text-2xl font-bold text-navy-600">AMAN MODULAR</div>
+              <div className="text-2xl font-bold text-navy-600">MODULAR BUILDING</div>
             </div>
           </motion.div>
         )}

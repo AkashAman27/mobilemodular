@@ -5,10 +5,10 @@ CREATE TABLE IF NOT EXISTS footer_content (
   id VARCHAR(50) PRIMARY KEY DEFAULT 'main-footer',
   
   -- Company Information
-  company_name VARCHAR(255) DEFAULT 'AMAN MODULAR',
+  company_name VARCHAR(255) DEFAULT 'MODULAR BUILDING',
   company_description TEXT DEFAULT 'Leading provider of modular building solutions nationwide. From portable classrooms to office complexes, we deliver quality space solutions for every industry.',
   company_phone VARCHAR(20) DEFAULT '(866) 819-9017',
-  company_email VARCHAR(100) DEFAULT 'info@amanmodular.com',
+  company_email VARCHAR(100) DEFAULT 'info@modularbuilding.com',
   company_locations_text VARCHAR(100) DEFAULT '275+ Locations Nationwide',
   
   -- Navigation Links - Organized in sections
@@ -60,10 +60,10 @@ CREATE TABLE IF NOT EXISTS footer_content (
   
   -- Social Media Links
   social_links JSONB DEFAULT '[
-    {"platform": "Facebook", "url": "https://facebook.com/amanmodular", "icon": "Facebook"},
-    {"platform": "LinkedIn", "url": "https://linkedin.com/company/amanmodular", "icon": "LinkedIn"},
-    {"platform": "Twitter", "url": "https://twitter.com/amanmodular", "icon": "Twitter"},
-    {"platform": "Instagram", "url": "https://instagram.com/amanmodular", "icon": "Instagram"}
+    {"platform": "Facebook", "url": "https://facebook.com/modularbuilding", "icon": "Facebook"},
+    {"platform": "LinkedIn", "url": "https://linkedin.com/company/modularbuilding", "icon": "LinkedIn"},
+    {"platform": "Twitter", "url": "https://twitter.com/modularbuilding", "icon": "Twitter"},
+    {"platform": "Instagram", "url": "https://instagram.com/modularbuilding", "icon": "Instagram"}
   ]',
   
   -- Call-to-Action Section
@@ -82,7 +82,7 @@ CREATE TABLE IF NOT EXISTS footer_content (
   ]',
   
   -- Copyright
-  copyright_text VARCHAR(255) DEFAULT '© 2024 Aman Modular. All rights reserved.',
+  copyright_text VARCHAR(255) DEFAULT '© 2024 Modular Building Solutions. All rights reserved.',
   
   -- Display Options
   show_full_footer BOOLEAN DEFAULT true,

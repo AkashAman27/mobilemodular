@@ -57,7 +57,7 @@ async function gatherSecurityMetrics() {
         user: users.filter(u => !u.user_metadata?.role || u.user_metadata?.role === 'user').length
       },
       unconfirmed_emails: users.filter(u => !u.email_confirmed_at).length,
-      banned: users.filter(u => u.banned_until).length,
+      banned: users.filter(u => (u as any).banned_until).length,
       recent_signups: users.filter(u => {
         const createdAt = new Date(u.created_at)
         const dayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000)

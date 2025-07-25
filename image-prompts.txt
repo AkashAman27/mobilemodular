@@ -1,4 +1,4 @@
-company-logo: Professional "Aman Modular" construction company logo, modern industrial design, navy blue and gray
+company-logo: Professional "Modular Building Solutions" construction company logo, modern industrial design, navy blue and gray
 hero-background: Modern modular building complex aerial view, professional construction facility, golden hour lighting
 office-single: Single office modular building interior, 8x20 size, 2-4 people, desk and chairs, professional workspace
 office-double: Double office modular building interior, 16x20 size, meeting table, 4-8 people, modern office furniture
@@ -42,9 +42,9 @@ industry-healthcare: Modular medical building at hospital campus, ambulance, hea
 industry-government: Government modular office building, official setting, municipal flags, professional appearance
 industry-retail: Modular retail store in commercial plaza, customers shopping, business district
 industry-emergency: Emergency response modular command center, disaster relief vehicles, FEMA operation
-facility-exterior: Aman Modular headquarters building, modern industrial facility, company signage, professional property
+facility-exterior: Modular Building Solutions headquarters building, modern industrial facility, company signage, professional property
 facility-manufacturing: Factory workers building modular units, assembly line, quality construction process
-facility-fleet: Delivery trucks with Aman Modular branding, professional transport vehicles, logistics operation
+facility-fleet: Delivery trucks with Modular Building Solutions branding, professional transport vehicles, logistics operation
 facility-quality: Quality inspector checking modular building, professional standards, inspection process
 process-consultation: Business meeting with clients, plans on table, professional consultation, handshake
 process-design: Engineers designing modular building on computer, CAD software, blueprints, technical planning

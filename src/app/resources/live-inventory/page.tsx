@@ -10,7 +10,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const seoData = await getSEOPageData('/resources/live-inventory')
   const seoSettings = await getSEOSettings()
   
-  const fallbackTitle = 'Live Inventory - Available Modular Buildings | Aman Modular Buildings'
+  const fallbackTitle = 'Live Inventory - Available Modular Buildings | Modular Building Solutions'
   const fallbackDescription = 'Browse our live inventory of available modular buildings in Alabama. Find portable offices, classrooms, and commercial buildings available for rent.'
   
   return generateSEOMetadata(

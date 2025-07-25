@@ -15,7 +15,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const seoData = await getSEOPageData('/industries/healthcare')
   const seoSettings = await getSEOSettings()
   
-  const fallbackTitle = 'Healthcare Industry Solutions - Medical Facilities | Aman Modular'
+  const fallbackTitle = 'Healthcare Industry Solutions - Medical Facilities | Modular Building Solutions'
   const fallbackDescription = 'Medical-grade modular building solutions for hospitals, clinics, and healthcare facilities. Emergency response units, patient care facilities, and administrative offices.'
   
   return generateSEOMetadata(
@@ -108,7 +108,7 @@ export default async function HealthcareIndustryPage() {
           description: 'Medical-grade modular building solutions for hospitals, clinics, and healthcare facilities',
           url: `${seoSettings.site_url}/industries/healthcare`,
           serviceType: 'Healthcare Facility Solutions',
-          provider: seoSettings.organization_name || 'Aman Modular Buildings',
+          provider: seoSettings.organization_name || 'Modular Building Solutions',
           areaServed: 'United States',
           category: 'Healthcare',
           offers: [

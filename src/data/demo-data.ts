@@ -240,7 +240,7 @@ export const testimonials = [
     name: 'Sarah Johnson',
     company: 'ABC Construction',
     role: 'Project Manager',
-    content: 'The modular office buildings from Aman Modular provided exactly what we needed for our construction site. Professional, quick setup, and great customer service.',
+    content: 'The modular office buildings from Modular Building Solutions provided exactly what we needed for our construction site. Professional, quick setup, and great customer service.',
     rating: 5,
     imageUrl: 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/testimonial_business_happy_business_owner_outside.webp'
   },

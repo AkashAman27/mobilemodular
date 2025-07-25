@@ -8,7 +8,7 @@ import FAQ from '@/components/FAQ'
 import { resourcesFAQs } from '@/data/faq-data'
 
 export const metadata = {
-  title: 'Case Studies - Real Modular Building Success Stories | Aman Modular',
+  title: 'Case Studies - Real Modular Building Success Stories | Modular Building Solutions',
   description: 'Discover how organizations across industries have successfully implemented modular building solutions. Read detailed case studies and project outcomes.',
 }
 

@@ -12,6 +12,7 @@ import PreviewButton from '@/components/admin/PreviewButton'
 import ImageUpload from '@/components/ui/image-upload'
 
 interface CompleteSiteSettings {
+  id?: string // Optional since it may not exist when creating new records
   // Site Branding
   company_name: string
   company_tagline: string
@@ -153,23 +154,21 @@ export default function CompleteHomepageAdmin() {
 
   const loadCompleteHomepageData = async () => {
     try {
-      // Load site settings
-      const { data: settingsData } = await supabase
-        .from('site_settings')
-        .select('*')
-        .single()
+      // Load site settings via API endpoint
+      const settingsResponse = await fetch('/api/admin/site-settings')
+      const settingsResult = await settingsResponse.json()
 
-      if (settingsData) {
-        setSiteSettings(settingsData)
+      if (settingsResult.success && settingsResult.data) {
+        setSiteSettings(settingsResult.data)
       } else {
         // Initialize with current hardcoded values from the site
         setSiteSettings({
-          company_name: 'AMAN MODULAR',
+          company_name: 'MODULAR BUILDING',
           company_tagline: 'Leading provider of modular building solutions nationwide',
           logo_url: '/images/logo.png',
           primary_phone: '(866) 819-9017',
           support_phone: '(866) 352-4651',
-          email: 'info@amanmodular.com',
+          email: 'info@modularbuilding.com',
           support_hours: '24/7 Support',
           facebook_url: '',
           twitter_url: '',
@@ -178,14 +177,12 @@ export default function CompleteHomepageAdmin() {
         })
       }
 
-      // Load homepage content
-      const { data: homepageData } = await supabase
-        .from('complete_homepage_content')
-        .select('*')
-        .single()
+      // Load homepage content via API endpoint
+      const homepageResponse = await fetch('/api/admin/homepage-content')
+      const homepageResult = await homepageResponse.json()
 
-      if (homepageData) {
-        setHomepageContent(homepageData)
+      if (homepageResult.success && homepageResult.data) {
+        setHomepageContent(homepageResult.data)
       } else {
         // Initialize with current hardcoded values from the site
         setHomepageContent({
@@ -227,7 +224,7 @@ export default function CompleteHomepageAdmin() {
           values_cta_content: 'Contact our team today to discuss your modular building needs and get a custom quote.',
           values_cta_button_text: 'Get Custom Quote',
           
-          news_section_title: 'Aman Modular News & Insights',
+          news_section_title: 'Modular Building Solutions News & Insights',
           news_section_description: 'Stay informed with the latest industry trends, project spotlights, and expert insights from our team.',
           news_cta_text: 'View All Insights',
           news_cta_url: '/news-insights',
@@ -242,7 +239,7 @@ export default function CompleteHomepageAdmin() {
           locations_emergency_description: 'Rapid response for urgent needs',
           
           footer_company_description: 'Leading provider of modular building solutions nationwide',
-          footer_copyright_text: '© 2024 Aman Modular. All rights reserved.',
+          footer_copyright_text: '© 2024 Modular Building Solutions. All rights reserved.',
           footer_additional_info: 'Professional modular buildings for offices, education, healthcare, and more.'
         })
       }
@@ -289,36 +286,44 @@ export default function CompleteHomepageAdmin() {
   const handleSaveAll = async () => {
     setSaving(true)
     try {
-      // Save site settings
-      const { error: settingsError } = await supabase
-        .from('site_settings')
-        .upsert(siteSettings)
-
-      if (settingsError) {
-        console.error('Error saving site settings:', settingsError)
-        alert('Error saving site settings: ' + settingsError.message)
+      // Save site settings via API endpoint
+      const settingsResponse = await fetch('/api/admin/site-settings', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(siteSettings)
+      })
+      
+      const settingsResult = await settingsResponse.json()
+      
+      if (!settingsResult.success) {
+        console.error('Error saving site settings:', settingsResult)
+        alert('Error saving site settings: ' + (settingsResult.error || 'Unknown error'))
         return
       }
 
-      // Save complete homepage content
-      const { error: contentError } = await supabase
-        .from('complete_homepage_content')
-        .upsert({
-          id: 'homepage',
-          ...homepageContent,
-          updated_at: new Date().toISOString()
-        })
-
-      if (contentError) {
-        console.error('Error saving homepage content:', contentError)
-        alert('Error saving homepage content: ' + contentError.message)
+      // Save homepage content via API endpoint
+      const homepageResponse = await fetch('/api/admin/homepage-content', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(homepageContent)
+      })
+      
+      const homepageResult = await homepageResponse.json()
+      
+      if (!homepageResult.success) {
+        console.error('Error saving homepage content:', homepageResult)
+        alert('Error saving homepage content: ' + (homepageResult.error || 'Unknown error'))
         return
       }
 
       alert('All homepage content saved successfully!')
     } catch (error) {
       console.error('Error saving data:', error)
-      alert('Error saving data')
+      alert('Error saving data: ' + (error instanceof Error ? error.message : 'Unknown error'))
     } finally {
       setSaving(false)
     }
@@ -381,7 +386,7 @@ export default function CompleteHomepageAdmin() {
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
       <div className="bg-white shadow-sm border-b sticky top-0 z-10">
-        <div className="max-w-6xl mx-auto px-4 py-4">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <Link href="/admin">
@@ -395,7 +400,7 @@ export default function CompleteHomepageAdmin() {
                 <p className="text-gray-600">Manage ALL homepage content including branding, sections, and static text</p>
               </div>
             </div>
-            <div className="flex space-x-2">
+            <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
               <PreviewButton 
                 href="/"
                 label="Preview Homepage"
@@ -425,7 +430,7 @@ export default function CompleteHomepageAdmin() {
       </div>
 
       {/* Main Content */}
-      <div className="max-w-6xl mx-auto px-4 py-6">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <div className="space-y-4">
           
           {/* Site Branding & Settings */}
@@ -441,7 +446,7 @@ export default function CompleteHomepageAdmin() {
                   <Input
                     value={siteSettings.company_name}
                     onChange={(e) => updateSiteSettings('company_name', e.target.value)}
-                    placeholder="AMAN MODULAR"
+                    placeholder="MODULAR BUILDING"
                   />
                 </div>
                 <div>
@@ -462,40 +467,6 @@ export default function CompleteHomepageAdmin() {
                 folder="branding"
               />
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Primary Phone</label>
-                  <Input
-                    value={siteSettings.primary_phone}
-                    onChange={(e) => updateSiteSettings('primary_phone', e.target.value)}
-                    placeholder="(866) 819-9017"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Support Phone</label>
-                  <Input
-                    value={siteSettings.support_phone}
-                    onChange={(e) => updateSiteSettings('support_phone', e.target.value)}
-                    placeholder="(866) 352-4651"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
-                  <Input
-                    value={siteSettings.email}
-                    onChange={(e) => updateSiteSettings('email', e.target.value)}
-                    placeholder="info@amanmodular.com"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Support Hours</label>
-                  <Input
-                    value={siteSettings.support_hours}
-                    onChange={(e) => updateSiteSettings('support_hours', e.target.value)}
-                    placeholder="24/7 Support"
-                  />
-                </div>
-              </div>
             </div>
           )}
 
@@ -626,13 +597,14 @@ export default function CompleteHomepageAdmin() {
                 <CardContent>
                   <div className="space-y-4">
                     {homepageContent.hero_trust_indicators.map((indicator, index) => (
-                      <div key={index} className="grid grid-cols-2 gap-3 p-3 border rounded-lg">
+                      <div key={index} className="grid grid-cols-1 md:grid-cols-2 gap-3 p-3 border rounded-lg">
                         <div>
                           <label className="block text-sm font-medium text-gray-700 mb-1">Label</label>
                           <Input
                             value={indicator.label}
                             onChange={(e) => updateArrayItem('hero_trust_indicators', index, 'label', e.target.value)}
                             placeholder="10,000+"
+                            className="w-full"
                           />
                         </div>
                         <div>
@@ -641,9 +613,10 @@ export default function CompleteHomepageAdmin() {
                             value={indicator.description}
                             onChange={(e) => updateArrayItem('hero_trust_indicators', index, 'description', e.target.value)}
                             placeholder="Buildings Delivered"
+                            className="w-full"
                           />
                         </div>
-                        <div className="col-span-2">
+                        <div className="col-span-1 md:col-span-2">
                           <Button
                             variant="outline"
                             size="sm"
@@ -753,7 +726,7 @@ export default function CompleteHomepageAdmin() {
                       <Card key={index}>
                         <CardContent className="pt-4">
                           <div className="space-y-3">
-                            <div className="grid grid-cols-2 gap-3">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                               <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-1">Icon</label>
                                 <select
@@ -859,7 +832,7 @@ export default function CompleteHomepageAdmin() {
                   <Input
                     value={homepageContent.news_section_title}
                     onChange={(e) => updateHomepageContent('news_section_title', e.target.value)}
-                    placeholder="Aman Modular News & Insights"
+                    placeholder="Modular Building Solutions News & Insights"
                   />
                 </div>
                 <div>
@@ -999,7 +972,7 @@ export default function CompleteHomepageAdmin() {
                 <Input
                   value={homepageContent.footer_copyright_text}
                   onChange={(e) => updateHomepageContent('footer_copyright_text', e.target.value)}
-                  placeholder="© 2024 Aman Modular. All rights reserved."
+                  placeholder="© 2024 Modular Building Solutions. All rights reserved."
                 />
               </div>
 

@@ -21,7 +21,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const seoData = await getSEOPageData('/resources/planning-tools')
   const seoSettings = await getSEOSettings()
   
-  const fallbackTitle = 'Planning Tools & Calculators | Aman Modular Buildings'
+  const fallbackTitle = 'Planning Tools & Calculators | Modular Building Solutions'
   const fallbackDescription = 'Interactive calculators and planning tools to help you determine size, cost, and requirements for your modular building project. Plan with confidence using our expert tools.'
   
   return generateSEOMetadata(

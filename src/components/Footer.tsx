@@ -70,7 +70,7 @@ const Footer = () => {
               <div className="h-10 w-10 rounded-full gradient-blue flex items-center justify-center">
                 <Building2 className="h-6 w-6 text-white" />
               </div>
-              <span className="text-2xl font-bold">AMAN MODULAR</span>
+              <span className="text-2xl font-bold">MODULAR BUILDING</span>
             </Link>
             <p className="text-blue-100 mb-6 leading-relaxed">
               Leading provider of modular building solutions nationwide. From portable classrooms 
@@ -85,7 +85,7 @@ const Footer = () => {
               </div>
               <div className="flex items-center space-x-3">
                 <Mail className="h-5 w-5 text-yellow-400" />
-                <span className="text-blue-100">info@amanmodular.com</span>
+                <span className="text-blue-100">info@modularbuilding.com</span>
               </div>
               <div className="flex items-center space-x-3">
                 <MapPin className="h-5 w-5 text-yellow-400" />
@@ -142,7 +142,7 @@ const Footer = () => {
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             {/* Copyright */}
             <div className="text-blue-100 text-sm">
-              © 2024 Aman Modular. All rights reserved.
+              © 2024 Modular Building Solutions. All rights reserved.
             </div>
 
             {/* Social Links */}

@@ -25,7 +25,7 @@ export interface StructuredDataOptions {
   override?: string
 }
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://amanmodular.com'
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://modularbuilding.com'
 
 export function generateStructuredData({
   type,
@@ -88,7 +88,7 @@ export function generateStructuredData({
         }),
         manufacturer: {
           '@type': 'Organization',
-          name: 'Aman Modular Buildings'
+          name: 'Modular Building Solutions'
         }
       })
       break
@@ -101,7 +101,7 @@ export function generateStructuredData({
         description: data.description,
         provider: {
           '@type': 'Organization',
-          name: 'Aman Modular Buildings',
+          name: 'Modular Building Solutions',
           url: siteUrl
         },
         ...(data.area_served && { areaServed: data.area_served }),
@@ -113,7 +113,7 @@ export function generateStructuredData({
       schemas.push({
         '@context': 'https://schema.org',
         '@type': 'Organization',
-        name: data.name || 'Aman Modular Buildings',
+        name: data.name || 'Modular Building Solutions',
         url: data.url || siteUrl,
         description: data.description || 'Professional modular buildings for rent, sale, and lease',
         ...(data.logo && { logo: data.logo }),
@@ -139,7 +139,7 @@ export function generateStructuredData({
       schemas.push({
         '@context': 'https://schema.org',
         '@type': 'LocalBusiness',
-        name: data.name || 'Aman Modular Buildings',
+        name: data.name || 'Modular Building Solutions',
         description: data.description || 'Professional modular buildings for rent, sale, and lease',
         url: data.url || siteUrl,
         ...(data.telephone && { telephone: data.telephone }),
@@ -181,7 +181,7 @@ export function generateStructuredData({
         inLanguage: 'en-US',
         about: {
           '@type': 'Organization',
-          name: 'Aman Modular Buildings',
+          name: 'Modular Building Solutions',
           description: 'Professional modular buildings for rent, sale, and lease'
         }
       })
@@ -197,7 +197,7 @@ export function generateStructuredData({
         inLanguage: 'en-US',
         about: {
           '@type': 'Organization',
-          name: 'Aman Modular Buildings'
+          name: 'Modular Building Solutions'
         }
       })
       break
@@ -256,11 +256,11 @@ export function generateStructuredData({
         dateModified: data.dateModified || data.updated_at,
         author: {
           '@type': 'Organization',
-          name: 'Aman Modular Buildings'
+          name: 'Modular Building Solutions'
         },
         publisher: {
           '@type': 'Organization',
-          name: 'Aman Modular Buildings',
+          name: 'Modular Building Solutions',
           url: siteUrl
         },
         ...(data.image_url && { image: data.image_url }),
@@ -272,7 +272,7 @@ export function generateStructuredData({
       schemas.push({
         '@context': 'https://schema.org',
         '@type': 'WebSite',
-        name: data.name || 'Aman Modular Buildings',
+        name: data.name || 'Modular Building Solutions',
         description: data.description || 'Professional modular buildings for rent, sale, and lease',
         url: data.url || siteUrl,
         inLanguage: 'en-US',

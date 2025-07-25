@@ -136,12 +136,12 @@ export async function getSEOSettings(): Promise<SEOSettings> {
 // Get default SEO settings
 export function getDefaultSEOSettings(): SEOSettings {
   return {
-    site_name: 'Aman Modular Buildings',
+    site_name: 'Modular Building Solutions',
     site_description: 'Professional modular buildings for rent, sale, and lease. From portable classrooms to office complexes, we provide flexible space solutions for every industry.',
-    site_url: 'https://amanmodular.com',
-    organization_name: 'Aman Modular Buildings',
+    site_url: 'https://modularbuilding.com',
+    organization_name: 'Modular Building Solutions',
     organization_phone: '(555) 123-4567',
-    organization_email: 'info@amanmodular.com',
+    organization_email: 'info@modularbuilding.com',
     organization_address: '1234 Industrial Boulevard',
     organization_city: 'Los Angeles',
     organization_state: 'CA',
@@ -173,7 +173,7 @@ export function generateMetadata(seoData: SEOData, fallbackTitle: string, fallba
       }] : undefined,
       type: 'website' as const,
       url: currentUrl,
-      siteName: 'Aman Modular Buildings'
+      siteName: 'Modular Building Solutions'
     },
     twitter: {
       card: 'summary_large_image' as const,

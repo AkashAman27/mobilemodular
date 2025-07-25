@@ -15,7 +15,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const seoData = await getSEOPageData('/industries/education')
   const seoSettings = await getSEOSettings()
   
-  const fallbackTitle = 'Education Industry Solutions - Schools & Universities | Aman Modular'
+  const fallbackTitle = 'Education Industry Solutions - Schools & Universities | Modular Building Solutions'
   const fallbackDescription = 'Modular building solutions for schools and universities. Portable classrooms, administrative offices, and specialized educational facilities.'
   
   return generateSEOMetadata(
@@ -107,7 +107,7 @@ export default async function EducationIndustryPage() {
           description: 'Specialized modular building solutions for schools, universities, and educational institutions',
           url: `${seoSettings.site_url}/industries/education`,
           serviceType: 'Educational Facility Solutions',
-          provider: seoSettings.organization_name || 'Aman Modular Buildings',
+          provider: seoSettings.organization_name || 'Modular Building Solutions',
           areaServed: 'United States',
           category: 'Education',
           offers: [

@@ -85,7 +85,7 @@ export async function POST(request: NextRequest) {
 }
 
 function getDefaultRobotsContent(): string {
-  return `# Robots.txt for Aman Modular Buildings
+  return `# Robots.txt for Modular Building Solutions
 # Generated automatically - ${new Date().toLocaleString()}
 
 User-agent: *

@@ -16,7 +16,21 @@ const iconMap = {
   restaurant: Utensils,
 }
 
-const SolutionsGrid = () => {
+interface SolutionsGridProps {
+  headerTitle?: string
+  mainTitle?: string
+  description?: string
+  ctaText?: string
+  ctaUrl?: string
+}
+
+const SolutionsGrid = ({ 
+  headerTitle = "OUR PRODUCT OFFERINGS",
+  mainTitle = "Complete your space with our industry-leading solutions", 
+  description = "From portable classrooms to office complexes, we provide flexible modular building solutions for every industry and application.",
+  ctaText = "View All Solutions",
+  ctaUrl = "/solutions"
+}: SolutionsGridProps) => {
   const { solutions, loading, error } = useSolutions()
 
   const container = {
@@ -58,7 +72,7 @@ const SolutionsGrid = () => {
             transition={{ duration: 0.6 }}
             className="text-steel-500 font-semibold text-sm uppercase tracking-wide mb-4"
           >
-            OUR PRODUCT OFFERINGS
+            {headerTitle}
           </motion.p>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -66,7 +80,7 @@ const SolutionsGrid = () => {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-4xl md:text-5xl font-bold text-navy-600 mb-6"
           >
-            Complete your space with our industry-leading solutions
+            {mainTitle}
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -74,8 +88,7 @@ const SolutionsGrid = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-xl text-gray-600 max-w-3xl mx-auto"
           >
-            From portable classrooms to office complexes, we provide flexible modular building solutions 
-            for every industry and application.
+            {description}
           </motion.p>
         </div>
 
@@ -170,14 +183,14 @@ const SolutionsGrid = () => {
           className="text-center mt-12"
         >
           <Link
-            href="/solutions"
+            href={ctaUrl}
             className="inline-flex items-center space-x-2 bg-navy-600 text-white px-8 py-4 rounded-lg hover:bg-navy-800 transition-colors font-semibold cursor-pointer relative z-10"
             onClick={(e) => {
               e.stopPropagation()
-              console.log('View All Solutions button clicked - navigating to /solutions')
+              console.log(`${ctaText} button clicked - navigating to ${ctaUrl}`)
             }}
           >
-            <span>View All Solutions</span>
+            <span>{ctaText}</span>
             <ArrowRight className="h-5 w-5" />
           </Link>
         </motion.div>

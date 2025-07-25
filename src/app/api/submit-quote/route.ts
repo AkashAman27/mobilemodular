@@ -20,7 +20,7 @@ async function sendEmailNotification(submissionData: any) {
       body: JSON.stringify({
         from: 'onboarding@resend.dev',
         to: ['aka8292@gmail.com'],
-        subject: 'New Quote Request - Aman Modular',
+        subject: 'New Quote Request - Modular Building Solutions',
         html: `
           <h2>New Quote Request Received</h2>
           <div style="background: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0;">

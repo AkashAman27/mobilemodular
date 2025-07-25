@@ -47,7 +47,7 @@ export async function GET(request: NextRequest) {
         created_at: authUser.created_at,
         last_sign_in_at: authUser.last_sign_in_at,
         email_confirmed: authUser.email_confirmed_at !== null,
-        is_active: !authUser.banned_until
+        is_active: !(authUser as any).banned_until
       }))
 
       // Filter by role if specified

@@ -25,14 +25,14 @@ const iconMap = {
 export async function generateMetadata(): Promise<Metadata> {
   const seoData = await getSEOPageData('/solutions')
   
-  const fallbackTitle = 'Modular Building Solutions - All Types Available | Aman Modular'
+  const fallbackTitle = 'Modular Building Solutions - All Types Available | Modular Building Solutions'
   const fallbackDescription = 'Complete range of modular building solutions including office buildings, portable classrooms, storage containers, healthcare facilities, and more.'
   
   return generateSEOMetadata(
     seoData || {},
     fallbackTitle,
     fallbackDescription,
-    'https://amanmodular.com/solutions'
+    'https://modularbuilding.com/solutions'
   )
 }
 
@@ -102,11 +102,11 @@ export default async function SolutionsPage() {
         data={{
           title: 'Complete Building Solutions',
           description: 'From portable classrooms to office complexes, we provide professional modular building solutions for every industry and application.',
-          url: 'https://amanmodular.com/solutions',
+          url: 'https://modularbuilding.com/solutions',
           path: '/solutions',
           items: solutions.map(solution => ({
             name: solution.title,
-            url: `https://amanmodular.com${solution.href}`,
+            url: `https://modularbuilding.com${solution.href}`,
             path: solution.href
           }))
         }}

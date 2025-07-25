@@ -8,7 +8,7 @@ import FAQ from '@/components/FAQ'
 import { solutionsFAQs } from '@/data/faq-data'
 
 export const metadata = {
-  title: 'Security Buildings & Guard Houses - Access Control | Aman Modular',
+  title: 'Security Buildings & Guard Houses - Access Control | Modular Building Solutions',
   description: 'Professional security buildings and guard houses for access control, perimeter security, and checkpoint operations. Customizable security solutions.',
 }
 

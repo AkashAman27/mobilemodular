@@ -15,7 +15,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const seoData = await getSEOPageData('/industries/construction')
   const seoSettings = await getSEOSettings()
   
-  const fallbackTitle = 'Construction Industry Solutions - On-Site Offices & Storage | Aman Modular'
+  const fallbackTitle = 'Construction Industry Solutions - On-Site Offices & Storage | Modular Building Solutions'
   const fallbackDescription = 'Modular building solutions for construction sites. On-site offices, storage containers, and security buildings for construction projects.'
   
   return generateSEOMetadata(
@@ -108,7 +108,7 @@ export default async function ConstructionIndustryPage() {
           description: 'Specialized modular building solutions for construction sites and projects',
           url: `${seoSettings.site_url}/industries/construction`,
           serviceType: 'Construction Site Solutions',
-          provider: seoSettings.organization_name || 'Aman Modular Buildings',
+          provider: seoSettings.organization_name || 'Modular Building Solutions',
           areaServed: 'United States',
           category: 'Construction',
           offers: [

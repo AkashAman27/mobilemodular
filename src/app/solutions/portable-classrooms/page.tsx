@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button'
 import PageFAQs from '@/components/PageFAQs'
 
 export const metadata = {
-  title: 'Portable Classrooms - Educational Modular Buildings | Aman Modular',
+  title: 'Portable Classrooms - Educational Modular Buildings | Modular Building Solutions',
   description: 'Professional portable classrooms for schools and educational facilities. ADA compliant, energy efficient, and designed for modern learning environments.',
 }
 

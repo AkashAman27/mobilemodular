@@ -15,7 +15,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const seoData = await getSEOPageData('/locations/california')
   const seoSettings = await getSEOSettings()
   
-  const fallbackTitle = 'California Modular Buildings - Statewide Service | Aman Modular'
+  const fallbackTitle = 'California Modular Buildings - Statewide Service | Modular Building Solutions'
   const fallbackDescription = 'Professional modular building solutions throughout California. Local service in Los Angeles, San Francisco, San Diego, Sacramento, and all major cities.'
   
   return generateSEOMetadata(
@@ -105,7 +105,7 @@ export default async function CaliforniaLocationPage() {
       <StructuredData
         type="LocalBusiness"
         data={{
-          name: 'Aman Modular California',
+          name: 'Modular Building Solutions California',
           description: 'Professional modular building solutions throughout California with local offices in Los Angeles, San Francisco, San Diego, and Sacramento',
           url: `${seoSettings.site_url}/locations/california`,
           areaServed: 'California',
@@ -270,7 +270,7 @@ export default async function CaliforniaLocationPage() {
       <section className="py-20 hero-gradient">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-white mb-6">Why Choose Aman Modular in California</h2>
+            <h2 className="text-4xl font-bold text-white mb-6">Why Choose Modular Building Solutions in California</h2>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center text-white">

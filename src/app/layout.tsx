@@ -14,7 +14,7 @@ const robotoSlab = Roboto_Slab({
 })
 
 export const metadata: Metadata = {
-  title: 'Aman Modular - Mobile Modular Buildings | Rent, Buy, Lease',
+  title: 'Modular Building Solutions - Mobile Modular Buildings | Rent, Buy, Lease',
   description: 'Professional modular buildings delivered nationwide. From portable classrooms to office complexes, we provide flexible space solutions for every industry. Rent, buy, or lease options available.',
   keywords: [
     'mobile modular buildings',
@@ -26,9 +26,9 @@ export const metadata: Metadata = {
     'security buildings',
     'restaurant facilities'
   ],
-  authors: [{ name: 'Aman Modular' }],
-  creator: 'Aman Modular',
-  publisher: 'Aman Modular',
+  authors: [{ name: 'Modular Building Solutions' }],
+  creator: 'Modular Building Solutions',
+  publisher: 'Modular Building Solutions',
   robots: {
     index: true,
     follow: true,
@@ -36,16 +36,16 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://amanmodular.com',
-    title: 'Aman Modular - Mobile Modular Buildings | Rent, Buy, Lease',
+    url: 'https://modularbuilding.com',
+    title: 'Modular Building Solutions - Mobile Modular Buildings | Rent, Buy, Lease',
     description: 'Professional modular buildings delivered nationwide. From portable classrooms to office complexes, we provide flexible space solutions for every industry.',
-    siteName: 'Aman Modular',
+    siteName: 'Modular Building Solutions',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Aman Modular - Mobile Modular Buildings',
+    title: 'Modular Building Solutions - Mobile Modular Buildings',
     description: 'Professional modular buildings delivered nationwide. Rent, buy, or lease options available.',
-    creator: '@amanmodular',
+    creator: '@modularbuilding',
   },
 }
 

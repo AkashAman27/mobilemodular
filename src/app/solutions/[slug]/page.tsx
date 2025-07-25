@@ -147,7 +147,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     }
   }
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://amanmodular.com'
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://modularbuilding.com'
   const currentUrl = `${siteUrl}/solutions/${solution.slug}`
   const seoTitle = solution.seo_title || `${solution.name} - Modular Building Solutions`
   const seoDescription = solution.seo_description || solution.description.substring(0, 160)
@@ -170,7 +170,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       }] : undefined,
       type: 'website',
       url: currentUrl,
-      siteName: 'Aman Modular Buildings'
+      siteName: 'Modular Building Solutions'
     },
     twitter: {
       card: 'summary_large_image',
@@ -188,7 +188,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       'product:price:amount': solution.starting_price.replace(/[^0-9.]/g, ''),
       'product:price:currency': 'USD',
       'product:availability': 'in_stock',
-      'product:brand': 'Aman Modular Buildings',
+      'product:brand': 'Modular Building Solutions',
       'last-modified': solution.last_modified || solution.updated_at
     }
   }
@@ -203,7 +203,7 @@ export default async function SolutionPage({ params }: { params: Promise<{ slug:
   }
 
   // Prepare structured data
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://amanmodular.com'
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://modularbuilding.com'
   const currentUrl = `${siteUrl}/solutions/${solution.slug}`
   const breadcrumbs = getBreadcrumbs(`/solutions/${solution.slug}`)
 

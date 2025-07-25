@@ -7,7 +7,29 @@ import { motion } from 'framer-motion'
 import { ArrowRight, Clock } from 'lucide-react'
 import { newsInsights } from '@/data/demo-data'
 
-const NewsInsights = () => {
+interface NewsInsightsProps {
+  title?: string
+  description?: string
+  ctaText?: string
+  ctaUrl?: string
+}
+
+const NewsInsights = ({ 
+  title = "Modular Building News & Insights",
+  description = "Stay informed with the latest industry trends, case studies, and expert insights from the world of modular construction.",
+  ctaText = "View All Insights",
+  ctaUrl = "/resources/insights"
+}: NewsInsightsProps) => {
+  // Calculate if we need pagination dots
+  // On desktop (lg+): 4 columns, on tablet (md): 2 columns, on mobile: 1 column
+  const articlesPerPageDesktop = 4
+  const articlesPerPageTablet = 2
+  const articlesPerPageMobile = 1
+  const totalArticles = newsInsights.length
+  
+  // Show dots only if there are more articles than can fit on desktop view
+  const showPaginationDots = totalArticles > articlesPerPageDesktop
+
   const container = {
     hidden: { opacity: 0 },
     show: {
@@ -34,7 +56,7 @@ const NewsInsights = () => {
             transition={{ duration: 0.6 }}
             className="text-4xl md:text-5xl font-bold text-navy-600 mb-6"
           >
-            Aman Modular News & Insights
+            {title}
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -42,8 +64,7 @@ const NewsInsights = () => {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-xl text-gray-600 max-w-3xl mx-auto"
           >
-            Stay informed with the latest industry trends, case studies, and expert insights 
-            from the world of modular construction.
+            {description}
           </motion.p>
         </div>
 
@@ -108,22 +129,24 @@ const NewsInsights = () => {
           ))}
         </motion.div>
 
-        {/* Navigation dots (mimicking the WillScot design) */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="flex justify-center mt-12 space-x-2"
-        >
-          {[...Array(4)].map((_, index) => (
-            <button
-              key={index}
-              className={`w-3 h-3 rounded-full transition-colors ${
-                index === 0 ? 'bg-steel-500' : 'bg-gray-300'
-              }`}
-            />
-          ))}
-        </motion.div>
+        {/* Navigation dots (only show if there are more articles than visible) */}
+        {showPaginationDots && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="flex justify-center mt-12 space-x-2"
+          >
+            {[...Array(Math.ceil(totalArticles / articlesPerPageDesktop))].map((_, index) => (
+              <button
+                key={index}
+                className={`w-3 h-3 rounded-full transition-colors ${
+                  index === 0 ? 'bg-steel-500' : 'bg-gray-300'
+                }`}
+              />
+            ))}
+          </motion.div>
+        )}
 
         {/* View All CTA */}
         <motion.div
@@ -133,10 +156,10 @@ const NewsInsights = () => {
           className="text-center mt-12"
         >
           <Link
-            href="/resources/insights"
+            href={ctaUrl}
             className="inline-flex items-center space-x-2 bg-navy-600 text-white px-8 py-4 rounded-lg hover:bg-navy-800 transition-colors font-semibold"
           >
-            <span>View All Insights</span>
+            <span>{ctaText}</span>
             <ArrowRight className="h-5 w-5" />
           </Link>
         </motion.div>

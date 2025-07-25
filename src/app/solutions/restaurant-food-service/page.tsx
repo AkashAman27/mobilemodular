@@ -8,7 +8,7 @@ import FAQ from '@/components/FAQ'
 import { solutionsFAQs } from '@/data/faq-data'
 
 export const metadata = {
-  title: 'Restaurant & Food Service Buildings - Commercial Kitchens | Aman Modular',
+  title: 'Restaurant & Food Service Buildings - Commercial Kitchens | Modular Building Solutions',
   description: 'Modular restaurant and food service buildings with commercial kitchens. Health code compliant, fully equipped, and ready for food service operations.',
 }
 

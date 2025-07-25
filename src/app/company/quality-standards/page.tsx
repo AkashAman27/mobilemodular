@@ -16,7 +16,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const seoData = await getSEOPageData('/company/quality-standards')
   const seoSettings = await getSEOSettings()
   
-  const fallbackTitle = 'Quality Standards & Excellence | Aman Modular Buildings'
+  const fallbackTitle = 'Quality Standards & Excellence | Modular Building Solutions'
   const fallbackDescription = 'Learn about our ISO 9001:2015 certified quality management system, building code compliance, and commitment to excellence in modular construction.'
   
   return generateSEOMetadata(
@@ -105,7 +105,7 @@ export default async function QualityStandardsPage() {
       <StructuredData
         type="Organization"
         data={{
-          name: seoSettings.organization_name || 'Aman Modular Buildings',
+          name: seoSettings.organization_name || 'Modular Building Solutions',
           description: 'ISO 9001:2015 certified modular building provider with stringent quality standards and excellence in construction',
           url: `${seoSettings.site_url}/company/quality-standards`,
           certifications: ['ISO 9001:2015', 'OSHA Compliance', 'Green Building Certification'],
@@ -119,7 +119,7 @@ export default async function QualityStandardsPage() {
       <PageHeader
         subtitle="Our Company"
         title={heroContent?.title || "Quality Standards & Excellence"}
-        description={heroContent?.content || "At Aman Modular Buildings, quality isn't just a goal—it's our foundation. Every building we manufacture meets the highest industry standards and undergoes rigorous quality control processes."}
+        description={heroContent?.content || "At Modular Building Solutions, quality isn't just a goal—it's our foundation. Every building we manufacture meets the highest industry standards and undergoes rigorous quality control processes."}
         backgroundImage={heroContent?.image_url}
         breadcrumbs={[
           { label: 'Home', href: '/' },
@@ -308,7 +308,7 @@ export default async function QualityStandardsPage() {
       <SEOContent 
         title="Why Our Quality Standards Matter"
         paragraphs={[
-          "Quality is the cornerstone of every Aman Modular building project. Our ISO 9001:2015 certification and comprehensive quality management system ensure that every building we manufacture meets or exceeds industry standards for safety, durability, and performance.",
+          "Quality is the cornerstone of every Modular Building Solutions building project. Our ISO 9001:2015 certification and comprehensive quality management system ensure that every building we manufacture meets or exceeds industry standards for safety, durability, and performance.",
           "Our factory-controlled environment protects your building materials from weather damage while maintaining consistent quality throughout the manufacturing process. Each building undergoes multiple quality checkpoints and inspections before delivery to your site.",
           "With over 80 years of experience and 50,000+ successful installations, our commitment to quality has made us the trusted choice for organizations nationwide. Every project comes with our comprehensive warranty and ongoing support commitment."
         ]}

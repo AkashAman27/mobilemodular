@@ -15,7 +15,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const seoData = await getSEOPageData('/industries/government')
   const seoSettings = await getSEOSettings()
   
-  const fallbackTitle = 'Government Industry Solutions - Federal & Municipal | Aman Modular'
+  const fallbackTitle = 'Government Industry Solutions - Federal & Municipal | Modular Building Solutions'
   const fallbackDescription = 'Government-grade modular building solutions for federal, state, and municipal agencies. Security buildings, administrative offices, and emergency command centers.'
   
   return generateSEOMetadata(
@@ -108,7 +108,7 @@ export default async function GovernmentIndustryPage() {
           description: 'Government-grade modular building solutions for federal, state, and municipal agencies',
           url: `${seoSettings.site_url}/industries/government`,
           serviceType: 'Government Facility Solutions',
-          provider: seoSettings.organization_name || 'Aman Modular Buildings',
+          provider: seoSettings.organization_name || 'Modular Building Solutions',
           areaServed: 'United States',
           category: 'Government',
           offers: [

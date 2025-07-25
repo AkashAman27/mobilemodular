@@ -63,7 +63,7 @@ export default function SEOMetaTags({
   const title = seoData.seo_title || fallbackTitle
   const description = seoData.seo_description || fallbackDescription
   const keywords = seoData.seo_keywords || ''
-  const canonicalUrl = seoData.canonical_url || `${process.env.NEXT_PUBLIC_SITE_URL || 'https://amanmodular.com'}${pagePath}`
+  const canonicalUrl = seoData.canonical_url || `${process.env.NEXT_PUBLIC_SITE_URL || 'https://modularbuilding.com'}${pagePath}`
   const ogTitle = seoData.og_title || title
   const ogDescription = seoData.og_description || description
   const ogImage = seoData.og_image || fallbackImage
@@ -94,7 +94,7 @@ export default function SEOMetaTags({
       
       {/* Open Graph Tags */}
       <meta property="og:type" content="website" />
-      <meta property="og:site_name" content="Aman Modular" />
+      <meta property="og:site_name" content="Modular Building" />
       {ogTitle && <meta property="og:title" content={ogTitle} />}
       {ogDescription && <meta property="og:description" content={ogDescription} />}
       {ogImage && <meta property="og:image" content={ogImage} />}
@@ -130,8 +130,8 @@ export default function SEOMetaTags({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Organization",
-              "name": "Aman Modular",
-              "url": "https://amanmodular.com",
+              "name": "Modular Building",
+              "url": "https://modularbuilding.com",
               "logo": "https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/company_logo_professional_aman_modular_constructio.webp",
               "contactPoint": {
                 "@type": "ContactPoint",
@@ -139,8 +139,8 @@ export default function SEOMetaTags({
                 "contactType": "customer service"
               },
               "sameAs": [
-                "https://www.facebook.com/amanmodular",
-                "https://www.linkedin.com/company/amanmodular"
+                "https://www.facebook.com/modularbuilding",
+                "https://www.linkedin.com/company/modularbuilding"
               ]
             })
           }}

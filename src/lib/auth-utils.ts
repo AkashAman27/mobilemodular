@@ -36,7 +36,7 @@ export async function verifyAuth(request: NextRequest): Promise<{
         user: {
           id: userId,
           email: userEmail,
-          role: userRole
+          role: userRole as UserRole
         }
       }
     }
@@ -79,14 +79,14 @@ export async function verifyAuth(request: NextRequest): Promise<{
       return { success: false, error: 'Invalid or expired token' }
     }
 
-    const userRole = extractUserRole(user)
+    const extractedUserRole = extractUserRole(user)
 
     return {
       success: true,
       user: {
         id: user.id,
         email: user.email || '',
-        role: userRole
+        role: extractedUserRole
       }
     }
 

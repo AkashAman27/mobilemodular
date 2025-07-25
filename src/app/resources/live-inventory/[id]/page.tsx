@@ -43,7 +43,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   
   if (!item) {
     return {
-      title: 'Item Not Found | Aman Modular Buildings',
+      title: 'Item Not Found | Modular Building Solutions',
       description: 'The requested inventory item could not be found.'
     }
   }
@@ -52,7 +52,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   
   return generateSEOMetadata(
     {},
-    `${item.name} - Available for Rent | Aman Modular Buildings`,
+    `${item.name} - Available for Rent | Modular Building Solutions`,
     item.description || `Rent this ${item.name} modular building. ${item.width_feet}' x ${item.length_feet}' with ${item.square_feet} sq ft in ${item.location_city}, ${item.location_state}.`,
     `${seoSettings.site_url}/resources/live-inventory/${params.id}`
   )

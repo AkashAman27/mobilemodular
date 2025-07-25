@@ -8,6 +8,7 @@ import { StructuredData, BreadcrumbStructuredData } from '@/components/seo/Struc
 import { getSEOPageData, getSEOSettings, generateMetadata as generateSEOMetadata, getBreadcrumbs } from '@/lib/seo'
 import SEOContent from '@/components/SEOContent'
 import ContactForm from '@/components/ContactForm'
+import { supabaseAdmin } from '@/lib/supabase'
 import type { Metadata } from 'next'
 
 // Generate metadata for SEO
@@ -15,8 +16,8 @@ export async function generateMetadata(): Promise<Metadata> {
   const seoData = await getSEOPageData('/contact')
   const seoSettings = await getSEOSettings()
   
-  const fallbackTitle = 'Contact Us - Get Modular Building Solutions | Aman Modular'
-  const fallbackDescription = 'Contact Aman Modular for modular building solutions. Get quotes, ask questions, or find your local office. 24/7 customer support available.'
+  const fallbackTitle = 'Contact Us - Get Modular Building Solutions | Modular Building Solutions'
+  const fallbackDescription = 'Contact Modular Building Solutions for modular building solutions. Get quotes, ask questions, or find your local office. 24/7 customer support available.'
   
   return generateSEOMetadata(
     seoData || {},
@@ -26,37 +27,60 @@ export async function generateMetadata(): Promise<Metadata> {
   )
 }
 
+// Get site settings for contact information
+async function getSiteSettings() {
+  try {
+    const { data, error } = await supabaseAdmin
+      .from('site_settings')
+      .select('*')
+      .single()
+
+    if (error && error.code !== 'PGRST116') {
+      console.error('Error fetching site settings:', error)
+      return null
+    }
+
+    return data || null
+  } catch (error) {
+    console.error('Error fetching site settings:', error)
+    return null
+  }
+}
+
 export default async function ContactPage() {
   const seoSettings = await getSEOSettings()
   const breadcrumbs = getBreadcrumbs('/contact')
+  const siteSettings = await getSiteSettings()
+
+  // Default contact methods with CMS fallbacks
   const contactMethods = [
     {
       icon: Phone,
       title: '24/7 Phone Support',
-      primary: '(866) 819-9017',
-      secondary: 'Emergency: (866) 819-9018',
-      description: 'Speak with our experts anytime, day or night.'
+      primary: siteSettings?.primary_phone || '(866) 819-9017',
+      secondary: siteSettings?.emergency_phone || 'Emergency: (866) 819-9018',
+      description: siteSettings?.phone_description || 'Speak with our experts anytime, day or night.'
     },
     {
       icon: Mail,
       title: 'Email Support',
-      primary: 'info@amanmodular.com',
-      secondary: 'quotes@amanmodular.com',
-      description: 'Get detailed responses within 2 hours.'
+      primary: siteSettings?.email || 'info@modularbuilding.com',
+      secondary: siteSettings?.quotes_email || 'quotes@modularbuilding.com',
+      description: siteSettings?.email_description || 'Get detailed responses within 2 hours.'
     },
     {
       icon: MessageSquare,
       title: 'Live Chat',
-      primary: 'Available 24/7',
-      secondary: 'Average response: 30 seconds',
-      description: 'Instant support for quick questions.'
+      primary: siteSettings?.chat_availability || 'Available 24/7',
+      secondary: siteSettings?.chat_response_time || 'Average response: 30 seconds',
+      description: siteSettings?.chat_description || 'Instant support for quick questions.'
     },
     {
       icon: MapPin,
       title: 'Find Local Office',
-      primary: '275+ Locations',
-      secondary: 'All 50 States',
-      description: 'Local expertise, nationwide coverage.'
+      primary: siteSettings?.locations_count || '275+ Locations',
+      secondary: siteSettings?.coverage_area || 'All 50 States',
+      description: siteSettings?.locations_description || 'Local expertise, nationwide coverage.'
     }
   ]
 
@@ -94,10 +118,10 @@ export default async function ContactPage() {
         type="ContactPage"
         data={{
           title: 'Contact Us - Professional Modular Building Solutions',
-          description: 'Get in touch with Aman Modular for 24/7 customer support, quotes, and expert consultation',
+          description: 'Get in touch with Modular Building Solutions for 24/7 customer support, quotes, and expert consultation',
           url: `${seoSettings.site_url}/contact`,
           phone: '(866) 819-9017',
-          email: 'info@amanmodular.com',
+          email: 'info@modularbuilding.com',
           address: {
             street: seoSettings.organization_address || '1234 Industrial Boulevard',
             city: seoSettings.organization_city || 'Los Angeles',
@@ -215,7 +239,7 @@ export default async function ContactPage() {
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-navy-600 mb-6">Find Your Local Office</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              With locations across all 50 states, there's always an Aman Modular team nearby to serve you.
+              With locations across all 50 states, there's always an Modular Building Solutions team nearby to serve you.
             </p>
           </div>
 

@@ -108,10 +108,10 @@ export default function FooterContentAdmin() {
       } else {
         // Initialize with current values from the site
         setContent({
-          company_name: 'AMAN MODULAR',
+          company_name: 'MODULAR BUILDING',
           company_description: 'Leading provider of modular building solutions nationwide. From portable classrooms to office complexes, we deliver quality space solutions for every industry.',
           company_phone: '(866) 819-9017',
-          company_email: 'info@amanmodular.com',
+          company_email: 'info@modularbuilding.com',
           company_locations_text: '275+ Locations Nationwide',
           
           navigation_sections: [
@@ -161,10 +161,10 @@ export default function FooterContentAdmin() {
           ],
           
           social_links: [
-            { platform: 'Facebook', url: 'https://facebook.com/amanmodular', icon: 'Facebook' },
-            { platform: 'LinkedIn', url: 'https://linkedin.com/company/amanmodular', icon: 'LinkedIn' },
-            { platform: 'Twitter', url: 'https://twitter.com/amanmodular', icon: 'Twitter' },
-            { platform: 'Instagram', url: 'https://instagram.com/amanmodular', icon: 'Instagram' }
+            { platform: 'Facebook', url: 'https://facebook.com/modularbuilding', icon: 'Facebook' },
+            { platform: 'LinkedIn', url: 'https://linkedin.com/company/modularbuilding', icon: 'LinkedIn' },
+            { platform: 'Twitter', url: 'https://twitter.com/modularbuilding', icon: 'Twitter' },
+            { platform: 'Instagram', url: 'https://instagram.com/modularbuilding', icon: 'Instagram' }
           ],
           
           cta_headline: 'Need help with your next project?',
@@ -180,7 +180,7 @@ export default function FooterContentAdmin() {
             { text: 'Accessibility', url: '/legal/accessibility' }
           ],
           
-          copyright_text: '© 2024 Aman Modular. All rights reserved.',
+          copyright_text: '© 2024 Modular Building Solutions. All rights reserved.',
           
           show_full_footer: true,
           show_navigation: true,
@@ -399,7 +399,7 @@ export default function FooterContentAdmin() {
                   <Input
                     value={content.company_name}
                     onChange={(e) => updateContent('company_name', e.target.value)}
-                    placeholder="AMAN MODULAR"
+                    placeholder="MODULAR BUILDING"
                   />
                 </div>
                 <div>
@@ -436,7 +436,7 @@ export default function FooterContentAdmin() {
                   <Input
                     value={content.company_email}
                     onChange={(e) => updateContent('company_email', e.target.value)}
-                    placeholder="info@amanmodular.com"
+                    placeholder="info@modularbuilding.com"
                   />
                 </div>
               </div>
@@ -565,7 +565,7 @@ export default function FooterContentAdmin() {
                             <Input
                               value={social.url}
                               onChange={(e) => updateArrayItem('social_links', index, 'url', e.target.value)}
-                              placeholder="https://facebook.com/amanmodular"
+                              placeholder="https://facebook.com/modularbuilding"
                             />
                             <Button
                               variant="outline"
@@ -725,7 +725,7 @@ export default function FooterContentAdmin() {
                 <Input
                   value={content.copyright_text}
                   onChange={(e) => updateContent('copyright_text', e.target.value)}
-                  placeholder="© 2024 Aman Modular. All rights reserved."
+                  placeholder="© 2024 Modular Building Solutions. All rights reserved."
                 />
               </div>
 

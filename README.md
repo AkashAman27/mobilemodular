@@ -1,6 +1,6 @@
-# Aman Modular Website
+# Modular Building Solutions Website
 
-A modern Next.js website for Aman Modular Buildings, built with TypeScript, Tailwind CSS, and Framer Motion.
+A modern Next.js website for Modular Building Solutions Buildings, built with TypeScript, Tailwind CSS, and Framer Motion.
 
 ## Features
 
@@ -113,6 +113,6 @@ npm run build
 
 ## License
 
-© 2024 Aman Modular. All rights reserved.
+© 2024 Modular Building Solutions. All rights reserved.
 
 <!-- Force Vercel redeploy -->

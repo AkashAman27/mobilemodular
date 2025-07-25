@@ -8,7 +8,7 @@ import FAQ from '@/components/FAQ'
 import { solutionsFAQs } from '@/data/faq-data'
 
 export const metadata = {
-  title: 'Portable Restroom Facilities - Clean & Professional | Aman Modular',
+  title: 'Portable Restroom Facilities - Clean & Professional | Modular Building Solutions',
   description: 'Professional portable restroom facilities for construction sites, events, and temporary installations. ADA compliant options available.',
 }
 

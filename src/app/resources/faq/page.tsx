@@ -23,7 +23,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const seoData = await getSEOPageData('/resources/faq')
   const seoSettings = await getSEOSettings()
   
-  const fallbackTitle = 'Frequently Asked Questions | Aman Modular Buildings'
+  const fallbackTitle = 'Frequently Asked Questions | Modular Building Solutions'
   const fallbackDescription = 'Find answers to common questions about modular buildings, services, processes, and more. Comprehensive FAQ covering all aspects of modular construction.'
   
   return generateSEOMetadata(

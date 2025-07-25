@@ -47,7 +47,7 @@ export async function POST(request: NextRequest) {
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
             <div style="background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); padding: 30px; text-align: center;">
               <h1 style="color: white; margin: 0; font-size: 28px;">New Contact Form Submission</h1>
-              <p style="color: #e0e7ff; margin: 10px 0 0 0;">Aman Modular Buildings</p>
+              <p style="color: #e0e7ff; margin: 10px 0 0 0;">Modular Building Solutions</p>
             </div>
             
             <div style="padding: 30px; background: #f8fafc;">

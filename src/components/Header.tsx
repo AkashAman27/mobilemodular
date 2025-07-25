@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronDown, Menu, X, Phone, Clock, ChevronRight, Package, Users, ShoppingCart } from 'lucide-react'
+import { ChevronDown, Menu, X, Phone, Clock, ChevronRight, Package, Users } from 'lucide-react'
 import { Button } from './ui/button'
 import { stateLocations } from '@/data/locations-menu'
 
@@ -14,7 +14,17 @@ interface NavigationItem {
   dropdown?: Array<{ label: string; href: string }>
 }
 
-const Header = () => {
+interface HeaderProps {
+  companyName?: string
+  primaryPhone?: string
+  supportHours?: string
+}
+
+const Header = ({ 
+  companyName = "MODULAR BUILDING",
+  primaryPhone = "866-352-4651", 
+  supportHours = "24/7 Support"
+}: HeaderProps) => {
   const [isOpen, setIsOpen] = useState(false)
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
   const [selectedState, setSelectedState] = useState<string>('AL') // Default to Alabama
@@ -105,11 +115,11 @@ const Header = () => {
             <div className="hidden lg:flex items-center space-x-4">
               <div className="flex items-center space-x-2 bg-white px-3 py-1 rounded text-sm text-gray-700">
                 <Phone className="h-4 w-4 text-orange-500" />
-                <span className="font-medium">866-352-4651</span>
+                <span className="font-medium">{primaryPhone}</span>
               </div>
               <div className="flex items-center space-x-2 bg-white px-3 py-1 rounded text-sm text-gray-700">
                 <Clock className="h-4 w-4 text-orange-500" />
-                <span className="font-medium">24/7 Support</span>
+                <span className="font-medium">{supportHours}</span>
               </div>
             </div>
 
@@ -117,7 +127,7 @@ const Header = () => {
             <div className="lg:hidden flex items-center">
               <div className="flex items-center space-x-2 bg-white px-3 py-1 rounded text-sm text-gray-700">
                 <Phone className="h-4 w-4 text-orange-500" />
-                <span className="font-medium">866-352-4651</span>
+                <span className="font-medium">{primaryPhone}</span>
               </div>
             </div>
           </div>
@@ -133,12 +143,12 @@ const Header = () => {
               <div className="relative h-10 w-10">
                 <Image
                   src="https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/company_logo_professional_aman_modular_constructio.webp"
-                  alt="Aman Modular Logo"
+                  alt="Modular Building Logo"
                   fill
                   className="object-contain"
                 />
               </div>
-              <span className="text-xl font-bold text-white">AMAN MODULAR</span>
+              <span className="text-xl font-bold text-white">{companyName}</span>
             </Link>
 
             {/* Desktop Navigation */}
@@ -246,9 +256,6 @@ const Header = () => {
 
             {/* Desktop CTA */}
             <div className="hidden lg:flex items-center space-x-4 ml-8">
-              <Link href="/cart" className="text-white hover:text-yellow-400 transition-colors">
-                <ShoppingCart className="h-6 w-6" />
-              </Link>
               <Link href="/quote">
                 <Button variant="gradient" size="lg">
                   Get Quote

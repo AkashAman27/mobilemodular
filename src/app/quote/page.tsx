@@ -11,7 +11,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const seoData = await getSEOPageData('/quote')
   const seoSettings = await getSEOSettings()
   
-  const fallbackTitle = 'Get Custom Quote - Aman Modular Buildings'
+  const fallbackTitle = 'Get Custom Quote - Modular Building Solutions'
   const fallbackDescription = 'Request a custom quote for your modular building project. Fast, professional service with flexible rental, purchase, and lease options.'
   
   return generateSEOMetadata(
@@ -43,7 +43,7 @@ export default async function QuotePage() {
           name: 'Custom Quote Request',
           description: 'Get a personalized quote for modular building solutions with 24-hour response time',
           url: `${seoSettings.site_url}/quote`,
-          provider: seoSettings.organization_name || 'Aman Modular Buildings',
+          provider: seoSettings.organization_name || 'Modular Building Solutions',
           serviceType: 'Modular Building Quote',
           areaServed: 'United States',
           availableChannel: 'Online Form, Phone, Email'
@@ -85,7 +85,7 @@ export default async function QuotePage() {
             <div className="space-y-8">
               <div>
                 <h3 className="text-2xl font-bold text-navy-600 mb-6">
-                  Why Choose Aman Modular?
+                  Why Choose Modular Building Solutions?
                 </h3>
                 <div className="space-y-4">
                   {benefits.map((benefit, index) => (
@@ -112,7 +112,7 @@ export default async function QuotePage() {
                   </div>
                   <div>
                     <div className="font-semibold">Email us</div>
-                    <div className="text-blue-100">info@amanmodular.com</div>
+                    <div className="text-blue-100">info@modularbuilding.com</div>
                   </div>
                   <div>
                     <div className="font-semibold">Emergency service</div>

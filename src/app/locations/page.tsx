@@ -1,56 +1,52 @@
-'use client'
-
 import React from 'react'
 import Link from 'next/link'
+import { motion } from 'framer-motion'
 import PageLayout from '@/components/layout/PageLayout'
 import USMapSelector from '@/components/USMapSelector'
 import PageFAQs from '@/components/PageFAQs'
-import { motion } from 'framer-motion'
 import { MapPin, Phone, Clock, Users, Building, Shield } from 'lucide-react'
+import { supabaseAdmin } from '@/lib/supabase'
+import LocationsClientWrapper from '@/components/LocationsClientWrapper'
 
-const LocationsPage = () => {
+// Get locations page content from CMS with graceful fallback
+async function getLocationsPageContent() {
+  try {
+    const { data, error } = await supabaseAdmin
+      .from('locations_page_content')
+      .select('*')
+      .single()
+
+    if (error) {
+      // If table doesn't exist, return null to use fallback data
+      console.log('Locations page content table not found, using fallback data')
+      return null
+    }
+
+    return data || null
+  } catch (error) {
+    console.log('Using fallback data for locations page content')
+    return null
+  }
+}
+
+const LocationsPage = async () => {
+  const locationsContent = await getLocationsPageContent()
+
+  // Default fallback content
+  const heroTitle = locationsContent?.hero_title || 'Find Your Local'
+  const heroAccent = locationsContent?.hero_accent_text || 'Modular Solutions'
+  const heroDescription = locationsContent?.hero_description || 'With 275+ locations across all 50 states, we\'re always nearby to serve your modular building needs with local expertise and nationwide resources.'
+  const heroPhone = locationsContent?.hero_phone || '(866) 819-9017'
+  const heroSupport = locationsContent?.hero_support_text || '24/7 Emergency Support'
   return (
     <PageLayout>
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50">
-      {/* Hero Section */}
-      <section className="hero-gradient text-white py-20">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="text-5xl md:text-6xl font-bold mb-6"
-            >
-              Find Your Local
-              <span className="text-yellow-400"> Modular Solutions</span>
-            </motion.h1>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-xl md:text-2xl text-blue-100 mb-8 leading-relaxed"
-            >
-              With 275+ locations across all 50 states, we're always nearby to serve your modular building needs with local expertise and nationwide resources.
-            </motion.p>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center"
-            >
-              <div className="flex items-center justify-center space-x-2 text-lg">
-                <Phone className="h-6 w-6 text-yellow-400" />
-                <span className="font-semibold">(866) 819-9017</span>
-              </div>
-              <div className="flex items-center justify-center space-x-2 text-lg">
-                <Clock className="h-6 w-6 text-yellow-400" />
-                <span>24/7 Emergency Support</span>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
+      <LocationsClientWrapper
+        heroTitle={heroTitle}
+        heroAccent={heroAccent}
+        heroDescription={heroDescription}
+        heroPhone={heroPhone}
+        heroSupport={heroSupport}
+      >
 
       {/* Interactive Map Section */}
       <section className="py-20">
@@ -242,7 +238,7 @@ const LocationsPage = () => {
           </div>
         </div>
       </section>
-      </div>
+      </LocationsClientWrapper>
     </PageLayout>
   )
 }

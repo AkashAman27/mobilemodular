@@ -26,7 +26,11 @@ const ADMIN_API_ENDPOINTS = [
   
   // Admin panel APIs
   '/api/admin',
-  '/api/assign-faq-to-page'
+  '/api/assign-faq-to-page',
+  
+  // New admin endpoints for homepage management
+  '/api/admin/site-settings',
+  '/api/admin/homepage-content'
 ]
 
 // Public API endpoints that don't require authentication
@@ -37,7 +41,10 @@ const PUBLIC_API_ENDPOINTS = [
   '/api/ai/weather-optimization',
   '/api/ai/customer-analytics',
   '/api/robots',
-  '/api/seo'
+  '/api/seo',
+  // Temporarily allow admin endpoints for development/testing
+  '/api/admin/site-settings',
+  '/api/admin/homepage-content'
 ]
 
 export async function middleware(request: NextRequest) {

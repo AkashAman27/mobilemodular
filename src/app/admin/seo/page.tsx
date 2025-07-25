@@ -40,9 +40,9 @@ interface SEOSettings {
 }
 
 const defaultSettings: SEOSettings = {
-  site_name: 'Aman Modular Buildings',
+  site_name: 'Modular Building Solutions',
   site_description: 'Professional modular buildings for rent, sale, and lease. From portable classrooms to office complexes, we provide flexible space solutions for every industry.',
-  site_url: 'https://amanmodular.com',
+  site_url: 'https://modularbuilding.com',
   default_og_image: '',
   default_twitter_image: '',
   google_analytics_id: '',
@@ -51,10 +51,10 @@ const defaultSettings: SEOSettings = {
   bing_verification: '',
   facebook_app_id: '',
   twitter_username: '',
-  organization_name: 'Aman Modular Buildings',
+  organization_name: 'Modular Building Solutions',
   organization_logo: '',
   organization_phone: '(555) 123-4567',
-  organization_email: 'info@amanmodular.com',
+  organization_email: 'info@modularbuilding.com',
   organization_address: '1234 Industrial Boulevard',
   organization_city: 'Los Angeles',
   organization_state: 'CA',
@@ -62,7 +62,7 @@ const defaultSettings: SEOSettings = {
   organization_postal_code: '90028',
   robots_txt: `User-agent: *
 Allow: /
-Sitemap: https://amanmodular.com/sitemap.xml
+Sitemap: https://modularbuilding.com/sitemap.xml
 
 User-agent: *
 Disallow: /admin/
@@ -241,7 +241,7 @@ export default function SEOSettingsAdmin() {
                         id="site_url"
                         value={settings.site_url}
                         onChange={(e) => updateSetting('site_url', e.target.value)}
-                        placeholder="https://amanmodular.com"
+                        placeholder="https://modularbuilding.com"
                         required
                       />
                     </div>
@@ -329,7 +329,7 @@ export default function SEOSettingsAdmin() {
                         type="email"
                         value={settings.organization_email}
                         onChange={(e) => updateSetting('organization_email', e.target.value)}
-                        placeholder="info@amanmodular.com"
+                        placeholder="info@modularbuilding.com"
                       />
                     </div>
                   </div>
@@ -451,7 +451,7 @@ export default function SEOSettingsAdmin() {
                         id="twitter_username"
                         value={settings.twitter_username}
                         onChange={(e) => updateSetting('twitter_username', e.target.value)}
-                        placeholder="@amanmodular"
+                        placeholder="@modularbuilding"
                       />
                     </div>
                   </div>
@@ -472,7 +472,7 @@ export default function SEOSettingsAdmin() {
                       id="robots_txt"
                       value={settings.robots_txt}
                       onChange={(e) => updateSetting('robots_txt', e.target.value)}
-                      placeholder="User-agent: *&#10;Allow: /&#10;Sitemap: https://amanmodular.com/sitemap.xml"
+                      placeholder="User-agent: *&#10;Allow: /&#10;Sitemap: https://modularbuilding.com/sitemap.xml"
                       rows={8}
                       className="font-mono text-sm"
                     />

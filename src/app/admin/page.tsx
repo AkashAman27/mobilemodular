@@ -105,17 +105,17 @@ export default function AdminDashboard() {
   ]
 
   return (
-    <div className="p-6 bg-gray-50 min-h-full">
+    <div className="p-4 lg:p-6 bg-gray-50 min-h-full w-full">
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
-        <p className="text-gray-600 mt-1">Welcome to your Aman Modular CMS dashboard</p>
+        <p className="text-gray-600 mt-1">Welcome to your Modular Building Solutions CMS dashboard</p>
       </div>
 
       {/* Main Content */}
       <div className="space-y-8">
         {/* Quick Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6 mb-8">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Total Solutions</CardTitle>
@@ -151,7 +151,7 @@ export default function AdminDashboard() {
         {/* Quick Actions Grid */}
         <div>
           <h2 className="text-xl font-semibold text-gray-900 mb-4">Quick Actions</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {adminSections.map((section) => (
               <Link key={section.title} href={section.href}>
                 <Card className="hover:shadow-md transition-all duration-200 cursor-pointer hover:border-blue-300">

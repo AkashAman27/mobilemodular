@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 
 export const metadata = {
-  title: 'Industry Insights & News - Modular Building Trends | Aman Modular',
+  title: 'Industry Insights & News - Modular Building Trends | Modular Building Solutions',
   description: 'Stay informed with the latest industry trends, case studies, and expert insights from the world of modular construction and portable buildings.',
 }
 

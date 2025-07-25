@@ -24,8 +24,8 @@ const SCHEMA_TEMPLATES = {
   Organization: {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "Aman Modular Buildings",
-    "url": "https://amanmodular.com",
+    "name": "Modular Building Solutions",
+    "url": "https://modularbuilding.com",
     "logo": "https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/company_logo_professional_aman_modular_constructio.webp",
     "description": "Premium modular building solutions",
     "address": {
@@ -49,7 +49,7 @@ const SCHEMA_TEMPLATES = {
     "description": "",
     "brand": {
       "@type": "Brand",
-      "name": "Aman Modular Buildings"
+      "name": "Modular Building Solutions"
     },
     "offers": {
       "@type": "Offer",
@@ -65,7 +65,7 @@ const SCHEMA_TEMPLATES = {
     "description": "",
     "provider": {
       "@type": "Organization",
-      "name": "Aman Modular Buildings"
+      "name": "Modular Building Solutions"
     },
     "serviceType": "",
     "areaServed": ""
@@ -78,7 +78,7 @@ const SCHEMA_TEMPLATES = {
     "url": "",
     "mainEntity": {
       "@type": "Organization",
-      "name": "Aman Modular Buildings"
+      "name": "Modular Building Solutions"
     }
   }
 }
@@ -142,7 +142,7 @@ export default function PageSchemasPage() {
           ...SCHEMA_TEMPLATES.WebPage,
           name: "Our Construction Process",
           description: "Learn about our proven 7-step modular building process",
-          url: "https://amanmodular.com/company/our-process"
+          url: "https://modularbuilding.com/company/our-process"
         }, null, 2),
         is_active: true,
         validation_status: 'warning',

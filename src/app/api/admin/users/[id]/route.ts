@@ -41,7 +41,7 @@ export async function GET(
         created_at: authUser.user.created_at,
         last_sign_in_at: authUser.user.last_sign_in_at,
         email_confirmed_at: authUser.user.email_confirmed_at,
-        is_active: !authUser.user.banned_until,
+        is_active: !(authUser.user as any).banned_until,
         created_by: authUser.user.user_metadata?.created_by_email
       }
 

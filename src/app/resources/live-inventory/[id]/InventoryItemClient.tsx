@@ -381,7 +381,7 @@ export default function InventoryItemClient({ item }: Props) {
                     </div>
                     <div className="flex items-center justify-center text-sm">
                       <Mail className="h-4 w-4 mr-2 text-navy-600" />
-                      <span>Email: info@amanmodular.com</span>
+                      <span>Email: info@modularbuilding.com</span>
                     </div>
                   </div>
                 </CardContent>

@@ -49,8 +49,8 @@ export function SEOHead({
   lastModified,
   additionalMeta = []
 }: SEOProps) {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://amanmodular.com'
-  const siteName = 'Aman Modular Buildings'
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://modularbuilding.com'
+  const siteName = 'Modular Building Buildings'
   
   useEffect(() => {
     // Update document title

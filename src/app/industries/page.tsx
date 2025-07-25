@@ -6,7 +6,8 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { PageLayout } from '@/components/layout/PageLayout'
 import { PageHeader } from '@/components/layout/PageHeader'
-import { industries } from '@/data/demo-data'
+import { industries as defaultIndustries } from '@/data/demo-data'
+import { supabaseAdmin } from '@/lib/supabase'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -18,11 +19,35 @@ export const metadata: Metadata = {
     description: 'Specialized modular building solutions for education, construction, healthcare, government, retail, and emergency response industries.',
     type: 'website',
     url: '/industries',
-    siteName: 'Aman Modular Buildings'
+    siteName: 'Modular Building Solutions'
   }
 }
 
-export default function IndustriesPage() {
+// Get industries from CMS
+async function getIndustries() {
+  try {
+    const { data, error } = await supabaseAdmin
+      .from('industries')
+      .select('*')
+      .order('created_at', { ascending: false })
+
+    if (error && error.code !== 'PGRST116') {
+      console.error('Error fetching industries:', error)
+      return null
+    }
+
+    return data || null
+  } catch (error) {
+    console.error('Error fetching industries:', error)
+    return null
+  }
+}
+
+export default async function IndustriesPage() {
+  const cmsIndustries = await getIndustries()
+  
+  // Use CMS data if available, otherwise fallback to demo data
+  const industries = cmsIndustries && cmsIndustries.length > 0 ? cmsIndustries : defaultIndustries
   return (
     <PageLayout>
       <PageHeader
@@ -50,59 +75,72 @@ export default function IndustriesPage() {
 
           {/* Industries Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-            {industries.map((industry) => (
-              <Card key={industry.id} className="group hover:shadow-lg transition-all duration-300">
-                <div className="relative h-48 overflow-hidden rounded-t-lg">
-                  <Image
-                    src={industry.imageUrl}
-                    alt={industry.name}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                  <div className="absolute top-4 right-4">
-                    <Badge variant="secondary" className="bg-white/90 text-gray-800">
-                      {industry.caseStudies} Case Studies
-                    </Badge>
-                  </div>
-                </div>
-                
-                <CardHeader>
-                  <CardTitle className="text-xl">{industry.name}</CardTitle>
-                  <CardDescription>{industry.description}</CardDescription>
-                </CardHeader>
-                
-                <CardContent>
-                  <div className="mb-4">
-                    <h4 className="font-medium text-gray-800 mb-2">Available Solutions:</h4>
-                    <div className="flex flex-wrap gap-2">
-                      {industry.solutions.slice(0, 3).map((solutionId) => (
-                        <Badge key={solutionId} variant="outline" className="text-xs">
-                          {solutionId.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}
-                        </Badge>
-                      ))}
-                      {industry.solutions.length > 3 && (
-                        <Badge variant="outline" className="text-xs">
-                          +{industry.solutions.length - 3} more
-                        </Badge>
-                      )}
+            {industries.map((industry) => {
+              // Handle both CMS data structure and demo data structure
+              const industryId = industry.id || industry.slug || industry.name.toLowerCase().replace(/\s+/g, '-')
+              const imageUrl = industry.image_url || industry.imageUrl || 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/industry-default.webp'
+              const caseStudiesCount = industry.case_studies_count || industry.caseStudies || 0
+              const solutions = industry.solutions || []
+              
+              return (
+                <Card key={industryId} className="group hover:shadow-lg transition-all duration-300">
+                  <div className="relative h-48 overflow-hidden rounded-t-lg">
+                    <Image
+                      src={imageUrl}
+                      alt={industry.name}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                    <div className="absolute top-4 right-4">
+                      <Badge variant="secondary" className="bg-white/90 text-gray-800">
+                        {caseStudiesCount} Case Studies
+                      </Badge>
                     </div>
                   </div>
                   
-                  <div className="flex items-center justify-between pt-4 border-t">
-                    <div className="flex items-center text-sm text-gray-600">
-                      <Building className="h-4 w-4 mr-1" />
-                      <span>{industry.solutions.length} Solutions</span>
+                  <CardHeader>
+                    <CardTitle className="text-xl">{industry.name}</CardTitle>
+                    <CardDescription>{industry.description}</CardDescription>
+                  </CardHeader>
+                  
+                  <CardContent>
+                    {solutions.length > 0 && (
+                      <div className="mb-4">
+                        <h4 className="font-medium text-gray-800 mb-2">Available Solutions:</h4>
+                        <div className="flex flex-wrap gap-2">
+                          {solutions.slice(0, 3).map((solutionId: any, index: number) => (
+                            <Badge key={index} variant="outline" className="text-xs">
+                              {typeof solutionId === 'string' 
+                                ? solutionId.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())
+                                : solutionId
+                              }
+                            </Badge>
+                          ))}
+                          {solutions.length > 3 && (
+                            <Badge variant="outline" className="text-xs">
+                              +{solutions.length - 3} more
+                            </Badge>
+                          )}
+                        </div>
+                      </div>
+                    )}
+                    
+                    <div className="flex items-center justify-between pt-4 border-t">
+                      <div className="flex items-center text-sm text-gray-600">
+                        <Building className="h-4 w-4 mr-1" />
+                        <span>{solutions.length} Solutions</span>
+                      </div>
+                      <Link href={`/industries/${industryId}`}>
+                        <Button variant="ghost" size="sm" className="group">
+                          Learn More
+                          <ArrowRight className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" />
+                        </Button>
+                      </Link>
                     </div>
-                    <Link href={`/industries/${industry.id}`}>
-                      <Button variant="ghost" size="sm" className="group">
-                        Learn More
-                        <ArrowRight className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" />
-                      </Button>
-                    </Link>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+                  </CardContent>
+                </Card>
+              )
+            })}
           </div>
 
           {/* Why Choose Us Section */}

@@ -192,9 +192,9 @@ export default function OurProcessPage() {
     <>
       <SEOMetaTags
         pagePath="/company/our-process"
-        fallbackTitle="Our Proven 7-Step Process | Aman Modular Buildings"
+        fallbackTitle="Our Proven 7-Step Process | Modular Building Solutions"
         fallbackDescription="Discover our streamlined 7-step process for modular building construction. From consultation to final delivery, we ensure quality, efficiency, and transparency every step of the way."
-        fallbackImage="https://amanmodular.com/images/process-hero.jpg"
+        fallbackImage="https://modularbuilding.com/images/process-hero.jpg"
       />
       <PageLayout>
         <div className="min-h-screen bg-gray-50">

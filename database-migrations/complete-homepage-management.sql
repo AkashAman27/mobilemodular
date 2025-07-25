@@ -4,7 +4,7 @@
 -- Site Settings Table (Global site configuration)
 CREATE TABLE IF NOT EXISTS site_settings (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    company_name VARCHAR(255) NOT NULL DEFAULT 'AMAN MODULAR',
+    company_name VARCHAR(255) NOT NULL DEFAULT 'MODULAR BUILDING',
     company_tagline TEXT,
     logo_url TEXT,
     primary_phone VARCHAR(50),
@@ -85,12 +85,12 @@ INSERT INTO site_settings (
     email,
     support_hours
 ) VALUES (
-    'AMAN MODULAR',
+    'MODULAR BUILDING',
     'Leading provider of modular building solutions nationwide',
     '/images/logo.png',
     '(866) 819-9017',
     '(866) 352-4651',
-    'info@amanmodular.com',
+    'info@modularbuilding.com',
     '24/7 Support'
 ) ON CONFLICT (id) DO NOTHING;
 
@@ -194,7 +194,7 @@ INSERT INTO complete_homepage_content (
     'Contact our team today to discuss your modular building needs and get a custom quote.',
     'Get Custom Quote',
     
-    'Aman Modular News & Insights',
+    'Modular Building Solutions News & Insights',
     'Stay informed with the latest industry trends, project spotlights, and expert insights from our team.',
     'View All Insights',
     '/news-insights',
@@ -209,7 +209,7 @@ INSERT INTO complete_homepage_content (
     'Rapid response for urgent needs',
     
     'Leading provider of modular building solutions nationwide',
-    '© 2024 Aman Modular. All rights reserved.',
+    '© 2024 Modular Building Solutions. All rights reserved.',
     'Professional modular buildings for offices, education, healthcare, and more.'
 ) ON CONFLICT (id) DO UPDATE SET
     hero_title = EXCLUDED.hero_title,

@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       word.charAt(0).toUpperCase() + word.slice(1)
     ).join(' ')
     locationName = stateName
-    pageTitle = `Portable Classrooms in ${stateName} | Aman Modular Buildings`
+    pageTitle = `Portable Classrooms in ${stateName} | Modular Building Solutions`
   } else if (location.length === 2) {
     // City page: /solutions/portable-classrooms/california/los-angeles
     const stateName = location[0].split('-').map(word => 
@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       word.charAt(0).toUpperCase() + word.slice(1)
     ).join(' ')
     locationName = `${cityName}, ${stateName}`
-    pageTitle = `Portable Classrooms in ${cityName}, ${stateName} | Aman Modular Buildings`
+    pageTitle = `Portable Classrooms in ${cityName}, ${stateName} | Modular Building Solutions`
   }
 
   return {

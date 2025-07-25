@@ -191,7 +191,7 @@ export default function RobotsPage() {
   }
 
   const generateRobotsContent = (userAgents: UserAgentRule[], sitemapUrls: string[]): string => {
-    let content = '# Robots.txt for Aman Modular Buildings\n'
+    let content = '# Robots.txt for Modular Building Solutions\n'
     content += '# Generated automatically - ' + new Date().toLocaleString() + '\n\n'
 
     userAgents.filter(ua => ua.is_active).forEach(ua => {

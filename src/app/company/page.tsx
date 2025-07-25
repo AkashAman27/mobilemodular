@@ -13,8 +13,8 @@ export async function generateMetadata(): Promise<Metadata> {
   const seoData = await getSEOPageData('/company')
   const seoSettings = await getSEOSettings()
   
-  const fallbackTitle = 'Our Company - About Aman Modular Buildings'
-  const fallbackDescription = 'Discover Aman Modular Buildings - industry leader in modular construction with 80+ years of experience, quality standards, and proven processes.'
+  const fallbackTitle = 'Our Company - About Modular Building Solutions'
+  const fallbackDescription = 'Discover Modular Building Solutions - industry leader in modular construction with 80+ years of experience, quality standards, and proven processes.'
   
   return generateSEOMetadata(
     seoData || {},
@@ -91,7 +91,7 @@ export default async function CompanyPage() {
       <StructuredData
         type="Organization"
         data={{
-          name: seoSettings.organization_name || 'Aman Modular Buildings',
+          name: seoSettings.organization_name || 'Modular Building Solutions',
           description: 'Leading modular building provider with 80+ years of experience in professional construction solutions',
           url: `${seoSettings.site_url}/company`,
           founded: '1944',
@@ -105,7 +105,7 @@ export default async function CompanyPage() {
       
       <PageHeader
         subtitle="Learn About Us"
-        title="Aman Modular Buildings"
+        title="Modular Building Solutions"
         description="For over 80 years, we've been America's trusted partner for modular building solutions. From humble beginnings to industry leadership, our commitment to quality and innovation remains unwavering."
         backgroundImage="https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/hero_background_modern_modular_building_complex_ae.webp"
         breadcrumbs={[
@@ -121,7 +121,7 @@ export default async function CompanyPage() {
             <div>
               <h2 className="text-4xl font-bold text-navy-600 mb-6">Building America's Future</h2>
               <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-                Since 1944, Aman Modular Buildings has been at the forefront of modular construction, 
+                Since 1944, Modular Building Solutions has been at the forefront of modular construction, 
                 delivering innovative building solutions that meet the evolving needs of businesses, 
                 educational institutions, and government organizations across the United States.
               </p>
@@ -148,7 +148,7 @@ export default async function CompanyPage() {
             <div className="relative h-96 rounded-2xl overflow-hidden">
               <Image
                 src="https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/facility_manufacturing_factory_workers_building_mo.webp"
-                alt="Aman Modular Buildings facility"
+                alt="Modular Building Solutions facility"
                 fill
                 className="object-cover"
               />
@@ -252,7 +252,7 @@ export default async function CompanyPage() {
               <div className="relative h-48">
                 <Image
                   src="https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp"
-                  alt="About Aman Modular"
+                  alt="About Modular Building Solutions"
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-300"
                 />
@@ -335,7 +335,7 @@ export default async function CompanyPage() {
             Ready to Partner with Industry Leaders?
           </h2>
           <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-            Join thousands of satisfied clients who trust Aman Modular for their building solutions.
+            Join thousands of satisfied clients who trust Modular Building Solutions for their building solutions.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button variant="gradient" size="xl" asChild className="group">

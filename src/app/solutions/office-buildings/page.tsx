@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button'
 import PageFAQs from '@/components/PageFAQs'
 
 export const metadata = {
-  title: 'Modular Office Buildings - Rent, Buy, Lease | Aman Modular',
+  title: 'Modular Office Buildings - Rent, Buy, Lease | Modular Building Solutions',
   description: 'Professional modular office buildings for construction sites, temporary offices, and permanent installations. Flexible rental, purchase, and lease options available.',
 }
 

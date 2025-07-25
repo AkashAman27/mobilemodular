@@ -50,8 +50,8 @@ export function GlobalStructuredData({ siteData }: { siteData: Record<string, an
   const websiteSchema = generateStructuredData({
     type: 'WebSite',
     data: {
-      name: siteData.name || 'Aman Modular Buildings',
-      url: siteData.url || 'https://amanmodular.com',
+      name: siteData.name || 'Modular Building Buildings',
+      url: siteData.url || 'https://modularbuilding.com',
       description: siteData.description || 'Professional modular buildings for rent, sale, and lease. From portable classrooms to office complexes, we provide flexible space solutions for every industry.',
       ...siteData
     }
@@ -60,8 +60,8 @@ export function GlobalStructuredData({ siteData }: { siteData: Record<string, an
   const organizationSchema = generateStructuredData({
     type: 'Organization',
     data: {
-      name: siteData.organizationName || 'Aman Modular Buildings',
-      url: siteData.url || 'https://amanmodular.com',
+      name: siteData.organizationName || 'Modular Building Buildings',
+      url: siteData.url || 'https://modularbuilding.com',
       logo: siteData.logo,
       description: siteData.organizationDescription || 'Leading provider of modular building solutions',
       telephone: siteData.telephone,
@@ -79,8 +79,8 @@ export function GlobalStructuredData({ siteData }: { siteData: Record<string, an
   const localBusinessSchema = generateStructuredData({
     type: 'LocalBusiness',
     data: {
-      name: siteData.businessName || 'Aman Modular Buildings',
-      url: siteData.url || 'https://amanmodular.com',
+      name: siteData.businessName || 'Modular Building Buildings',
+      url: siteData.url || 'https://modularbuilding.com',
       description: siteData.businessDescription || 'Professional modular buildings for rent, sale, and lease',
       telephone: siteData.telephone,
       email: siteData.email,

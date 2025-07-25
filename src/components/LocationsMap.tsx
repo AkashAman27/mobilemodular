@@ -8,7 +8,29 @@ import { MapPin, Phone, ArrowRight } from 'lucide-react'
 import { locations } from '@/data/demo-data'
 import { Button } from './ui/button'
 
-const LocationsMap = () => {
+interface LocationsMapProps {
+  locationsData?: {
+    locations_section_title?: string
+    locations_section_description?: string
+    locations_stats_title?: string
+    locations_coverage_title?: string
+    locations_support_title?: string
+    locations_support_description?: string
+    locations_emergency_title?: string
+    locations_emergency_description?: string
+  }
+}
+
+const LocationsMap = ({ locationsData }: LocationsMapProps) => {
+  const sectionTitle = locationsData?.locations_section_title || '275+ locations across North America'
+  const sectionDescription = locationsData?.locations_section_description || 'Delivering space solutions since 1944. Our extensive network ensures fast delivery and local support wherever you are.'
+  const statsTitle = locationsData?.locations_stats_title || '275+ Locations'
+  const coverageTitle = locationsData?.locations_coverage_title || 'Nationwide Coverage'
+  const supportTitle = locationsData?.locations_support_title || '24/7 Support'
+  const supportDescription = locationsData?.locations_support_description || 'Round-the-clock customer service'
+  const emergencyTitle = locationsData?.locations_emergency_title || 'Emergency Service'
+  const emergencyDescription = locationsData?.locations_emergency_description || 'Rapid response for urgent needs'
+
   return (
     <section className="py-20 hero-gradient">
       <div className="container mx-auto px-4">
@@ -21,14 +43,10 @@ const LocationsMap = () => {
             className="text-white"
           >
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              275+ locations across North America
+              {sectionTitle}
             </h2>
             <p className="text-blue-100 text-lg mb-8 leading-relaxed">
-              <span className="font-semibold">Delivering space solutions since 1944.</span><br />
-              We have the largest fleet of quality modular buildings and portable 
-              space units in North America, including cleanspan structures, 
-              climate-controlled options, and so much more. We focus on doing 
-              what&apos;s right for you and your business.
+              {sectionDescription}
             </p>
 
             {/* Featured Locations */}
@@ -93,13 +111,13 @@ const LocationsMap = () => {
 
               {/* Map overlay info */}
               <div className="absolute top-4 left-4 bg-white/20 backdrop-blur-sm rounded-lg p-3">
-                <div className="text-white text-sm font-semibold">275+ Locations</div>
-                <div className="text-blue-100 text-xs">Nationwide Coverage</div>
+                <div className="text-white text-sm font-semibold">{statsTitle}</div>
+                <div className="text-blue-100 text-xs">{coverageTitle}</div>
               </div>
 
               <div className="absolute bottom-4 right-4 bg-white/20 backdrop-blur-sm rounded-lg p-3">
-                <div className="text-white text-sm font-semibold">24/7 Support</div>
-                <div className="text-blue-100 text-xs">Emergency Service</div>
+                <div className="text-white text-sm font-semibold">{supportTitle}</div>
+                <div className="text-blue-100 text-xs">{emergencyTitle}</div>
               </div>
             </div>
 

@@ -62,7 +62,7 @@ const structuredDataTypes = [
 export function SEOFormFields({ 
   data, 
   onChange, 
-  baseUrl = 'https://amanmodular.com',
+  baseUrl = 'https://modularbuilding.com',
   slug = '',
   contentType = 'page',
   showJsonLd = false,
@@ -243,7 +243,7 @@ export function SEOFormFields({
               id="canonical_url"
               value={data.canonical_url || ''}
               onChange={(e) => onChange('canonical_url', e.target.value)}
-              placeholder="https://amanmodular.com/canonical-url"
+              placeholder="https://modularbuilding.com/canonical-url"
             />
             <p className="text-xs text-gray-600">
               Leave empty to use the default URL. Use for duplicate content prevention.
@@ -293,7 +293,7 @@ export function SEOFormFields({
                   id="og_image"
                   value={data.og_image || ''}
                   onChange={(e) => onChange('og_image', e.target.value)}
-                  placeholder="https://amanmodular.com/og-image.jpg"
+                  placeholder="https://modularbuilding.com/og-image.jpg"
                 />
               </div>
               
@@ -343,7 +343,7 @@ export function SEOFormFields({
                   id="twitter_image"
                   value={data.twitter_image || ''}
                   onChange={(e) => onChange('twitter_image', e.target.value)}
-                  placeholder="https://amanmodular.com/twitter-image.jpg"
+                  placeholder="https://modularbuilding.com/twitter-image.jpg"
                 />
               </div>
               

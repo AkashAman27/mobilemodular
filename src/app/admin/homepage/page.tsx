@@ -11,8 +11,8 @@ export default function HomepageAdmin() {
   const router = useRouter()
 
   useEffect(() => {
-    // Automatically redirect to the new unified homepage management
-    router.replace('/admin/homepage/unified')
+    // Automatically redirect to the new complete homepage management
+    router.replace('/admin/homepage/complete')
   }, [router])
 
   return (
@@ -31,10 +31,10 @@ export default function HomepageAdmin() {
           <p className="text-gray-600 mb-4">
             The homepage management has been consolidated into a single, comprehensive interface for easier content management.
           </p>
-          <Link href="/admin/homepage/unified">
+          <Link href="/admin/homepage/complete">
             <Button className="w-full bg-teal-600 hover:bg-teal-700">
               <ArrowRight className="h-4 w-4 mr-2" />
-              Go to Unified Homepage Management
+              Go to Complete Homepage Management
             </Button>
           </Link>
         </CardContent>

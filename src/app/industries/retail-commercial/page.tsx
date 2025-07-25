@@ -15,7 +15,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const seoData = await getSEOPageData('/industries/retail-commercial')
   const seoSettings = await getSEOSettings()
   
-  const fallbackTitle = 'Retail & Commercial Industry Solutions - Pop-up Stores | Aman Modular'
+  const fallbackTitle = 'Retail & Commercial Industry Solutions - Pop-up Stores | Modular Building Solutions'
   const fallbackDescription = 'Commercial modular building solutions for retail businesses. Pop-up stores, sales offices, customer service centers, and flexible commercial spaces.'
   
   return generateSEOMetadata(
@@ -108,7 +108,7 @@ export default async function RetailCommercialIndustryPage() {
           description: 'Commercial modular building solutions for retail businesses and commercial operations',
           url: `${seoSettings.site_url}/industries/retail-commercial`,
           serviceType: 'Commercial Facility Solutions',
-          provider: seoSettings.organization_name || 'Aman Modular Buildings',
+          provider: seoSettings.organization_name || 'Modular Building Solutions',
           areaServed: 'United States',
           category: 'Retail & Commercial',
           offers: [
