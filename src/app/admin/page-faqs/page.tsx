@@ -169,7 +169,7 @@ export default function PageFAQsAdmin() {
 
     try {
       // Find the assignment to get page and FAQ IDs
-      const assignment = assignedFaqs.find(pf => pf.id === pageFaqId)
+      const assignment = pageFaqs.find(pf => pf.id === pageFaqId)
       if (!assignment) {
         alert('Assignment not found')
         return
