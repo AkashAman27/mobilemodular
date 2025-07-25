@@ -167,21 +167,29 @@ export default function IndustriesAdmin() {
                     </div>
                   </div>
                   
-                  <div className="flex space-x-2">
-                    <Link href={`/admin/industries/${industry.id}`} className="flex-1">
-                      <Button variant="outline" size="sm" className="w-full">
+                  <div className="space-y-2">
+                    <div className="flex space-x-2">
+                      <Link href={`/admin/industries/${industry.id}`} className="flex-1">
+                        <Button variant="outline" size="sm" className="w-full">
+                          <Edit className="h-4 w-4 mr-2" />
+                          Quick Edit
+                        </Button>
+                      </Link>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => deleteIndustry(industry.id)}
+                        className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </div>
+                    <Link href={`/admin/industries/${industry.id}/comprehensive`} className="block">
+                      <Button variant="default" size="sm" className="w-full bg-green-600 hover:bg-green-700">
                         <Edit className="h-4 w-4 mr-2" />
-                        Edit
+                        Full Content Editor
                       </Button>
                     </Link>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => deleteIndustry(industry.id)}
-                      className="text-red-600 hover:text-red-700 hover:bg-red-50"
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
                   </div>
                 </CardContent>
               </Card>

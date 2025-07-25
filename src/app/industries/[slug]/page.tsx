@@ -216,21 +216,56 @@ const industryConfigs = {
   }
 }
 
-// Get industry data from CMS
+// Get comprehensive industry data from CMS
 async function getIndustryData(slug: string) {
   try {
-    const { data, error } = await supabaseAdmin
-      .from('industries')
+    // Get main industry data
+    const { data: industryData, error: industryError } = await supabaseAdmin
+      .from('industry_content')
       .select('*')
       .eq('slug', slug)
       .single()
 
-    if (error) {
-      console.error('Error fetching industry:', error)
+    if (industryError) {
+      console.error('Error fetching industry:', industryError)
       return null
     }
 
-    return data
+    // Get solutions
+    const { data: solutions } = await supabaseAdmin
+      .from('industry_solutions')
+      .select('*')
+      .eq('industry_slug', slug)
+      .order('sort_order')
+
+    // Get benefits
+    const { data: benefits } = await supabaseAdmin
+      .from('industry_benefits')
+      .select('*')
+      .eq('industry_slug', slug)
+      .order('sort_order')
+
+    // Get case studies
+    const { data: caseStudies } = await supabaseAdmin
+      .from('industry_case_studies')
+      .select('*')
+      .eq('industry_slug', slug)
+      .order('sort_order')
+
+    // Get statistics
+    const { data: statistics } = await supabaseAdmin
+      .from('industry_statistics')
+      .select('*')
+      .eq('industry_slug', slug)
+      .order('sort_order')
+
+    return {
+      ...industryData,
+      solutions: solutions || [],
+      benefits: benefits || [],
+      case_studies: caseStudies || [],
+      statistics: statistics || []
+    }
   } catch (error) {
     console.error('Error fetching industry:', error)
     return null
@@ -275,8 +310,11 @@ export default async function IndustryPage({ params }: IndustryPageProps) {
     case_studies_count: 0
   }
   
-  const solutions = config?.solutions || []
-  const benefits = config?.benefits || []
+  // Use database data if available, otherwise fallback to config
+  const solutions = industryData?.solutions || config?.solutions || []
+  const benefits = industryData?.benefits || config?.benefits || []
+  const caseStudies = industryData?.case_studies || []
+  const statistics = industryData?.statistics || []
   const MainIcon = config?.icon || Building2
 
   return (
@@ -292,7 +330,7 @@ export default async function IndustryPage({ params }: IndustryPageProps) {
           provider: seoSettings.organization_name || 'Modular Building Solutions',
           areaServed: 'United States',
           category: industry.name,
-          offers: solutions.map(s => s.title)
+          offers: solutions.map((s: any) => s.title)
         }}
       />
 
@@ -321,33 +359,40 @@ export default async function IndustryPage({ params }: IndustryPageProps) {
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-              {solutions.map((solution, index) => (
-                <div key={index} className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-                  <div className="relative h-48">
-                    <Image
-                      src={solution.image}
-                      alt={solution.title}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                  <div className="p-6">
-                    <div className="flex items-center mb-4">
-                      <solution.icon className="h-8 w-8 text-primary mr-3" />
-                      <h3 className="text-xl font-bold text-primary">{solution.title}</h3>
+              {solutions.map((solution: any, index: number) => {
+                // Handle both database structure and config structure
+                const SolutionIcon = solution.icon || Building2
+                const imageUrl = solution.image_url || solution.image || 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp'
+                const features = solution.features || []
+                
+                return (
+                  <div key={index} className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                    <div className="relative h-48">
+                      <Image
+                        src={imageUrl}
+                        alt={solution.title}
+                        fill
+                        className="object-cover"
+                      />
                     </div>
-                    <p className="text-gray-600 mb-4">{solution.description}</p>
-                    <ul className="space-y-2">
-                      {solution.features.map((feature, idx) => (
-                        <li key={idx} className="flex items-center text-sm text-gray-700">
-                          <CheckCircle className="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
+                    <div className="p-6">
+                      <div className="flex items-center mb-4">
+                        <SolutionIcon className="h-8 w-8 text-primary mr-3" />
+                        <h3 className="text-xl font-bold text-primary">{solution.title}</h3>
+                      </div>
+                      <p className="text-gray-600 mb-4">{solution.description}</p>
+                      <ul className="space-y-2">
+                        {features.map((feature: string, idx: number) => (
+                          <li key={idx} className="flex items-center text-sm text-gray-700">
+                            <CheckCircle className="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
+                            {feature}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   </div>
-                </div>
-              ))}
+                )
+              })}
             </div>
           </div>
         </section>
@@ -364,13 +409,59 @@ export default async function IndustryPage({ params }: IndustryPageProps) {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {benefits.map((benefit, index) => (
-                <div key={index} className="text-center">
-                  <div className="inline-flex items-center justify-center w-16 h-16 bg-primary rounded-full mb-6">
-                    <benefit.icon className="h-8 w-8 text-white" />
+              {benefits.map((benefit: any, index: number) => {
+                // Handle both database structure and config structure
+                const BenefitIcon = benefit.icon || Clock
+                
+                return (
+                  <div key={index} className="text-center">
+                    <div className="inline-flex items-center justify-center w-16 h-16 bg-primary rounded-full mb-6">
+                      <BenefitIcon className="h-8 w-8 text-white" />
+                    </div>
+                    <h3 className="text-xl font-bold text-primary mb-4">{benefit.title}</h3>
+                    <p className="text-gray-600 leading-relaxed">{benefit.description}</p>
                   </div>
-                  <h3 className="text-xl font-bold text-primary mb-4">{benefit.title}</h3>
-                  <p className="text-gray-600 leading-relaxed">{benefit.description}</p>
+                )
+              })}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Case Studies Section */}
+      {caseStudies.length > 0 && (
+        <section className="py-20 bg-white">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-bold text-primary mb-6">Success Stories</h2>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                Real results from {industry.name.toLowerCase()} organizations across the country.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              {caseStudies.map((study: any, index: number) => (
+                <div key={index} className="bg-gray-50 rounded-2xl overflow-hidden">
+                  <div className="relative h-48">
+                    <Image
+                      src={study.image_url || 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp'}
+                      alt={study.title}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold text-primary mb-3">{study.title}</h3>
+                    <p className="text-gray-600 mb-4">{study.description}</p>
+                    <div className="space-y-2">
+                      {study.results.map((result: any, idx: number) => (
+                        <div key={idx} className="flex items-center text-sm text-gray-700">
+                          <CheckCircle className="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
+                          {result}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
@@ -379,7 +470,7 @@ export default async function IndustryPage({ params }: IndustryPageProps) {
       )}
 
       {/* Statistics Section */}
-      {industryData?.statistics && (
+      {statistics.length > 0 && (
         <section className="py-20 hero-gradient">
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
@@ -387,12 +478,13 @@ export default async function IndustryPage({ params }: IndustryPageProps) {
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center text-white">
-              {Object.entries(industryData.statistics).map(([key, value], index) => (
+              {statistics.map((statistic: any, index: number) => (
                 <div key={index}>
-                  <div className="text-5xl font-bold text-yellow-400 mb-2">{String(value)}</div>
-                  <div className="text-xl text-blue-100">
-                    {key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
-                  </div>
+                  <div className="text-5xl font-bold text-yellow-400 mb-2">{statistic.value}</div>
+                  <div className="text-xl text-blue-100">{statistic.label}</div>
+                  {statistic.description && (
+                    <div className="text-sm text-blue-200 mt-1">{statistic.description}</div>
+                  )}
                 </div>
               ))}
             </div>
