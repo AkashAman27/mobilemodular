@@ -15,7 +15,12 @@ export async function POST(request: NextRequest) {
     ]
 
     for (const dropQuery of dropTables) {
-      await supabaseAdmin.rpc('exec_sql', { query: dropQuery })
+      try {
+        const { error } = await supabaseAdmin.rpc('exec_sql', { sql: dropQuery })
+        if (error) console.log('Drop table error (expected):', error)
+      } catch (err) {
+        console.log('Drop table error (expected):', err)
+      }
     }
 
     // Create industry_content table (main industry data)
@@ -105,7 +110,8 @@ export async function POST(request: NextRequest) {
     // Create tables
     for (const table of tables) {
       try {
-        await supabaseAdmin.rpc('exec_sql', { query: table.query })
+        const { error } = await supabaseAdmin.rpc('exec_sql', { sql: table.query })
+        if (error) throw error
         console.log(`✅ Created table: ${table.name}`)
       } catch (error) {
         console.error(`❌ Error creating ${table.name}:`, error)
@@ -126,7 +132,8 @@ export async function POST(request: NextRequest) {
 
     for (const indexQuery of indexes) {
       try {
-        await supabaseAdmin.rpc('exec_sql', { query: indexQuery })
+        const { error } = await supabaseAdmin.rpc('exec_sql', { sql: indexQuery })
+        if (error) throw error
         console.log('✅ Created index')
       } catch (error) {
         console.error('❌ Error creating index:', error)
@@ -158,7 +165,8 @@ export async function POST(request: NextRequest) {
 
     for (const policy of rlsPolicies) {
       try {
-        await supabaseAdmin.rpc('exec_sql', { query: policy })
+        const { error } = await supabaseAdmin.rpc('exec_sql', { sql: policy })
+        if (error) throw error
         console.log('✅ Applied RLS policy')
       } catch (error) {
         console.error('❌ Error applying RLS policy:', error)

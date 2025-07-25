@@ -90,29 +90,28 @@ export default function InventoryEditPage() {
     try {
       setLoading(true)
       
-      // Fetch categories
-      const { data: categoriesData } = await supabase
-        .from('inventory_categories')
-        .select('id, name, slug')
-        .eq('is_active', true)
-        .order('order_index')
-
-      // Fetch inventory item
-      const { data: itemData } = await supabase
-        .from('inventory_items')
-        .select('*')
-        .eq('id', params.id)
-        .single()
-
-      setCategories(categoriesData || [])
+      // Fetch categories using admin API
+      const categoriesResponse = await fetch('/api/inventory-admin/categories')
+      const categoriesResult = await categoriesResponse.json()
       
-      if (itemData) {
+      // Fetch inventory item using admin API
+      const itemResponse = await fetch(`/api/inventory-admin/${params.id}`)
+      const itemResult = await itemResponse.json()
+
+      if (categoriesResult.success) {
+        setCategories(categoriesResult.categories || [])
+      }
+      
+      if (itemResult.success && itemResult.item) {
         setItem({
-          ...itemData,
-          features: itemData.features || [],
-          gallery_images: itemData.gallery_images || [],
-          specifications: itemData.specifications || {}
+          ...itemResult.item,
+          features: itemResult.item.features || [],
+          gallery_images: itemResult.item.gallery_images || [],
+          specifications: itemResult.item.specifications || {}
         })
+      } else {
+        console.error('Failed to fetch item:', itemResult)
+        toast.error('Failed to load inventory item: ' + (itemResult.error || 'Unknown error'))
       }
     } catch (error) {
       console.error('Error fetching data:', error)
@@ -166,47 +165,32 @@ export default function InventoryEditPage() {
         meta_title: item.meta_title?.trim() || null,
         meta_description: item.meta_description?.trim() || null,
         is_active: item.is_active || false,
-        is_featured: item.is_featured || false,
-        updated_at: new Date().toISOString()
+        is_featured: item.is_featured || false
       }
 
-      console.log('Updating item with data:', updateData)
-      console.log('Target item ID:', item.id)
+      console.log('🌐 Using admin API to update item:', updateData)
 
-      const { data, error } = await supabase
-        .from('inventory_items')
-        .update(updateData)
-        .eq('id', item.id)
-        .select()
+      // Use admin API instead of direct Supabase client
+      const response = await fetch(`/api/inventory-admin/${item.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updateData)
+      })
 
-      console.log('Update result:', { data, error })
-      
-      if (!error && (!data || data.length === 0)) {
-        console.warn('⚠️ Update reported success but no rows were affected - item may not exist!')
-        console.log('Checking if item exists in database...')
-        
-        const { data: checkData, error: checkError } = await supabase
-          .from('inventory_items')
-          .select('id, name')
-          .eq('id', item.id)
-          .single()
-          
-        if (checkError || !checkData) {
-          throw new Error(`Item with ID ${item.id} does not exist in database`)
-        }
+      const result = await response.json()
+      console.log('🔄 Admin API response:', result)
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.error || 'Failed to update item')
       }
 
-      if (error) {
-        console.error('Supabase error:', error)
-        throw error
-      }
-
-      // Update was successful - either data contains the updated item or null due to RLS
-      // In either case, update local state to reflect the changes
+      // Update local state with the returned data
       console.log('✅ Database update successful, updating local state')
       setItem({
         ...item,
-        ...updateData
+        ...result.item
       })
 
       toast.dismiss('save-operation')
@@ -214,11 +198,8 @@ export default function InventoryEditPage() {
         duration: 3000,
         position: 'top-center'
       })
-      console.log('📝 Updated item state with new data:', updateData)
+      console.log('📝 Updated item state with new data from server:', result.item)
 
-      // Note: We don't need to refresh from database since we've already updated local state
-      // and the database update was successful. Refreshing would just overwrite our changes.
-      console.log('✅ Save operation completed successfully - no refresh needed')
     } catch (error) {
       console.error('💥 Error saving item:', error)
       toast.dismiss('save-operation')

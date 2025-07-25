@@ -15,9 +15,30 @@ import { getSEOPageData, getSEOSettings, generateMetadata as generateSEOMetadata
 import SEOContent from '@/components/SEOContent'
 import type { Metadata } from 'next'
 import { supabaseAdmin } from '@/lib/supabase'
+import { industryData, getIndustryData } from '@/data/industry-data'
+import ClientIndustryPage from '@/components/ClientIndustryPage'
 
 interface IndustryPageProps {
   params: { slug: string }
+}
+
+// Icon mapping for database icon names to actual components
+const iconMap: Record<string, any> = {
+  BookOpen,
+  Calculator,
+  Beaker,
+  Building2,
+  HardHat,
+  Shield,
+  Users,
+  Clock,
+  ArrowRight,
+  CheckCircle,
+  Stethoscope,
+  Building,
+  ShoppingBag,
+  AlertTriangle,
+  GraduationCap
 }
 
 // Industry-specific configurations
@@ -216,72 +237,23 @@ const industryConfigs = {
   }
 }
 
-// Get comprehensive industry data from CMS
-async function getIndustryData(slug: string) {
-  try {
-    // Get main industry data
-    const { data: industryData, error: industryError } = await supabaseAdmin
-      .from('industry_content')
-      .select('*')
-      .eq('slug', slug)
-      .single()
-
-    if (industryError) {
-      console.error('Error fetching industry:', industryError)
-      return null
-    }
-
-    // Get solutions
-    const { data: solutions } = await supabaseAdmin
-      .from('industry_solutions')
-      .select('*')
-      .eq('industry_slug', slug)
-      .order('sort_order')
-
-    // Get benefits
-    const { data: benefits } = await supabaseAdmin
-      .from('industry_benefits')
-      .select('*')
-      .eq('industry_slug', slug)
-      .order('sort_order')
-
-    // Get case studies
-    const { data: caseStudies } = await supabaseAdmin
-      .from('industry_case_studies')
-      .select('*')
-      .eq('industry_slug', slug)
-      .order('sort_order')
-
-    // Get statistics
-    const { data: statistics } = await supabaseAdmin
-      .from('industry_statistics')
-      .select('*')
-      .eq('industry_slug', slug)
-      .order('sort_order')
-
-    return {
-      ...industryData,
-      solutions: solutions || [],
-      benefits: benefits || [],
-      case_studies: caseStudies || [],
-      statistics: statistics || []
-    }
-  } catch (error) {
-    console.error('Error fetching industry:', error)
-    return null
-  }
+// Get industry data from shared data source (CMS updates)
+function getSharedIndustryData(slug: string) {
+  // Return the industryData object which gets updated by the API endpoint
+  // The API endpoint updates this object directly via Object.assign
+  return industryData[slug as keyof typeof industryData] || null
 }
 
 // Generate metadata for SEO
 export async function generateMetadata({ params }: IndustryPageProps): Promise<Metadata> {
-  const industryData = await getIndustryData(params.slug)
+  const sharedData = getSharedIndustryData(params.slug)
   const seoData = await getSEOPageData(`/industries/${params.slug}`)
   const seoSettings = await getSEOSettings()
   
-  const fallbackTitle = industryData 
-    ? `${industryData.name} Industry Solutions - Modular Buildings`
+  const fallbackTitle = sharedData 
+    ? `${sharedData.industry.name} Industry Solutions - Modular Buildings`
     : 'Industry Solutions - Modular Building Solutions'
-  const fallbackDescription = industryData?.description || 'Specialized modular building solutions for your industry needs.'
+  const fallbackDescription = sharedData?.industry.description || 'Specialized modular building solutions for your industry needs.'
   
   return generateSEOMetadata(
     seoData || {},
@@ -292,239 +264,254 @@ export async function generateMetadata({ params }: IndustryPageProps): Promise<M
 }
 
 export default async function IndustryPage({ params }: IndustryPageProps) {
-  const industryData = await getIndustryData(params.slug)
+  const sharedData = getSharedIndustryData(params.slug)
   const config = industryConfigs[params.slug as keyof typeof industryConfigs]
   
-  // If no industry data and no config, return 404
-  if (!industryData && !config) {
+  // If no shared data and no config, return 404
+  if (!sharedData && !config) {
     notFound()
   }
   
   const seoSettings = await getSEOSettings()
   const breadcrumbs = getBreadcrumbs(`/industries/${params.slug}`)
   
-  // Use industry data or fallback to config
-  const industry = industryData || {
-    name: params.slug.replace(/[-_]/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
-    description: 'Specialized modular building solutions for your industry needs.',
-    case_studies_count: 0
-  }
-  
-  // Use database data if available, otherwise fallback to config
-  const solutions = industryData?.solutions || config?.solutions || []
-  const benefits = industryData?.benefits || config?.benefits || []
-  const caseStudies = industryData?.case_studies || []
-  const statistics = industryData?.statistics || []
-  const MainIcon = config?.icon || Building2
+  // Create fallback data structure that matches shared data format
+  const fallbackData = config ? {
+    industry: {
+      name: params.slug.replace(/[-_]/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
+      description: 'Specialized modular building solutions for your industry needs.',
+      case_studies_count: 0
+    },
+    solutions: config.solutions,
+    benefits: config.benefits,
+    caseStudies: [],
+    statistics: []
+  } : null
 
   return (
-    <PageLayout>
-      {/* Structured Data */}
-      <StructuredData
-        type="Service"
-        data={{
-          name: `${industry.name} Industry Solutions`,
-          description: industry.description,
-          url: `${seoSettings.site_url}/industries/${params.slug}`,
-          serviceType: `${industry.name} Facility Solutions`,
-          provider: seoSettings.organization_name || 'Modular Building Solutions',
-          areaServed: 'United States',
-          category: industry.name,
-          offers: solutions.map((s: any) => s.title)
-        }}
-      />
+    <ClientIndustryPage slug={params.slug} fallbackData={sharedData || fallbackData}>
+      {(data: any) => {
+        if (!data) {
+          notFound()
+        }
 
-      {/* Breadcrumb Structured Data */}
-      <BreadcrumbStructuredData breadcrumbs={breadcrumbs} />
-      
-      <PageHeader
-        subtitle="Industry Solutions"
-        title={industry.name}
-        description={industry.description}
-        breadcrumbs={[
-          { label: 'Home', href: '/' },
-          { label: 'Industries', href: '/industries' },
-          { label: industry.name, href: `/industries/${params.slug}` }
-        ]}
-      />
+        const industry = data.industry
+        const solutions = data.solutions || []
+        const benefits = data.benefits || []
+        const caseStudies = data.caseStudies || []
+        const statistics = data.statistics || []
 
-      {solutions.length > 0 && (
-        <section className="py-20 bg-white">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-primary mb-6">{industry.name} Solutions</h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Purpose-built modular buildings designed for the unique needs of the {industry.name.toLowerCase()} industry.
-              </p>
-            </div>
+        return (
+          <PageLayout>
+            {/* Structured Data */}
+            <StructuredData
+              type="Service"
+              data={{
+                name: `${industry.name} Industry Solutions`,
+                description: industry.description,
+                url: `${seoSettings.site_url}/industries/${params.slug}`,
+                serviceType: `${industry.name} Facility Solutions`,
+                provider: seoSettings.organization_name || 'Modular Building Solutions',
+                areaServed: 'United States',
+                category: industry.name,
+                offers: solutions.map((s: any) => s.title)
+              }}
+            />
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-              {solutions.map((solution: any, index: number) => {
-                // Handle both database structure and config structure
-                const SolutionIcon = solution.icon || Building2
-                const imageUrl = solution.image_url || solution.image || 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp'
-                const features = solution.features || []
-                
-                return (
-                  <div key={index} className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-                    <div className="relative h-48">
-                      <Image
-                        src={imageUrl}
-                        alt={solution.title}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                    <div className="p-6">
-                      <div className="flex items-center mb-4">
-                        <SolutionIcon className="h-8 w-8 text-primary mr-3" />
-                        <h3 className="text-xl font-bold text-primary">{solution.title}</h3>
-                      </div>
-                      <p className="text-gray-600 mb-4">{solution.description}</p>
-                      <ul className="space-y-2">
-                        {features.map((feature: string, idx: number) => (
-                          <li key={idx} className="flex items-center text-sm text-gray-700">
-                            <CheckCircle className="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
-                            {feature}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                )
-              })}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {benefits.length > 0 && (
-        <section className="py-20 bg-gray-50">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-primary mb-6">Why Choose Our {industry.name} Solutions</h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Specialized solutions designed specifically for {industry.name.toLowerCase()} industry requirements.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {benefits.map((benefit: any, index: number) => {
-                // Handle both database structure and config structure
-                const BenefitIcon = benefit.icon || Clock
-                
-                return (
-                  <div key={index} className="text-center">
-                    <div className="inline-flex items-center justify-center w-16 h-16 bg-primary rounded-full mb-6">
-                      <BenefitIcon className="h-8 w-8 text-white" />
-                    </div>
-                    <h3 className="text-xl font-bold text-primary mb-4">{benefit.title}</h3>
-                    <p className="text-gray-600 leading-relaxed">{benefit.description}</p>
-                  </div>
-                )
-              })}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Case Studies Section */}
-      {caseStudies.length > 0 && (
-        <section className="py-20 bg-white">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-primary mb-6">Success Stories</h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Real results from {industry.name.toLowerCase()} organizations across the country.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-              {caseStudies.map((study: any, index: number) => (
-                <div key={index} className="bg-gray-50 rounded-2xl overflow-hidden">
-                  <div className="relative h-48">
-                    <Image
-                      src={study.image_url || 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp'}
-                      alt={study.title}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold text-primary mb-3">{study.title}</h3>
-                    <p className="text-gray-600 mb-4">{study.description}</p>
-                    <div className="space-y-2">
-                      {study.results.map((result: any, idx: number) => (
-                        <div key={idx} className="flex items-center text-sm text-gray-700">
-                          <CheckCircle className="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
-                          {result}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Statistics Section */}
-      {statistics.length > 0 && (
-        <section className="py-20 hero-gradient">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-white mb-6">Our {industry.name} Impact</h2>
-            </div>
+            {/* Breadcrumb Structured Data */}
+            <BreadcrumbStructuredData breadcrumbs={breadcrumbs} />
             
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center text-white">
-              {statistics.map((statistic: any, index: number) => (
-                <div key={index}>
-                  <div className="text-5xl font-bold text-yellow-400 mb-2">{statistic.value}</div>
-                  <div className="text-xl text-blue-100">{statistic.label}</div>
-                  {statistic.description && (
-                    <div className="text-sm text-blue-200 mt-1">{statistic.description}</div>
-                  )}
+            <PageHeader
+              subtitle="Industry Solutions"
+              title={industry.name}
+              description={industry.description}
+              breadcrumbs={[
+                { label: 'Home', href: '/' },
+                { label: 'Industries', href: '/industries' },
+                { label: industry.name, href: `/industries/${params.slug}` }
+              ]}
+            />
+
+            {solutions.length > 0 && (
+              <section className="py-20 bg-white">
+                <div className="container mx-auto px-4">
+                  <div className="text-center mb-16">
+                    <h2 className="text-4xl font-bold text-primary mb-6">{industry.name} Solutions</h2>
+                    <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                      Purpose-built modular buildings designed for the unique needs of the {industry.name.toLowerCase()} industry.
+                    </p>
+                  </div>
+
+                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    {solutions.map((solution: any, index: number) => {
+                      // Handle both database structure and config structure
+                      const SolutionIcon = solution.icon_name ? (iconMap[solution.icon_name] || Building2) : (solution.icon || Building2)
+                      const imageUrl = solution.image_url || solution.image || 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp'
+                      const features = solution.features || []
+                      
+                      return (
+                        <div key={index} className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                          <div className="relative h-48">
+                            <Image
+                              src={imageUrl}
+                              alt={solution.title}
+                              fill
+                              className="object-cover"
+                            />
+                          </div>
+                          <div className="p-6">
+                            <div className="flex items-center mb-4">
+                              <SolutionIcon className="h-8 w-8 text-primary mr-3" />
+                              <h3 className="text-xl font-bold text-primary">{solution.title}</h3>
+                            </div>
+                            <p className="text-gray-600 mb-4">{solution.description}</p>
+                            <ul className="space-y-2">
+                              {features.map((feature: string, idx: number) => (
+                                <li key={idx} className="flex items-center text-sm text-gray-700">
+                                  <CheckCircle className="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
+                                  {feature}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        </div>
+                      )
+                    })}
+                  </div>
                 </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
+              </section>
+            )}
 
-      {/* SEO Content Section */}
-      <SEOContent 
-        title={`Comprehensive Modular Solutions for ${industry.name} Excellence`}
-        paragraphs={[
-          `Our modular buildings provide ${industry.name.toLowerCase()} organizations with flexible, cost-effective space solutions that can be deployed quickly without disrupting operations. We understand the unique needs of ${industry.name.toLowerCase()} facilities and design our solutions accordingly.`,
-          `With years of experience serving the ${industry.name.toLowerCase()} industry, we've developed specialized solutions that meet industry standards while providing the flexibility to adapt to changing requirements. Our buildings are designed with your specific operational needs in mind.`,
-          `Every ${industry.name.toLowerCase()} modular building we provide includes the proper features, safety requirements, and compliance standards required for your industry. We work closely with your team to ensure all regulations and requirements are met.`
-        ]}
-      />
+            {benefits.length > 0 && (
+              <section className="py-20 bg-gray-50">
+                <div className="container mx-auto px-4">
+                  <div className="text-center mb-16">
+                    <h2 className="text-4xl font-bold text-primary mb-6">Why Choose Our {industry.name} Solutions</h2>
+                    <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                      Specialized solutions designed specifically for {industry.name.toLowerCase()} industry requirements.
+                    </p>
+                  </div>
 
-      {/* FAQ Section */}
-      <FAQ faqs={industriesFAQs} />
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    {benefits.map((benefit: any, index: number) => {
+                      // Handle both database structure and config structure
+                      const BenefitIcon = benefit.icon_name ? (iconMap[benefit.icon_name] || Clock) : (benefit.icon || Clock)
+                      
+                      return (
+                        <div key={index} className="text-center">
+                          <div className="inline-flex items-center justify-center w-16 h-16 bg-primary rounded-full mb-6">
+                            <BenefitIcon className="h-8 w-8 text-white" />
+                          </div>
+                          <h3 className="text-xl font-bold text-primary mb-4">{benefit.title}</h3>
+                          <p className="text-gray-600 leading-relaxed">{benefit.description}</p>
+                        </div>
+                      )
+                    })}
+                  </div>
+                </div>
+              </section>
+            )}
 
-      {/* CTA Section */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl font-bold text-primary mb-6">
-            Ready to Enhance Your {industry.name} Operations?
-          </h2>
-          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-            Let us help you create the specialized facilities your {industry.name.toLowerCase()} organization needs. Get a custom quote for your project.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button variant="gradient" size="xl" className="group">
-              Get {industry.name} Quote
-              <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-            </Button>
-            <Button variant="outline" size="xl" className="border-primary text-primary hover:bg-primary hover:text-white">
-              Schedule Consultation
-            </Button>
-          </div>
-        </div>
-      </section>
-    </PageLayout>
+            {/* Case Studies Section */}
+            {caseStudies.length > 0 && (
+              <section className="py-20 bg-white">
+                <div className="container mx-auto px-4">
+                  <div className="text-center mb-16">
+                    <h2 className="text-4xl font-bold text-primary mb-6">Success Stories</h2>
+                    <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                      Real results from {industry.name.toLowerCase()} organizations across the country.
+                    </p>
+                  </div>
+
+                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    {caseStudies.map((study: any, index: number) => (
+                      <div key={index} className="bg-gray-50 rounded-2xl overflow-hidden">
+                        <div className="relative h-48">
+                          <Image
+                            src={study.image_url || 'https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/office_single_single_office_modular_building_inter.webp'}
+                            alt={study.title}
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                        <div className="p-6">
+                          <h3 className="text-xl font-bold text-primary mb-3">{study.title}</h3>
+                          <p className="text-gray-600 mb-4">{study.description}</p>
+                          <div className="space-y-2">
+                            {study.results.map((result: any, idx: number) => (
+                              <div key={idx} className="flex items-center text-sm text-gray-700">
+                                <CheckCircle className="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
+                                {result}
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </section>
+            )}
+
+            {/* Statistics Section */}
+            {statistics.length > 0 && (
+              <section className="py-20 hero-gradient">
+                <div className="container mx-auto px-4">
+                  <div className="text-center mb-16">
+                    <h2 className="text-4xl font-bold text-white mb-6">Our {industry.name} Impact</h2>
+                  </div>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center text-white">
+                    {statistics.map((statistic: any, index: number) => (
+                      <div key={index}>
+                        <div className="text-5xl font-bold text-yellow-400 mb-2">{statistic.value}</div>
+                        <div className="text-xl text-blue-100">{statistic.label}</div>
+                        {statistic.description && (
+                          <div className="text-sm text-blue-200 mt-1">{statistic.description}</div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </section>
+            )}
+
+            {/* SEO Content Section */}
+            <SEOContent 
+              title={`Comprehensive Modular Solutions for ${industry.name} Excellence`}
+              paragraphs={[
+                `Our modular buildings provide ${industry.name.toLowerCase()} organizations with flexible, cost-effective space solutions that can be deployed quickly without disrupting operations. We understand the unique needs of ${industry.name.toLowerCase()} facilities and design our solutions accordingly.`,
+                `With years of experience serving the ${industry.name.toLowerCase()} industry, we've developed specialized solutions that meet industry standards while providing the flexibility to adapt to changing requirements. Our buildings are designed with your specific operational needs in mind.`,
+                `Every ${industry.name.toLowerCase()} modular building we provide includes the proper features, safety requirements, and compliance standards required for your industry. We work closely with your team to ensure all regulations and requirements are met.`
+              ]}
+            />
+
+            {/* FAQ Section */}
+            <FAQ faqs={industriesFAQs} />
+
+            {/* CTA Section */}
+            <section className="py-20 bg-white">
+              <div className="container mx-auto px-4 text-center">
+                <h2 className="text-4xl font-bold text-primary mb-6">
+                  Ready to Enhance Your {industry.name} Operations?
+                </h2>
+                <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+                  Let us help you create the specialized facilities your {industry.name.toLowerCase()} organization needs. Get a custom quote for your project.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <Button variant="gradient" size="xl" className="group">
+                    Get {industry.name} Quote
+                    <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                  </Button>
+                  <Button variant="outline" size="xl" className="border-primary text-primary hover:bg-primary hover:text-white">
+                    Schedule Consultation
+                  </Button>
+                </div>
+              </div>
+            </section>
+          </PageLayout>
+        )
+      }}
+    </ClientIndustryPage>
   )
 }
