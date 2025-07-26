@@ -85,11 +85,6 @@ export default function AdminLogin() {
               {loading ? 'Signing in...' : 'Sign In'}
             </Button>
           </form>
-          <div className="mt-4 p-3 bg-blue-50 rounded-md">
-            <p className="text-sm text-blue-600">
-              <strong>Note:</strong> Use your Supabase Auth credentials. Create users in your Supabase Dashboard → Authentication → Users.
-            </p>
-          </div>
         </CardContent>
       </Card>
     </div>
