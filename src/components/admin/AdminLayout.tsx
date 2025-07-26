@@ -257,7 +257,9 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
             </div>
           </div>
           <div className="ml-3">
-            <p className="text-sm font-medium text-white">Admin User</p>
+            <p className="text-sm font-medium text-white">
+              {user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'Admin User'}
+            </p>
             <p className="text-xs text-slate-400">Dashboard Mode</p>
           </div>
         </div>

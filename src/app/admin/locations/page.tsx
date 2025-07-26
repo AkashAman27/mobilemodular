@@ -82,7 +82,6 @@ export default function LocationsAdmin() {
   const [loading, setLoading] = useState(true)
   const [selectedState, setSelectedState] = useState<string>('')
   const [showCreateForm, setShowCreateForm] = useState(false)
-  const [populating, setPopulating] = useState(false)
   const [formData, setFormData] = useState({
     name: '',
     abbreviation: '',
@@ -121,55 +120,6 @@ export default function LocationsAdmin() {
     }
   }
 
-  const populateFromStatesData = async () => {
-    setPopulating(true)
-    try {
-      // Import the states data directly
-      const { statesData } = await import('@/data/states-data')
-      
-      // Transform the data to match our interface
-      const transformedData = statesData.slice(0, 50).map(state => ({
-        id: crypto.randomUUID(),
-        state_id: state.id,
-        name: state.name,
-        abbreviation: state.abbreviation,
-        locations: state.locations,
-        phone: state.phone,
-        primary_city: state.primaryCity,
-        coverage: state.coverage,
-        description: state.description,
-        major_cities: state.majorCities,
-        service_areas: state.serviceAreas,
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString()
-      }))
-
-      // Try to insert to Supabase, but fall back to local state if it fails
-      try {
-        const { data, error } = await supabase
-          .from('state_locations')
-          .insert(transformedData)
-          .select()
-
-        if (error) {
-          // If Supabase fails, just populate the local state
-          setStateLocations(transformedData)
-          alert(`Successfully populated ${transformedData.length} states (local mode - Supabase not connected)`)
-        } else {
-          await fetchStateLocations()
-          alert(`Successfully populated ${data.length} states in Supabase!`)
-        }
-      } catch (dbError) {
-        // Fallback to local state
-        setStateLocations(transformedData)
-        alert(`Successfully populated ${transformedData.length} states (local mode - Supabase not connected)`)
-      }
-    } catch (error) {
-      alert('Error loading states data')
-    } finally {
-      setPopulating(false)
-    }
-  }
 
   const handleStateSelect = (stateName: string, abbreviation: string, stateId: string) => {
     setSelectedState(stateName)
@@ -361,15 +311,6 @@ export default function LocationsAdmin() {
                 variant="outline"
                 size="sm"
               />
-              <Button 
-                onClick={populateFromStatesData}
-                disabled={populating}
-                variant="outline"
-                className="text-blue-600 border-blue-600 hover:bg-blue-50"
-              >
-                <RefreshCw className={`h-4 w-4 mr-2 ${populating ? 'animate-spin' : ''}`} />
-                {populating ? 'Populating...' : 'Auto-Populate All States'}
-              </Button>
               {availableStates.length > 0 ? (
                 <Button 
                   onClick={() => setShowCreateForm(!showCreateForm)}
@@ -575,7 +516,7 @@ export default function LocationsAdmin() {
               <CardHeader>
                 <CardTitle>No State Location Data Found</CardTitle>
                 <CardDescription>
-                  No state location data has been configured yet. Use the "Auto-Populate All States" button to populate with demo data, or add individual states manually.
+                  No state location data has been configured yet. Add individual states manually using the "Add State Data" button above.
                 </CardDescription>
               </CardHeader>
             </Card>
