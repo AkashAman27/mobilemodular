@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useRouter } from 'next/navigation'
+import { supabase } from '@/lib/supabase'
 
 export default function AdminLogin() {
   const [email, setEmail] = useState('')
@@ -20,21 +21,16 @@ export default function AdminLogin() {
     setError('')
 
     try {
-      const response = await fetch('/api/admin/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
+      const { data, error: authError } = await supabase.auth.signInWithPassword({
+        email,
+        password,
       })
 
-      const data = await response.json()
-
-      if (response.ok) {
+      if (authError) {
+        setError(authError.message)
+      } else if (data.user) {
         router.push('/admin')
         router.refresh()
-      } else {
-        setError(data.error || 'Login failed')
       }
     } catch (error) {
       setError('Network error. Please try again.')
@@ -49,7 +45,7 @@ export default function AdminLogin() {
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold text-center">Admin Login</CardTitle>
           <CardDescription className="text-center">
-            Enter your credentials to access the admin panel
+            Enter your Supabase credentials to access the admin panel
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -89,6 +85,11 @@ export default function AdminLogin() {
               {loading ? 'Signing in...' : 'Sign In'}
             </Button>
           </form>
+          <div className="mt-4 p-3 bg-blue-50 rounded-md">
+            <p className="text-sm text-blue-600">
+              <strong>Note:</strong> Use your Supabase Auth credentials. Create users in your Supabase Dashboard → Authentication → Users.
+            </p>
+          </div>
         </CardContent>
       </Card>
     </div>

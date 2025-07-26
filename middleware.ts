@@ -12,22 +12,6 @@ export async function middleware(request: NextRequest) {
     response.headers.set('Expires', '0')
   }
 
-  // Handle admin authentication
-  if (request.nextUrl.pathname.startsWith('/admin') && 
-      !request.nextUrl.pathname.startsWith('/admin/login')) {
-    
-    const sessionToken = request.cookies.get('admin_session')?.value
-    
-    if (!sessionToken) {
-      return NextResponse.redirect(new URL('/admin/login', request.url))
-    }
-    
-    // Set admin token header for API requests
-    if (sessionToken) {
-      response.headers.set('x-admin-token', sessionToken)
-    }
-  }
-
   return response
 }
 

@@ -1,11 +1,12 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import * as Icons from 'lucide-react'
-import { useAuth } from '@/contexts/AuthContext'
+import { supabase } from '@/lib/supabase'
+import { User } from '@supabase/supabase-js'
 
 const { 
   Building2, 
@@ -38,9 +39,31 @@ interface AdminLayoutProps {
 }
 
 export default function AdminLayout({ children }: AdminLayoutProps) {
-  const { signOut, user } = useAuth()
+  const [user, setUser] = useState<User | null>(null)
   const pathname = usePathname()
+  const router = useRouter()
   const [sidebarOpen, setSidebarOpen] = useState(false)
+
+  useEffect(() => {
+    // Get initial session
+    const getSession = async () => {
+      const { data: { session } } = await supabase.auth.getSession()
+      setUser(session?.user ?? null)
+    }
+    getSession()
+
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      setUser(session?.user ?? null)
+    })
+
+    return () => subscription.unsubscribe()
+  }, [])
+
+  const handleSignOut = async () => {
+    await supabase.auth.signOut()
+    router.push('/admin/login')
+  }
 
   const navigationItems = [
     {
@@ -254,7 +277,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
             variant="outline"
             size="sm"
             className="bg-blue-600 border-blue-600 text-white hover:bg-blue-700 hover:border-blue-700"
-            onClick={signOut}
+            onClick={handleSignOut}
           >
             <LogOut className="h-4 w-4" />
           </Button>

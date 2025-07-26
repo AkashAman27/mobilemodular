@@ -2,36 +2,43 @@
 
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { supabase } from '@/lib/supabase'
+import { User } from '@supabase/supabase-js'
 
 interface ProtectedRouteProps {
   children: React.ReactNode
 }
 
-interface AdminUser {
-  id: string
-  email: string
-  role: string
-}
-
 export function ProtectedRoute({ children }: ProtectedRouteProps) {
-  const [adminUser, setAdminUser] = useState<AdminUser | null>(null)
+  const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
   const router = useRouter()
 
   useEffect(() => {
-    checkAdminAuth()
-  }, [])
+    checkAuth()
 
-  const checkAdminAuth = async () => {
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === 'SIGNED_OUT' || !session) {
+        setUser(null)
+        router.push('/admin/login')
+      } else if (event === 'SIGNED_IN' && session) {
+        setUser(session.user)
+      }
+    })
+
+    return () => subscription.unsubscribe()
+  }, [router])
+
+  const checkAuth = async () => {
     try {
-      const response = await fetch('/api/admin/auth/verify', {
-        method: 'GET',
-        credentials: 'include'
-      })
-
-      if (response.ok) {
-        const data = await response.json()
-        setAdminUser(data.user)
+      const { data: { session }, error } = await supabase.auth.getSession()
+      
+      if (error) {
+        console.error('Auth error:', error)
+        router.push('/admin/login')
+      } else if (session?.user) {
+        setUser(session.user)
       } else {
         router.push('/admin/login')
       }
@@ -54,7 +61,7 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
     )
   }
 
-  if (!adminUser) {
+  if (!user) {
     return null // Will redirect to login
   }
 

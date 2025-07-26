@@ -8,7 +8,7 @@ import Link from 'next/link'
 import { useAuth } from '@/contexts/AuthContext'
 
 export default function AdminDashboard() {
-  const { signOut, user } = useAuth()
+  const { user } = useAuth()
 
   const adminSections = [
     {
