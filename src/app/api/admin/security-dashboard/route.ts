@@ -3,6 +3,8 @@ import { supabaseAdmin, requireServiceRoleKey } from '@/lib/supabase'
 import { withAdminAuth, auditLog } from '@/lib/auth-utils'
 import { PermissionChecks } from '@/lib/rbac'
 
+export const dynamic = 'force-dynamic'
+
 export async function GET(request: NextRequest) {
   return withAdminAuth(request, async (req, user) => {
     try {
