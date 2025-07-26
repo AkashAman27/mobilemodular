@@ -5,6 +5,7 @@ import { Building2, Users, Zap, Shield, ArrowRight, CheckCircle } from 'lucide-r
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import PageFAQs from '@/components/PageFAQs'
+import Link from 'next/link'
 
 export const metadata = {
   title: 'Modular Office Buildings - Rent, Buy, Lease | Modular Building Solutions',
@@ -162,9 +163,11 @@ export default function OfficeBuildingsPage() {
                     <div>Capacity: {spec.capacity}</div>
                   </div>
                   <div className="text-2xl font-bold text-steel-500 mb-4">{spec.price}</div>
-                  <Button variant="outline" className="w-full">
-                    Learn More
-                  </Button>
+                  <Link href="/quote">
+                    <Button variant="outline" className="w-full">
+                      Learn More
+                    </Button>
+                  </Link>
                 </div>
               </div>
             ))}
@@ -234,13 +237,17 @@ export default function OfficeBuildingsPage() {
             Get a custom quote for your modular office building project. We'll work with you to find the perfect solution.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button variant="gradient" size="xl" className="group">
-              Get Custom Quote
-              <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-            </Button>
-            <Button variant="outline" size="xl" className="border-white/30 text-white hover:bg-white/10">
-              Call (866) 819-9017
-            </Button>
+            <Link href="/quote">
+              <Button variant="gradient" size="xl" className="group">
+                Get Custom Quote
+                <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </Link>
+            <Link href="tel:8668199017">
+              <Button variant="outline" size="xl" className="border-white/30 text-white hover:bg-white/10">
+                Call (866) 819-9017
+              </Button>
+            </Link>
           </div>
         </div>
       </section>

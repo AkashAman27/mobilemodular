@@ -6,6 +6,9 @@ import { getSEOPageData, getSEOSettings, generateMetadata as generateSEOMetadata
 import { StructuredData, BreadcrumbStructuredData } from '@/components/seo/StructuredData'
 import type { Metadata } from 'next'
 
+// Enable ISR with revalidation every 60 seconds  
+export const revalidate = 60
+
 export async function generateMetadata(): Promise<Metadata> {
   const seoData = await getSEOPageData('/resources/live-inventory')
   const seoSettings = await getSEOSettings()

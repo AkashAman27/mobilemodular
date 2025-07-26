@@ -12,6 +12,9 @@ import { getSEOPageData, generateMetadata as generateSEOMetadata, getBreadcrumbs
 import SEOContent from '@/components/SEOContent'
 import type { Metadata } from 'next'
 
+// Enable ISR with revalidation every 60 seconds
+export const revalidate = 60
+
 const iconMap = {
   office: Building2,
   education: GraduationCap,
