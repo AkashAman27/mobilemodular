@@ -81,6 +81,19 @@ export async function POST(request: NextRequest) {
       }, { status: 500 })
     }
 
+    // Trigger revalidation of homepage after successful save
+    try {
+      await fetch(`${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/api/revalidate`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ path: '/' })
+      })
+      console.log('✅ Homepage revalidation triggered')
+    } catch (revalidateError) {
+      console.warn('⚠️ Failed to trigger revalidation:', revalidateError)
+      // Don't fail the request if revalidation fails
+    }
+
     return NextResponse.json({ 
       success: true, 
       data,
