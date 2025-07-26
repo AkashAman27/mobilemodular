@@ -6,40 +6,75 @@ import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import PageFAQs from '@/components/PageFAQs'
 import Link from 'next/link'
+import { supabaseAdmin } from '@/lib/supabase'
 
 export const metadata = {
   title: 'Modular Office Buildings - Rent, Buy, Lease | Modular Building Solutions',
   description: 'Professional modular office buildings for construction sites, temporary offices, and permanent installations. Flexible rental, purchase, and lease options available.',
 }
 
-export default function OfficeBuildingsPage() {
+// Fetch CMS data from Supabase
+async function getSolutionData() {
+  try {
+    const { data, error } = await supabaseAdmin
+      .from('solutions')
+      .select('*')
+      .eq('slug', 'office-buildings')
+      .single()
+
+    if (error) {
+      console.error('Error fetching solution data:', error)
+      return null
+    }
+
+    return data
+  } catch (error) {
+    console.error('Error fetching solution data:', error)
+    return null
+  }
+}
+
+export default async function OfficeBuildingsPage() {
+  // Fetch CMS data
+  const solutionData = await getSolutionData()
+  
   const locationName = undefined
   const locationType = undefined  
   const stateName = undefined
-  const features = [
+  // Icon mapping for features
+  const iconMap = {
+    Building2,
+    Users,
+    Zap,
+    Shield
+  }
+
+  // Use CMS feature cards or fallback to hardcoded data
+  const features = solutionData?.feature_cards || [
     {
-      icon: Building2,
+      icon: 'Building2',
       title: 'Professional Design',
       description: 'Modern interior finishes and professional appearance suitable for any business environment.'
     },
     {
-      icon: Users,
+      icon: 'Users',
       title: 'Flexible Capacity',
       description: 'Available in sizes from 2-person offices to large conference rooms and multi-room complexes.'
     },
     {
-      icon: Zap,
+      icon: 'Zap',
       title: 'Quick Setup',
       description: 'Fast delivery and professional installation, typically ready for occupancy within days.'
     },
     {
-      icon: Shield,
+      icon: 'Shield',
       title: 'Code Compliant',
       description: 'All units meet local building codes and ADA accessibility requirements.'
     }
   ]
 
-  const specifications = [
+  // Use CMS specifications or fallback to hardcoded data
+  const specifications = solutionData?.specifications || [
     {
       title: 'Single Office',
       size: '8\' x 20\'',
@@ -70,7 +105,8 @@ export default function OfficeBuildingsPage() {
     }
   ]
 
-  const included = [
+  // Use CMS included items or fallback to hardcoded data
+  const included = solutionData?.included_items || [
     'Professional interior finishes',
     'Climate control (heating & cooling)',
     'Electrical system with outlets',
@@ -122,15 +158,18 @@ export default function OfficeBuildingsPage() {
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {features.map((feature, index) => (
-              <div key={index} className="text-center">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-primary rounded-full mb-6">
-                  <feature.icon className="h-8 w-8 text-white" />
+            {features.map((feature, index) => {
+              const IconComponent = typeof feature.icon === 'string' ? iconMap[feature.icon] : feature.icon
+              return (
+                <div key={index} className="text-center">
+                  <div className="inline-flex items-center justify-center w-16 h-16 bg-primary rounded-full mb-6">
+                    <IconComponent className="h-8 w-8 text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold text-primary mb-4">{feature.title}</h3>
+                  <p className="text-gray-600 leading-relaxed">{feature.description}</p>
                 </div>
-                <h3 className="text-xl font-bold text-primary mb-4">{feature.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{feature.description}</p>
-              </div>
-            ))}
+              )
+            })}
           </div>
         </div>
       </section>
@@ -139,9 +178,11 @@ export default function OfficeBuildingsPage() {
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-primary mb-6">Available Configurations</h2>
+            <h2 className="text-4xl font-bold text-primary mb-6">
+              {solutionData?.specifications_title || 'Available Configurations'}
+            </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Choose from our standard configurations or let us customize a solution for your specific needs.
+              {solutionData?.specifications_subtitle || 'Choose from our standard configurations or let us customize a solution for your specific needs.'}
             </p>
           </div>
 

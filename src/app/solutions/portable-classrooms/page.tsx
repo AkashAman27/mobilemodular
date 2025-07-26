@@ -5,40 +5,74 @@ import { GraduationCap, Users, Book, Shield, ArrowRight, CheckCircle } from 'luc
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import PageFAQs from '@/components/PageFAQs'
+import { supabaseAdmin } from '@/lib/supabase'
 
 export const metadata = {
   title: 'Portable Classrooms - Educational Modular Buildings | Modular Building Solutions',
   description: 'Professional portable classrooms for schools and educational facilities. ADA compliant, energy efficient, and designed for modern learning environments.',
 }
 
-export default function PortableClassroomsPage() {
+// Fetch CMS data from Supabase
+async function getSolutionData() {
+  try {
+    const { data, error } = await supabaseAdmin
+      .from('solutions')
+      .select('*')
+      .eq('slug', 'portable-classrooms')
+      .single()
+
+    if (error) {
+      console.error('Error fetching solution data:', error)
+      return null
+    }
+
+    return data
+  } catch (error) {
+    console.error('Error fetching solution data:', error)
+    return null
+  }
+}
+
+export default async function PortableClassroomsPage() {
+  // Fetch CMS data
+  const solutionData = await getSolutionData()
   const locationName = undefined
   const locationType = undefined  
   const stateName = undefined
-  const features = [
+  // Icon mapping for features
+  const iconMap = {
+    GraduationCap,
+    Users,
+    Book,
+    Shield
+  }
+
+  // Use CMS feature cards or fallback to hardcoded data
+  const features = solutionData?.feature_cards || [
     {
-      icon: GraduationCap,
+      icon: 'GraduationCap',
       title: 'Educational Design',
       description: 'Purpose-built for learning with optimal acoustics, lighting, and classroom layout.'
     },
     {
-      icon: Users,
+      icon: 'Users',
       title: 'Flexible Capacity',
       description: 'Available in sizes from 20-30 students with options for different grade levels.'
     },
     {
-      icon: Book,
+      icon: 'Book',
       title: 'Technology Ready',
       description: 'Pre-wired for smart boards, computers, and modern educational technology.'
     },
     {
-      icon: Shield,
+      icon: 'Shield',
       title: 'Safety Compliant',
       description: 'Meets all educational building codes, fire safety, and ADA accessibility requirements.'
     }
   ]
 
-  const specifications = [
+  // Use CMS specifications or fallback to hardcoded data
+  const specifications = solutionData?.specifications || [
     {
       title: 'Standard Classroom',
       size: '24\' x 32\'',
@@ -69,7 +103,8 @@ export default function PortableClassroomsPage() {
     }
   ]
 
-  const included = [
+  // Use CMS included items or fallback to hardcoded data
+  const included = solutionData?.included_items || [
     'Energy-efficient HVAC system',
     'LED lighting with dimmer controls',
     'Sound insulation for optimal acoustics',
@@ -123,15 +158,18 @@ export default function PortableClassroomsPage() {
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {features.map((feature, index) => (
-              <div key={index} className="text-center">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-navy-600 rounded-full mb-6">
-                  <feature.icon className="h-8 w-8 text-white" />
+            {features.map((feature, index) => {
+              const IconComponent = typeof feature.icon === 'string' ? iconMap[feature.icon] : feature.icon
+              return (
+                <div key={index} className="text-center">
+                  <div className="inline-flex items-center justify-center w-16 h-16 bg-navy-600 rounded-full mb-6">
+                    <IconComponent className="h-8 w-8 text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold text-navy-600 mb-4">{feature.title}</h3>
+                  <p className="text-gray-600 leading-relaxed">{feature.description}</p>
                 </div>
-                <h3 className="text-xl font-bold text-navy-600 mb-4">{feature.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{feature.description}</p>
-              </div>
-            ))}
+              )
+            })}
           </div>
         </div>
       </section>
@@ -164,9 +202,11 @@ export default function PortableClassroomsPage() {
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-navy-600 mb-6">Classroom Configurations</h2>
+            <h2 className="text-4xl font-bold text-navy-600 mb-6">
+              {solutionData?.specifications_title || 'Classroom Configurations'}
+            </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              From standard classrooms to specialized learning environments, we have solutions for every educational need.
+              {solutionData?.specifications_subtitle || 'From standard classrooms to specialized learning environments, we have solutions for every educational need.'}
             </p>
           </div>
 

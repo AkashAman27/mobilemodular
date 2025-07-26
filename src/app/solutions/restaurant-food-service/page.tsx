@@ -6,37 +6,50 @@ import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import FAQ from '@/components/FAQ'
 import { solutionsFAQs } from '@/data/faq-data'
+import { supabaseAdmin } from '@/lib/supabase'
 
 export const metadata = {
   title: 'Restaurant & Food Service Buildings - Commercial Kitchens | Modular Building Solutions',
   description: 'Modular restaurant and food service buildings with commercial kitchens. Health code compliant, fully equipped, and ready for food service operations.',
 }
 
-export default function RestaurantFoodServicePage() {
-  const features = [
+async function getSolutionData() {
+  const { data, error } = await supabaseAdmin
+    .from('solutions')
+    .select('*')
+    .eq('slug', 'restaurant-food-service')
+    .single()
+  return error ? null : data
+}
+
+export default async function RestaurantFoodServicePage() {
+  const solutionData = await getSolutionData()
+  const iconMap = { ChefHat, Utensils, Users, Shield }
+  
+  const features = solutionData?.feature_cards || [
     {
-      icon: ChefHat,
+      icon: 'ChefHat',
       title: 'Commercial Grade',
       description: 'Professional commercial kitchen equipment and food-safe construction materials.'
     },
     {
-      icon: Utensils,
+      icon: 'Utensils',
       title: 'Health Code Compliant',
       description: 'Meets all health department requirements and food safety regulations.'
     },
     {
-      icon: Users,
+      icon: 'Users',
       title: 'Flexible Layouts',
       description: 'Customizable configurations for quick-service, full-service, or catering operations.'
     },
     {
-      icon: Shield,
+      icon: 'Shield',
       title: 'Safety Systems',
       description: 'Advanced fire suppression, ventilation, and safety systems for commercial cooking.'
     }
   ]
 
-  const specifications = [
+  const specifications = solutionData?.specifications || [
     {
       title: 'Food Truck Kitchen',
       size: '8\' x 16\'',
@@ -67,7 +80,7 @@ export default function RestaurantFoodServicePage() {
     }
   ]
 
-  const kitchenFeatures = [
+  const kitchenFeatures = solutionData?.included_items || [
     'Commercial-grade cooking equipment',
     'Stainless steel prep surfaces',
     'NSF certified fixtures',
@@ -80,7 +93,7 @@ export default function RestaurantFoodServicePage() {
     'Commercial ventilation system'
   ]
 
-  const applications = [
+  const applications = solutionData?.applications || [
     {
       title: 'Pop-Up Restaurants',
       description: 'Temporary dining concepts and seasonal restaurant operations.',
@@ -120,15 +133,18 @@ export default function RestaurantFoodServicePage() {
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {features.map((feature, index) => (
-              <div key={index} className="text-center">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-navy-600 rounded-full mb-6">
-                  <feature.icon className="h-8 w-8 text-white" />
+            {features.map((feature, index) => {
+              const IconComponent = typeof feature.icon === 'string' ? iconMap[feature.icon] : feature.icon
+              return (
+                <div key={index} className="text-center">
+                  <div className="inline-flex items-center justify-center w-16 h-16 bg-navy-600 rounded-full mb-6">
+                    <IconComponent className="h-8 w-8 text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold text-navy-600 mb-4">{feature.title}</h3>
+                  <p className="text-gray-600 leading-relaxed">{feature.description}</p>
                 </div>
-                <h3 className="text-xl font-bold text-navy-600 mb-4">{feature.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{feature.description}</p>
-              </div>
-            ))}
+              )
+            })}
           </div>
         </div>
       </section>

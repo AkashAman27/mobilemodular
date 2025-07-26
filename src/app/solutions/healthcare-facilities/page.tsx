@@ -6,37 +6,67 @@ import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import FAQ from '@/components/FAQ'
 import { solutionsFAQs } from '@/data/faq-data'
+import { supabaseAdmin } from '@/lib/supabase'
 
 export const metadata = {
   title: 'Healthcare Facilities - Medical Modular Buildings | Modular Building Solutions',
   description: 'Professional healthcare facilities and medical modular buildings. HIPAA compliant, medical-grade construction, and designed for patient care environments.',
 }
 
-export default function HealthcareFacilitiesPage() {
-  const features = [
+// Fetch CMS data from Supabase
+async function getSolutionData() {
+  try {
+    const { data, error } = await supabaseAdmin
+      .from('solutions')
+      .select('*')
+      .eq('slug', 'healthcare-facilities')
+      .single()
+
+    if (error) {
+      console.error('Error fetching solution data:', error)
+      return null
+    }
+
+    return data
+  } catch (error) {
+    console.error('Error fetching solution data:', error)
+    return null
+  }
+}
+
+export default async function HealthcareFacilitiesPage() {
+  // Fetch CMS data
+  const solutionData = await getSolutionData()
+  
+  // Icon mapping for features
+  const iconMap = { Heart, Shield, Stethoscope, Users }
+
+  // Use CMS feature cards or fallback to hardcoded data
+  const features = solutionData?.feature_cards || [
     {
-      icon: Heart,
+      icon: 'Heart',
       title: 'Medical Grade',
       description: 'Medical-grade materials, finishes, and infection control features for healthcare environments.'
     },
     {
-      icon: Shield,
+      icon: 'Shield',
       title: 'HIPAA Compliant',
       description: 'Privacy-focused design and security features to ensure HIPAA compliance and patient confidentiality.'
     },
     {
-      icon: Stethoscope,
+      icon: 'Stethoscope',
       title: 'Equipment Ready',
       description: 'Pre-configured for medical equipment with specialized electrical and gas systems.'
     },
     {
-      icon: Users,
+      icon: 'Users',
       title: 'Patient Focused',
       description: 'ADA compliant design with patient comfort and accessibility as primary considerations.'
     }
   ]
 
-  const specifications = [
+  // Use CMS specifications or fallback to hardcoded data
+  const specifications = solutionData?.specifications || [
     {
       title: 'Examination Room',
       size: '8\' x 12\'',
@@ -67,7 +97,8 @@ export default function HealthcareFacilitiesPage() {
     }
   ]
 
-  const medicalFeatures = [
+  // Use CMS included items or fallback to hardcoded data
+  const medicalFeatures = solutionData?.included_items || [
     'Medical-grade air filtration systems',
     'Infection control surfaces',
     'HIPAA compliant layouts',
@@ -80,7 +111,8 @@ export default function HealthcareFacilitiesPage() {
     'Biohazard waste management'
   ]
 
-  const applications = [
+  // Use CMS applications or fallback to hardcoded data
+  const applications = solutionData?.applications || [
     {
       title: 'Temporary Clinics',
       description: 'Mobile medical clinics and temporary healthcare facilities for underserved areas.',
@@ -120,15 +152,18 @@ export default function HealthcareFacilitiesPage() {
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {features.map((feature, index) => (
-              <div key={index} className="text-center">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-navy-600 rounded-full mb-6">
-                  <feature.icon className="h-8 w-8 text-white" />
+            {features.map((feature, index) => {
+              const IconComponent = typeof feature.icon === 'string' ? iconMap[feature.icon] : feature.icon
+              return (
+                <div key={index} className="text-center">
+                  <div className="inline-flex items-center justify-center w-16 h-16 bg-navy-600 rounded-full mb-6">
+                    <IconComponent className="h-8 w-8 text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold text-navy-600 mb-4">{feature.title}</h3>
+                  <p className="text-gray-600 leading-relaxed">{feature.description}</p>
                 </div>
-                <h3 className="text-xl font-bold text-navy-600 mb-4">{feature.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{feature.description}</p>
-              </div>
-            ))}
+              )
+            })}
           </div>
         </div>
       </section>

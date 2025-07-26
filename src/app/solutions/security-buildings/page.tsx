@@ -6,37 +6,66 @@ import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import FAQ from '@/components/FAQ'
 import { solutionsFAQs } from '@/data/faq-data'
+import { supabaseAdmin } from '@/lib/supabase'
 
 export const metadata = {
   title: 'Security Buildings & Guard Houses - Access Control | Modular Building Solutions',
   description: 'Professional security buildings and guard houses for access control, perimeter security, and checkpoint operations. Customizable security solutions.',
 }
 
-export default function SecurityBuildingsPage() {
-  const features = [
+// Fetch CMS data from Supabase
+async function getSolutionData() {
+  try {
+    const { data, error } = await supabaseAdmin
+      .from('solutions')
+      .select('*')
+      .eq('slug', 'security-buildings')
+      .single()
+
+    if (error) {
+      console.error('Error fetching solution data:', error)
+      return null
+    }
+
+    return data
+  } catch (error) {
+    console.error('Error fetching solution data:', error)
+    return null
+  }
+}
+
+export default async function SecurityBuildingsPage() {
+  // Fetch CMS data
+  const solutionData = await getSolutionData()
+  
+  // Icon mapping for features
+  const iconMap = { Shield, Camera, Lock, Users }
+  // Use CMS feature cards or fallback to hardcoded data
+  const features = solutionData?.feature_cards || [
     {
-      icon: Shield,
+      icon: 'Shield',
       title: 'Security-First Design',
       description: 'Purpose-built for security operations with reinforced construction and strategic sight lines.'
     },
     {
-      icon: Camera,
+      icon: 'Camera',
       title: 'Surveillance Ready',
       description: 'Pre-wired for security cameras, monitors, and advanced surveillance equipment integration.'
     },
     {
-      icon: Lock,
+      icon: 'Lock',
       title: 'Access Control',
       description: 'Integrated access control systems with card readers, intercoms, and barrier gate controls.'
     },
     {
-      icon: Users,
+      icon: 'Users',
       title: 'Multi-Person Capacity',
       description: 'Available in sizes from single-guard stations to multi-officer security command centers.'
     }
   ]
 
-  const specifications = [
+  // Use CMS specifications or fallback to hardcoded data
+  const specifications = solutionData?.specifications || [
     {
       title: 'Guard Booth',
       size: '4\' x 6\'',
@@ -80,7 +109,8 @@ export default function SecurityBuildingsPage() {
     'Alarm system compatibility'
   ]
 
-  const applications = [
+  // Use CMS applications or fallback to hardcoded data
+  const applications = solutionData?.applications || [
     {
       title: 'Corporate Campus Security',
       description: 'Main gate security stations for corporate facilities and business parks.',
@@ -120,15 +150,18 @@ export default function SecurityBuildingsPage() {
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {features.map((feature, index) => (
-              <div key={index} className="text-center">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-navy-600 rounded-full mb-6">
-                  <feature.icon className="h-8 w-8 text-white" />
+            {features.map((feature, index) => {
+              const IconComponent = typeof feature.icon === 'string' ? iconMap[feature.icon] : feature.icon
+              return (
+                <div key={index} className="text-center">
+                  <div className="inline-flex items-center justify-center w-16 h-16 bg-navy-600 rounded-full mb-6">
+                    <IconComponent className="h-8 w-8 text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold text-navy-600 mb-4">{feature.title}</h3>
+                  <p className="text-gray-600 leading-relaxed">{feature.description}</p>
                 </div>
-                <h3 className="text-xl font-bold text-navy-600 mb-4">{feature.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{feature.description}</p>
-              </div>
-            ))}
+              )
+            })}
           </div>
         </div>
       </section>

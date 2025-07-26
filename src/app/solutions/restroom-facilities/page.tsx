@@ -6,37 +6,50 @@ import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import FAQ from '@/components/FAQ'
 import { solutionsFAQs } from '@/data/faq-data'
+import { supabaseAdmin } from '@/lib/supabase'
 
 export const metadata = {
   title: 'Portable Restroom Facilities - Clean & Professional | Modular Building Solutions',
   description: 'Professional portable restroom facilities for construction sites, events, and temporary installations. ADA compliant options available.',
 }
 
-export default function RestroomFacilitiesPage() {
-  const features = [
+async function getSolutionData() {
+  const { data, error } = await supabaseAdmin
+    .from('solutions')
+    .select('*')
+    .eq('slug', 'restroom-facilities')
+    .single()
+  return error ? null : data
+}
+
+export default async function RestroomFacilitiesPage() {
+  const solutionData = await getSolutionData()
+  const iconMap = { Droplets, Users, Shield, Zap }
+  
+  const features = solutionData?.feature_cards || [
     {
-      icon: Droplets,
+      icon: 'Droplets',
       title: 'Professional Grade',
       description: 'High-quality fixtures and finishes suitable for professional environments and public use.'
     },
     {
-      icon: Users,
+      icon: 'Users',
       title: 'Multiple Configurations',
       description: 'Single units to multi-stall facilities with separate men\'s and women\'s options.'
     },
     {
-      icon: Shield,
+      icon: 'Shield',
       title: 'ADA Compliant',
       description: 'Accessible units available that meet all ADA requirements and accessibility standards.'
     },
     {
-      icon: Zap,
+      icon: 'Zap',
       title: 'Self-Contained',
       description: 'Complete with fresh water tanks, waste holding tanks, and electrical systems.'
     }
   ]
 
-  const specifications = [
+  const specifications = solutionData?.specifications || [
     {
       title: 'Single Unit',
       size: '4\' x 8\'',
@@ -67,7 +80,7 @@ export default function RestroomFacilitiesPage() {
     }
   ]
 
-  const included = [
+  const included = solutionData?.included_items || [
     'Fresh water supply system',
     'Waste holding tank',
     'Hand washing stations',
@@ -97,15 +110,18 @@ export default function RestroomFacilitiesPage() {
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {features.map((feature, index) => (
-              <div key={index} className="text-center">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-navy-600 rounded-full mb-6">
-                  <feature.icon className="h-8 w-8 text-white" />
+            {features.map((feature, index) => {
+              const IconComponent = typeof feature.icon === 'string' ? iconMap[feature.icon] : feature.icon
+              return (
+                <div key={index} className="text-center">
+                  <div className="inline-flex items-center justify-center w-16 h-16 bg-navy-600 rounded-full mb-6">
+                    <IconComponent className="h-8 w-8 text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold text-navy-600 mb-4">{feature.title}</h3>
+                  <p className="text-gray-600 leading-relaxed">{feature.description}</p>
                 </div>
-                <h3 className="text-xl font-bold text-navy-600 mb-4">{feature.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{feature.description}</p>
-              </div>
-            ))}
+              )
+            })}
           </div>
         </div>
       </section>
