@@ -249,6 +249,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
 
       <div className="flex-shrink-0 border-t border-slate-700 p-4">
         <div className="flex items-center mb-3">
+          {/* Display authenticated user info */}
           <div className="flex-shrink-0">
             <div className="h-8 w-8 bg-blue-500 rounded-full flex items-center justify-center">
               <span className="text-sm font-medium text-white">
