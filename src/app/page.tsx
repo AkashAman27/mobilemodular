@@ -12,8 +12,8 @@ import { getSEOPageData, getSEOSettings, generateMetadata as generateSEOMetadata
 import { supabaseAdmin } from '@/lib/supabase'
 import type { Metadata } from 'next'
 
-// Enable ISR with revalidation every 60 seconds
-export const revalidate = 60
+// Enable ISR with revalidation every 6 hours (21600 seconds)
+export const revalidate = 21600
 
 // Generate metadata for SEO
 export async function generateMetadata(): Promise<Metadata> {

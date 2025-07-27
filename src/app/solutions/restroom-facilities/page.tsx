@@ -110,8 +110,8 @@ export default async function RestroomFacilitiesPage() {
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {features.map((feature, index) => {
-              const IconComponent = typeof feature.icon === 'string' ? iconMap[feature.icon] : feature.icon
+            {features.map((feature: any, index: number) => {
+              const IconComponent = typeof feature.icon === 'string' ? iconMap[feature.icon as keyof typeof iconMap] : feature.icon
               return (
                 <div key={index} className="text-center">
                   <div className="inline-flex items-center justify-center w-16 h-16 bg-navy-600 rounded-full mb-6">
@@ -137,7 +137,7 @@ export default async function RestroomFacilitiesPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {specifications.map((spec, index) => (
+            {specifications.map((spec: any, index: number) => (
               <div key={index} className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
                 <div className="relative h-48">
                   <Image
@@ -174,7 +174,7 @@ export default async function RestroomFacilitiesPage() {
                 Every restroom facility comes fully equipped with professional-grade fixtures and regular maintenance service.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {included.map((item, index) => (
+                {included.map((item: string, index: number) => (
                   <div key={index} className="flex items-center space-x-3">
                     <CheckCircle className="h-6 w-6 text-green-500 flex-shrink-0" />
                     <span className="text-gray-700">{item}</span>

@@ -15,15 +15,25 @@ export async function GET(request: NextRequest) {
       revalidatePath(path)
       revalidatedPaths.push(path)
     } else {
-      // Revalidate all common CMS pages
+      // Revalidate all common CMS pages and their layouts
       const commonPaths = [
-        '/',              // Homepage
-        '/layout',        // Layout changes (header/footer)
-        '/about',         // About page
-        '/contact',       // Contact page
-        '/solutions',     // Solutions page
-        '/industries',    // Industries
-        '/industries/[slug]', // Dynamic industry pages
+        '/',                           // Homepage
+        '/layout',                     // Layout changes (header/footer)
+        '/about',                      // About page
+        '/contact',                    // Contact page
+        '/solutions',                  // Solutions main page
+        '/solutions/office-buildings', // Solution pages
+        '/solutions/healthcare-facilities',
+        '/solutions/portable-classrooms',
+        '/solutions/restaurant-food-service',
+        '/solutions/restroom-facilities',
+        '/solutions/security-buildings',
+        '/industries',                 // Industries main page
+        '/resources',                  // Resources pages
+        '/resources/live-inventory',   // Live inventory
+        '/our-process',                // Our process page
+        '/quality-standards',          // Quality standards
+        '/news-insights',              // News & insights
       ]
       
       for (const p of commonPaths) {
@@ -36,10 +46,12 @@ export async function GET(request: NextRequest) {
       success: true,
       message: path 
         ? `Cache cleared for ${path}` 
-        : 'All CMS content cache cleared successfully',
+        : `Successfully synced ${revalidatedPaths.length} pages`,
       revalidated_paths: revalidatedPaths,
+      revalidated_count: revalidatedPaths.length,
       timestamp: new Date().toISOString(),
-      instruction: 'Refresh any affected pages - changes should appear immediately',
+      environment: process.env.NODE_ENV,
+      instruction: 'Content changes are now live - refresh pages to see updates',
       usage: 'Add ?path=/specific-page to revalidate just one page'
     })
   } catch (error) {

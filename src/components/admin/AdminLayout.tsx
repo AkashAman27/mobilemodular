@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button'
 import * as Icons from 'lucide-react'
 import { supabase } from '@/lib/supabase'
 import { User } from '@supabase/supabase-js'
+import SyncButton from './SyncButton'
 
 const { 
   Building2, 
@@ -264,26 +265,34 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
             <p className="text-xs text-slate-400">Dashboard Mode</p>
           </div>
         </div>
-        <div className="flex space-x-2">
-          <Button
-            variant="outline"
-            size="sm"
-            className="flex-1 bg-blue-600 border-blue-600 text-white hover:bg-blue-700 hover:border-blue-700"
-            asChild
-          >
-            <Link href="/">
-              <Eye className="h-4 w-4 mr-1" />
-              View Site
-            </Link>
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            className="bg-blue-600 border-blue-600 text-white hover:bg-blue-700 hover:border-blue-700"
-            onClick={handleSignOut}
-          >
-            <LogOut className="h-4 w-4" />
-          </Button>
+        <div className="space-y-2">
+          {/* Sync Button */}
+          <div className="flex justify-center">
+            <SyncButton size="md" className="w-full" />
+          </div>
+          
+          {/* Action Buttons */}
+          <div className="flex space-x-2">
+            <Button
+              variant="outline"
+              size="sm"
+              className="flex-1 bg-blue-600 border-blue-600 text-white hover:bg-blue-700 hover:border-blue-700"
+              asChild
+            >
+              <Link href="/">
+                <Eye className="h-4 w-4 mr-1" />
+                View Site
+              </Link>
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              className="bg-blue-600 border-blue-600 text-white hover:bg-blue-700 hover:border-blue-700"
+              onClick={handleSignOut}
+            >
+              <LogOut className="h-4 w-4" />
+            </Button>
+          </div>
         </div>
       </div>
     </>
@@ -325,7 +334,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                 <Menu className="h-6 w-6" />
               </button>
               <h1 className="text-lg font-medium text-slate-900">Content Management</h1>
-              <div className="w-6" />
+              <SyncButton size="sm" />
             </div>
           </div>
 
