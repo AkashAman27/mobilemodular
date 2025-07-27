@@ -407,7 +407,7 @@ export default function InventoryItemClient({ item }: Props) {
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </Link>
             </Button>
-            <Button variant="outline" size="xl" className="border-white/30 text-white hover:bg-white/10" asChild>
+            <Button variant="outline" size="xl" className="border-white/30 text-white hover:bg-white hover:text-navy-600" asChild>
               <Link href="/resources/live-inventory">
                 View More Buildings
               </Link>
