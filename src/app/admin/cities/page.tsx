@@ -43,16 +43,24 @@ const CitiesAdmin = () => {
 
   const loadCities = async () => {
     try {
-      const { data, error } = await supabase
-        .from('cities')
-        .select('*')
-        .order('state_name', { ascending: true })
-        .order('city_name', { ascending: true })
+      setLoading(true)
+      console.log('Loading cities...')
+      
+      const response = await fetch('/api/cities-admin')
+      
+      if (!response.ok) {
+        const errorData = await response.json()
+        console.error('API error loading cities:', errorData)
+        throw new Error(errorData.error || 'Failed to load cities')
+      }
 
-      if (error) throw error
+      const { data } = await response.json()
+      console.log('Cities loaded successfully:', data?.length || 0, 'cities')
       setCities(data || [])
     } catch (error) {
       console.error('Error loading cities:', error)
+      // Only show user-friendly error message without exposing technical details
+      alert('Unable to load city data. Please try again or contact support if the problem persists.')
     } finally {
       setLoading(false)
     }
@@ -64,12 +72,14 @@ const CitiesAdmin = () => {
     }
 
     try {
-      const { error } = await supabase
-        .from('cities')
-        .delete()
-        .eq('id', id)
+      const response = await fetch(`/api/cities-admin/${id}`, {
+        method: 'DELETE'
+      })
 
-      if (error) throw error
+      if (!response.ok) {
+        const errorData = await response.json()
+        throw new Error(errorData.error || 'Failed to delete city')
+      }
       
       setCities(cities.filter(city => city.id !== id))
     } catch (error) {
@@ -80,12 +90,18 @@ const CitiesAdmin = () => {
 
   const toggleCityStatus = async (id: string, currentStatus: boolean) => {
     try {
-      const { error } = await supabase
-        .from('cities')
-        .update({ is_active: !currentStatus })
-        .eq('id', id)
+      const response = await fetch(`/api/cities-admin/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ is_active: !currentStatus })
+      })
 
-      if (error) throw error
+      if (!response.ok) {
+        const errorData = await response.json()
+        throw new Error(errorData.error || 'Failed to update city status')
+      }
       
       setCities(cities.map(city => 
         city.id === id ? { ...city, is_active: !currentStatus } : city

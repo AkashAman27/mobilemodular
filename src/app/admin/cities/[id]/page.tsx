@@ -131,14 +131,14 @@ const CityEditPage = () => {
 
   const loadCity = async () => {
     try {
-      const { data, error } = await supabase
-        .from('cities')
-        .select('*')
-        .eq('id', cityId)
-        .single()
-
-      if (error) throw error
+      const response = await fetch(`/api/cities-admin/${cityId}`)
       
+      if (!response.ok) {
+        const errorData = await response.json()
+        throw new Error(errorData.error || 'Failed to load city')
+      }
+
+      const { data } = await response.json()
       setFormData(data)
     } catch (error) {
       console.error('Error loading city:', error)
@@ -166,21 +166,35 @@ const CityEditPage = () => {
       }
 
       if (isNew) {
-        const { data, error } = await supabase
-          .from('cities')
-          .insert([dataToSave])
-          .select()
-          .single()
+        const response = await fetch('/api/cities-admin', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(dataToSave)
+        })
 
-        if (error) throw error
+        if (!response.ok) {
+          const errorData = await response.json()
+          throw new Error(errorData.error || 'Failed to create city')
+        }
+
+        const { data } = await response.json()
         router.push(`/admin/cities/${data.id}`)
       } else {
-        const { error } = await supabase
-          .from('cities')
-          .update(dataToSave)
-          .eq('id', cityId)
+        const response = await fetch(`/api/cities-admin/${cityId}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(dataToSave)
+        })
 
-        if (error) throw error
+        if (!response.ok) {
+          const errorData = await response.json()
+          throw new Error(errorData.error || 'Failed to update city')
+        }
+
         alert('City updated successfully!')
       }
     } catch (error) {
