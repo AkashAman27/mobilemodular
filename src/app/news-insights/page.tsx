@@ -35,7 +35,6 @@ interface NewsInsight {
   image_url: string
   category: string
   read_time: string
-  published_date: string
   created_at: string
   updated_at: string
 }
@@ -45,7 +44,7 @@ async function getNewsInsights(): Promise<NewsInsight[]> {
     const { data, error } = await supabase
       .from('news_insights')
       .select('*')
-      .order('published_date', { ascending: false })
+      .order('created_at', { ascending: false })
       .limit(12)
 
     if (error) {
@@ -116,7 +115,7 @@ export default async function NewsInsightsPage() {
                   <div className="flex items-center space-x-6 text-blue-100 mb-6">
                     <div className="flex items-center space-x-2">
                       <Calendar className="h-4 w-4" />
-                      <span className="text-sm">{formatDate(newsInsights[0].published_date)}</span>
+                      <span className="text-sm">{formatDate(newsInsights[0].created_at)}</span>
                     </div>
                     <div className="flex items-center space-x-2">
                       <Clock className="h-4 w-4" />
@@ -189,7 +188,7 @@ export default async function NewsInsightsPage() {
                 <div className="flex items-center space-x-4 text-gray-500 text-sm mb-3">
                   <div className="flex items-center space-x-1">
                     <Calendar className="h-4 w-4" />
-                    <span>{formatDate(article.published_date)}</span>
+                    <span>{formatDate(article.created_at)}</span>
                   </div>
                   <div className="flex items-center space-x-1">
                     <Clock className="h-4 w-4" />
