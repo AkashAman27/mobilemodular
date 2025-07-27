@@ -60,39 +60,35 @@ export default function PageFAQsAdmin() {
 
   const fetchPages = async () => {
     try {
-      const { data, error } = await supabase
-        .from('pages')
-        .select('*')
-        .order('title')
+      const response = await fetch('/api/admin/pages')
+      const result = await response.json()
 
-      if (error) {
-        console.error('Error fetching pages:', error)
-        alert(`Error loading pages: ${error.message}`)
+      if (!response.ok || !result.success) {
+        console.error('Error fetching pages:', result)
+        alert(`Error loading pages: ${result.error || 'Unknown error'}`)
         return
       }
 
-      setPages(data || [])
-      if (data && data.length > 0 && !selectedPage) {
-        setSelectedPage(data[0].id)
+      setPages(result.pages || [])
+      if (result.pages && result.pages.length > 0 && !selectedPage) {
+        setSelectedPage(result.pages[0].id)
       }
     } catch (error) {
       console.error('Error fetching pages:', error)
-      alert('Error loading pages')
+      alert(`Error loading pages: ${error instanceof Error ? error.message : 'Unknown error'}`)
     }
   }
 
   const fetchAllFaqs = async () => {
     try {
-      const { data, error } = await supabase
-        .from('faqs')
-        .select('*')
-        .eq('is_active', true)
-        .order('category')
-        .order('display_order')
+      const response = await fetch('/api/admin/faqs')
+      const result = await response.json()
 
-      if (error) return
-
-      setAvailableFaqs(data || [])
+      if (response.ok && result.success) {
+        setAvailableFaqs(result.faqs || [])
+      } else {
+        console.error('Error fetching FAQs:', result)
+      }
     } catch (error) {
       console.error('Error fetching FAQs:', error)
     } finally {
@@ -104,25 +100,19 @@ export default function PageFAQsAdmin() {
     if (!selectedPage) return
 
     try {
-      const { data, error } = await supabase
-        .from('page_faqs')
-        .select(`
-          *,
-          faq:faqs(*)
-        `)
-        .eq('page_id', selectedPage)
-        .order('display_order')
+      const response = await fetch(`/api/admin/page-faqs?pageId=${selectedPage}`)
+      const result = await response.json()
 
-      if (error) {
-        console.error('Error fetching page FAQs:', error)
-        alert(`Error loading page FAQs: ${error.message}`)
+      if (!response.ok || !result.success) {
+        console.error('Error fetching page FAQs:', result)
+        alert(`Error loading page FAQs: ${result.error || 'Unknown error'}`)
         return
       }
 
-      setPageFaqs(data || [])
+      setPageFaqs(result.pageFaqs || [])
     } catch (error) {
       console.error('Error fetching page FAQs:', error)
-      alert('Error loading page FAQs')
+      alert(`Error loading page FAQs: ${error instanceof Error ? error.message : 'Unknown error'}`)
     }
   }
 
@@ -158,7 +148,18 @@ export default function PageFAQsAdmin() {
 
       if (!response.ok || !result.success) {
         console.error('API error:', result)
-        alert(`Error assigning FAQ to page: ${result.error || 'Unknown error'}`)
+        
+        // Provide more helpful error messages
+        let errorMessage = result.error || 'Unknown error'
+        if (errorMessage.includes('Service role key')) {
+          errorMessage = 'Admin permissions not configured. Please check environment variables.'
+        } else if (errorMessage.includes('Page not found')) {
+          errorMessage = 'Selected page could not be found. Please refresh and try again.'
+        } else if (errorMessage.includes('already assigned')) {
+          errorMessage = 'This FAQ is already assigned to the selected page.'
+        }
+        
+        alert(`Error assigning FAQ to page: ${errorMessage}`)
         return
       }
 
@@ -205,7 +206,16 @@ export default function PageFAQsAdmin() {
 
       if (!response.ok || !result.success) {
         console.error('API error:', result)
-        alert(`Error removing FAQ from page: ${result.error || 'Unknown error'}`)
+        
+        // Provide more helpful error messages  
+        let errorMessage = result.error || 'Unknown error'
+        if (errorMessage.includes('Service role key')) {
+          errorMessage = 'Admin permissions not configured. Please check environment variables.'
+        } else if (errorMessage.includes('Page not found')) {
+          errorMessage = 'Selected page could not be found. Please refresh and try again.'
+        }
+        
+        alert(`Error removing FAQ from page: ${errorMessage}`)
         return
       }
 
@@ -219,13 +229,19 @@ export default function PageFAQsAdmin() {
 
   const toggleFeatured = async (pageFaqId: string, currentFeatured: boolean) => {
     try {
-      const { error } = await supabase
-        .from('page_faqs')
-        .update({ is_featured: !currentFeatured })
-        .eq('id', pageFaqId)
+      const response = await fetch('/api/admin/page-faqs/update', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          id: pageFaqId,
+          is_featured: !currentFeatured
+        })
+      })
 
-      if (error) {
-        alert('Error updating featured status')
+      const result = await response.json()
+
+      if (!response.ok || !result.success) {
+        alert(`Error updating featured status: ${result.error || 'Unknown error'}`)
         return
       }
 
@@ -237,13 +253,19 @@ export default function PageFAQsAdmin() {
 
   const updateDisplayOrder = async (pageFaqId: string, newOrder: number) => {
     try {
-      const { error } = await supabase
-        .from('page_faqs')
-        .update({ display_order: newOrder })
-        .eq('id', pageFaqId)
+      const response = await fetch('/api/admin/page-faqs/update', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          id: pageFaqId,
+          display_order: newOrder
+        })
+      })
 
-      if (error) {
-        alert('Error updating display order')
+      const result = await response.json()
+
+      if (!response.ok || !result.success) {
+        alert(`Error updating display order: ${result.error || 'Unknown error'}`)
         return
       }
 

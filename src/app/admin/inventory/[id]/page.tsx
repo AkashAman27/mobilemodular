@@ -14,6 +14,8 @@ import { ArrowLeft, Save, Trash2, Upload, X } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { toast } from 'react-hot-toast'
+import SEOSection from '@/components/admin/SEOSection'
+import { SEOData } from '@/types/seo'
 
 interface InventoryItem {
   id: string
@@ -34,8 +36,28 @@ interface InventoryItem {
   rental_price_monthly: number | null
   rating: number | null
   review_count: number | null
+  // Legacy fields (will be migrated to new SEO fields)
   meta_title: string | null
   meta_description: string | null
+  // New comprehensive SEO fields
+  seo_title: string | null
+  seo_description: string | null
+  focus_keyword: string | null
+  seo_keywords: string | null
+  canonical_url: string | null
+  robots_index: boolean
+  robots_follow: boolean
+  robots_nosnippet: boolean
+  og_title: string | null
+  og_description: string | null
+  og_image: string | null
+  og_image_alt: string | null
+  twitter_title: string | null
+  twitter_description: string | null
+  twitter_image: string | null
+  twitter_image_alt: string | null
+  structured_data_type: string | null
+  custom_json_ld: string | null
   is_active: boolean
   is_featured: boolean
   created_at: string
@@ -162,8 +184,28 @@ export default function InventoryEditPage() {
         rental_price_monthly: item.rental_price_monthly || null,
         rating: item.rating || null,
         review_count: item.review_count || null,
+        // Legacy SEO fields (keep for backward compatibility)
         meta_title: item.meta_title?.trim() || null,
         meta_description: item.meta_description?.trim() || null,
+        // New comprehensive SEO fields
+        seo_title: item.seo_title?.trim() || null,
+        seo_description: item.seo_description?.trim() || null,
+        focus_keyword: item.focus_keyword?.trim() || null,
+        seo_keywords: item.seo_keywords?.trim() || null,
+        canonical_url: item.canonical_url?.trim() || null,
+        robots_index: item.robots_index ?? true,
+        robots_follow: item.robots_follow ?? true,
+        robots_nosnippet: item.robots_nosnippet ?? false,
+        og_title: item.og_title?.trim() || null,
+        og_description: item.og_description?.trim() || null,
+        og_image: item.og_image?.trim() || null,
+        og_image_alt: item.og_image_alt?.trim() || null,
+        twitter_title: item.twitter_title?.trim() || null,
+        twitter_description: item.twitter_description?.trim() || null,
+        twitter_image: item.twitter_image?.trim() || null,
+        twitter_image_alt: item.twitter_image_alt?.trim() || null,
+        structured_data_type: item.structured_data_type?.trim() || 'Product',
+        custom_json_ld: item.custom_json_ld?.trim() || null,
         is_active: item.is_active || false,
         is_featured: item.is_featured || false
       }
@@ -259,6 +301,77 @@ export default function InventoryEditPage() {
       : [...item.features, feature]
 
     setItem({ ...item, features })
+  }
+
+  const handleSEOSave = async (seoData: SEOData) => {
+    if (!item) return
+    
+    try {
+      // Update local state with SEO data
+      const updatedItem = {
+        ...item,
+        seo_title: seoData.seo_title || null,
+        seo_description: seoData.seo_description || null,
+        focus_keyword: seoData.focus_keyword || null,
+        seo_keywords: seoData.seo_keywords ? seoData.seo_keywords.join(', ') : null,
+        canonical_url: seoData.canonical_url || null,
+        robots_index: seoData.robots_index ?? true,
+        robots_follow: seoData.robots_follow ?? true,
+        robots_nosnippet: seoData.robots_nosnippet ?? false,
+        og_title: seoData.og_title || null,
+        og_description: seoData.og_description || null,
+        og_image: seoData.og_image || null,
+        og_image_alt: seoData.og_image_alt || null,
+        twitter_title: seoData.twitter_title || null,
+        twitter_description: seoData.twitter_description || null,
+        twitter_image: seoData.twitter_image || null,
+        twitter_image_alt: seoData.twitter_image_alt || null,
+        structured_data_type: seoData.structured_data_type || 'Product',
+        custom_json_ld: seoData.custom_json_ld || null
+      }
+      
+      setItem(updatedItem)
+      
+      // Save to database via admin API
+      const response = await fetch(`/api/inventory-admin/${item.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          seo_title: seoData.seo_title,
+          seo_description: seoData.seo_description,
+          focus_keyword: seoData.focus_keyword,
+          seo_keywords: seoData.seo_keywords ? seoData.seo_keywords.join(', ') : null,
+          canonical_url: seoData.canonical_url,
+          robots_index: seoData.robots_index ?? true,
+          robots_follow: seoData.robots_follow ?? true,
+          robots_nosnippet: seoData.robots_nosnippet ?? false,
+          og_title: seoData.og_title,
+          og_description: seoData.og_description,
+          og_image: seoData.og_image,
+          og_image_alt: seoData.og_image_alt,
+          twitter_title: seoData.twitter_title,
+          twitter_description: seoData.twitter_description,
+          twitter_image: seoData.twitter_image,
+          twitter_image_alt: seoData.twitter_image_alt,
+          structured_data_type: seoData.structured_data_type,
+          custom_json_ld: seoData.custom_json_ld
+        })
+      })
+
+      const result = await response.json()
+      
+      if (!response.ok || !result.success) {
+        throw new Error(result.error || 'Failed to save SEO data')
+      }
+      
+      toast.success('SEO settings saved successfully!')
+    } catch (error) {
+      console.error('Error saving SEO data:', error)
+      toast.error('Failed to save SEO settings')
+      throw error
+    }
   }
 
   if (loading) {
@@ -514,34 +627,34 @@ export default function InventoryEditPage() {
             </CardContent>
           </Card>
 
-          {/* SEO */}
-          <Card>
-            <CardHeader>
-              <CardTitle>SEO Settings</CardTitle>
-              <CardDescription>Optimize for search engines</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div>
-                <Label htmlFor="meta_title">Meta Title</Label>
-                <Input
-                  id="meta_title"
-                  value={item.meta_title || ''}
-                  onChange={(e) => setItem({ ...item, meta_title: e.target.value })}
-                  placeholder="SEO title for this item"
-                />
-              </div>
-              <div>
-                <Label htmlFor="meta_description">Meta Description</Label>
-                <Textarea
-                  id="meta_description"
-                  value={item.meta_description || ''}
-                  onChange={(e) => setItem({ ...item, meta_description: e.target.value })}
-                  placeholder="SEO description for this item"
-                  rows={3}
-                />
-              </div>
-            </CardContent>
-          </Card>
+          {/* Comprehensive SEO Section */}
+          <SEOSection
+            pageType="inventory"
+            contentId={item.id}
+            pagePath={`/inventory/${item.id}`}
+            initialData={{
+              seo_title: item.seo_title || item.meta_title || '',
+              seo_description: item.seo_description || item.meta_description || '',
+              focus_keyword: item.focus_keyword || '',
+              seo_keywords: item.seo_keywords ? item.seo_keywords.split(',').map(k => k.trim()).filter(k => k) : [],
+              canonical_url: item.canonical_url || '',
+              robots_index: item.robots_index ?? true,
+              robots_follow: item.robots_follow ?? true,
+              robots_nosnippet: item.robots_nosnippet ?? false,
+              og_title: item.og_title || '',
+              og_description: item.og_description || '',
+              og_image: item.og_image || item.main_image_url || '',
+              og_image_alt: item.og_image_alt || `${item.name} - Modular Building`,
+              twitter_title: item.twitter_title || '',
+              twitter_description: item.twitter_description || '',
+              twitter_image: item.twitter_image || item.main_image_url || '',
+              twitter_image_alt: item.twitter_image_alt || `${item.name} - Modular Building`,
+              structured_data_type: item.structured_data_type || 'Product',
+              custom_json_ld: item.custom_json_ld || ''
+            }}
+            onSave={handleSEOSave}
+            className="mt-6"
+          />
         </div>
 
         {/* Sidebar */}

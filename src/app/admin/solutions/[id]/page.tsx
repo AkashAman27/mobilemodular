@@ -9,7 +9,7 @@ import { supabase } from '@/lib/supabase'
 import { useRouter, useParams } from 'next/navigation'
 import PreviewModal from '@/components/admin/PreviewModal'
 import SolutionPreview from '@/components/admin/SolutionPreview'
-import SEOFormFields from '@/components/seo/SEOFormFields'
+import SEOSection from '@/components/admin/SEOSection'
 import ImageUpload from '@/components/ui/image-upload'
 import PreviewButton from '@/components/admin/PreviewButton'
 
@@ -468,6 +468,60 @@ export default function EditSolution() {
     if (!formData.starting_price.trim()) return 'Starting price is required'
     if (formData.features.length === 0) return 'At least one feature is required'
     return null
+  }
+
+  const handleSEOSave = async (seoData: any) => {
+    try {
+      // Update local state with SEO data
+      const updatedFormData = {
+        ...formData,
+        seo_title: seoData.seo_title || '',
+        seo_description: seoData.seo_description || '',
+        focus_keyword: seoData.focus_keyword || '',
+        seo_keywords: seoData.seo_keywords ? seoData.seo_keywords.join(', ') : '',
+        canonical_url: seoData.canonical_url || '',
+        robots_index: seoData.robots_index ?? true,
+        robots_follow: seoData.robots_follow ?? true,
+        robots_nosnippet: seoData.robots_nosnippet ?? false,
+        og_title: seoData.og_title || '',
+        og_description: seoData.og_description || '',
+        og_image: seoData.og_image || '',
+        og_image_alt: seoData.og_image_alt || '',
+        twitter_title: seoData.twitter_title || '',
+        twitter_description: seoData.twitter_description || '',
+        twitter_image: seoData.twitter_image || '',
+        twitter_image_alt: seoData.twitter_image_alt || '',
+        structured_data_type: seoData.structured_data_type || 'Product',
+        custom_json_ld: seoData.custom_json_ld || ''
+      }
+      
+      setFormData(updatedFormData)
+      
+      if (usingDemoData) {
+        // For demo data, save to localStorage
+        localStorage.setItem(`solution_form_${params.id}`, JSON.stringify(updatedFormData))
+        console.log('SEO data saved to localStorage')
+      } else {
+        // For real database data, save to Supabase
+        const { id, ...updateData } = updatedFormData
+        const { error } = await supabase
+          .from('solutions')
+          .update({
+            ...updateData,
+            updated_at: new Date().toISOString()
+          })
+          .eq('id', id)
+
+        if (error) {
+          throw new Error(error.message)
+        }
+      }
+      
+      console.log('SEO settings saved successfully')
+    } catch (error) {
+      console.error('Error saving SEO data:', error)
+      throw error
+    }
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -1170,41 +1224,34 @@ export default function EditSolution() {
             </CardContent>
           </Card>
 
-          {/* SEO Section */}
-          <Card>
-            <CardHeader>
-              <CardTitle>SEO Settings</CardTitle>
-              <CardDescription>Configure search engine optimization for this solution page</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <SEOFormFields
-                data={{
-                  seo_title: formData.seo_title,
-                  seo_description: formData.seo_description,
-                  seo_keywords: formData.seo_keywords,
-                  canonical_url: formData.canonical_url,
-                  robots_index: formData.robots_index,
-                  robots_follow: formData.robots_follow,
-                  robots_nosnippet: formData.robots_nosnippet,
-                  og_title: formData.og_title,
-                  og_description: formData.og_description,
-                  og_image: formData.og_image,
-                  og_image_alt: formData.og_image_alt,
-                  twitter_title: formData.twitter_title,
-                  twitter_description: formData.twitter_description,
-                  twitter_image: formData.twitter_image,
-                  twitter_image_alt: formData.twitter_image_alt,
-                  structured_data_type: formData.structured_data_type,
-                  custom_json_ld: formData.custom_json_ld,
-                  focus_keyword: formData.focus_keyword
-                }}
-                onChange={(field, value) => handleInputChange(field as keyof SolutionFormData, value)}
-                fallbackTitle={`${formData.name} - Modular Building Solutions`}
-                fallbackDescription={formData.description}
-                defaultImage={formData.image_url}
-              />
-            </CardContent>
-          </Card>
+          {/* Comprehensive SEO Section */}
+          <SEOSection
+            pageType="solution"
+            contentId={formData.id}
+            pagePath={`/solutions/${formData.slug}`}
+            initialData={{
+              seo_title: formData.seo_title || '',
+              seo_description: formData.seo_description || '',
+              focus_keyword: formData.focus_keyword || '',
+              seo_keywords: formData.seo_keywords ? formData.seo_keywords.split(',').map(k => k.trim()).filter(k => k) : [],
+              canonical_url: formData.canonical_url || '',
+              robots_index: formData.robots_index ?? true,
+              robots_follow: formData.robots_follow ?? true,
+              robots_nosnippet: formData.robots_nosnippet ?? false,
+              og_title: formData.og_title || '',
+              og_description: formData.og_description || '',
+              og_image: formData.og_image || formData.image_url || '',
+              og_image_alt: formData.og_image_alt || `${formData.name} - Modular Building Solution`,
+              twitter_title: formData.twitter_title || '',
+              twitter_description: formData.twitter_description || '',
+              twitter_image: formData.twitter_image || formData.image_url || '',
+              twitter_image_alt: formData.twitter_image_alt || `${formData.name} - Modular Building Solution`,
+              structured_data_type: formData.structured_data_type || 'Product',
+              custom_json_ld: formData.custom_json_ld || ''
+            }}
+            onSave={handleSEOSave}
+            className="mt-6"
+          />
 
           {/* Actions */}
           <div className="flex justify-between">

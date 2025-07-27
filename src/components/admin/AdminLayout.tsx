@@ -171,13 +171,14 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
       href: '/admin/robots',
       icon: FileText,
       current: pathname.startsWith('/admin/robots')
-    },
-    {
-      name: '🤖 AI Analytics',
-      href: '/admin/ai-analytics',
-      icon: Brain,
-      current: pathname.startsWith('/admin/ai-analytics')
     }
+    // Temporarily disabled - can be re-enabled later
+    // {
+    //   name: '🤖 AI Analytics',
+    //   href: '/admin/ai-analytics',
+    //   icon: Brain,
+    //   current: pathname.startsWith('/admin/ai-analytics')
+    // }
   ]
 
   const SidebarContent = () => (
@@ -185,7 +186,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
       <div className="flex items-center justify-between h-16 px-4 border-b border-slate-700">
         <div className="flex items-center">
           <Building2 className="h-8 w-8 text-blue-400" />
-          <span className="ml-2 text-lg font-bold text-white">AM Site Admin</span>
+          <span className="ml-2 text-lg font-bold text-white">CMS Admin</span>
         </div>
         <button
           className="lg:hidden text-slate-400 hover:text-white"

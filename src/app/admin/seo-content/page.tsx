@@ -39,6 +39,210 @@ export default function SEOContentPage() {
     external_links: ''
   })
 
+  // Available website pages for easy selection
+  const availablePages = [
+    { 
+      path: '/', 
+      title: 'Homepage',
+      suggestedMetaTitle: 'Premium Modular Buildings | Custom Solutions',
+      suggestedDescription: 'Discover premium modular buildings designed for your needs. Custom office spaces, retail locations, and commercial buildings with fast delivery.',
+      suggestedKeywords: 'modular buildings, prefab construction, office spaces, commercial buildings'
+    },
+    { 
+      path: '/solutions', 
+      title: 'Solutions Overview',
+      suggestedMetaTitle: 'Modular Building Solutions | Office, Retail & Commercial',
+      suggestedDescription: 'Explore our range of modular building solutions including office buildings, retail spaces, and commercial structures. Built to last, delivered fast.',
+      suggestedKeywords: 'office buildings, retail spaces, commercial modular buildings, prefab solutions'
+    },
+    { 
+      path: '/solutions/office-buildings', 
+      title: 'Office Buildings',
+      suggestedMetaTitle: 'Modular Office Buildings | Professional Workspace Solutions',
+      suggestedDescription: 'Professional modular office buildings for businesses. Flexible designs, quick installation, and cost-effective workspace solutions.',
+      suggestedKeywords: 'modular office buildings, professional workspace, business offices, commercial spaces'
+    },
+    { 
+      path: '/solutions/portable-classrooms', 
+      title: 'Portable Classrooms',
+      suggestedMetaTitle: 'Portable Classrooms | Educational Modular Buildings',
+      suggestedDescription: 'Quality portable classrooms for schools and educational institutions. Flexible learning spaces with modern amenities.',
+      suggestedKeywords: 'portable classrooms, educational buildings, school modular buildings, learning spaces'
+    },
+    { 
+      path: '/solutions/healthcare-facilities', 
+      title: 'Healthcare Facilities',
+      suggestedMetaTitle: 'Healthcare Modular Buildings | Medical Facilities',
+      suggestedDescription: 'Specialized modular healthcare facilities for medical practices, clinics, and healthcare institutions.',
+      suggestedKeywords: 'healthcare modular buildings, medical facilities, clinic buildings, healthcare construction'
+    },
+    { 
+      path: '/solutions/security-buildings', 
+      title: 'Security Buildings',
+      suggestedMetaTitle: 'Security Buildings | Guard Stations & Security Facilities',
+      suggestedDescription: 'Professional security buildings and guard stations for enhanced safety and surveillance.',
+      suggestedKeywords: 'security buildings, guard stations, security facilities, surveillance buildings'
+    },
+    { 
+      path: '/solutions/commercial-spaces', 
+      title: 'Commercial Spaces',
+      suggestedMetaTitle: 'Commercial Modular Buildings | Retail & Business Spaces',
+      suggestedDescription: 'Versatile commercial modular buildings for retail, business, and industrial applications.',
+      suggestedKeywords: 'commercial modular buildings, retail spaces, business buildings, industrial facilities'
+    },
+    { 
+      path: '/solutions/emergency-response', 
+      title: 'Emergency Response',
+      suggestedMetaTitle: 'Emergency Response Buildings | Disaster Relief Facilities',
+      suggestedDescription: 'Rapid deployment emergency response buildings for disaster relief and crisis management.',
+      suggestedKeywords: 'emergency response buildings, disaster relief, crisis management facilities, rapid deployment'
+    },
+    { 
+      path: '/company/about', 
+      title: 'About Us',
+      suggestedMetaTitle: 'About Our Modular Building Company | Industry Leaders',
+      suggestedDescription: 'Learn about our company\'s mission, values, and commitment to delivering quality modular building solutions.',
+      suggestedKeywords: 'modular building company, construction expertise, industry leaders, company history'
+    },
+    { 
+      path: '/company/our-process', 
+      title: 'Our Process',
+      suggestedMetaTitle: 'Our 7-Step Construction Process | Proven Method',
+      suggestedDescription: 'Learn about our proven 7-step modular building process from consultation to delivery. Quality construction with transparent timelines.',
+      suggestedKeywords: 'construction process, modular building steps, consultation, delivery, quality assurance'
+    },
+    { 
+      path: '/company/quality-standards', 
+      title: 'Quality Standards',
+      suggestedMetaTitle: 'Quality Standards | Premium Construction & Materials',
+      suggestedDescription: 'Our commitment to quality through rigorous standards, premium materials, and expert craftsmanship.',
+      suggestedKeywords: 'quality standards, premium construction, materials, craftsmanship, building codes'
+    },
+    { 
+      path: '/company/testimonials', 
+      title: 'Testimonials',
+      suggestedMetaTitle: 'Customer Testimonials | Success Stories & Reviews',
+      suggestedDescription: 'Read success stories and testimonials from satisfied customers who chose our modular building solutions.',
+      suggestedKeywords: 'customer testimonials, success stories, reviews, client satisfaction, case studies'
+    },
+    { 
+      path: '/industries', 
+      title: 'Industries Overview',
+      suggestedMetaTitle: 'Industries We Serve | Specialized Modular Solutions',
+      suggestedDescription: 'Specialized modular building solutions for various industries including education, healthcare, construction, and more.',
+      suggestedKeywords: 'industry solutions, specialized buildings, sector-specific, custom applications'
+    },
+    { 
+      path: '/industries/education', 
+      title: 'Education Industry',
+      suggestedMetaTitle: 'Education Modular Buildings | Schools & Universities',
+      suggestedDescription: 'Modular building solutions for educational institutions, schools, and universities. Flexible learning environments.',
+      suggestedKeywords: 'education buildings, school construction, university facilities, learning environments'
+    },
+    { 
+      path: '/industries/healthcare', 
+      title: 'Healthcare Industry',
+      suggestedMetaTitle: 'Healthcare Modular Solutions | Medical Industry Buildings',
+      suggestedDescription: 'Specialized modular solutions for the healthcare industry including clinics, medical offices, and patient facilities.',
+      suggestedKeywords: 'healthcare industry, medical buildings, clinic construction, patient facilities'
+    },
+    { 
+      path: '/industries/construction', 
+      title: 'Construction Industry',
+      suggestedMetaTitle: 'Construction Industry Buildings | Job Site Solutions',
+      suggestedDescription: 'Modular buildings for construction sites including offices, storage, and temporary facilities.',
+      suggestedKeywords: 'construction industry, job site buildings, temporary offices, construction facilities'
+    },
+    { 
+      path: '/industries/government', 
+      title: 'Government Industry',
+      suggestedMetaTitle: 'Government Modular Buildings | Public Sector Solutions',
+      suggestedDescription: 'Modular building solutions for government agencies and public sector organizations.',
+      suggestedKeywords: 'government buildings, public sector, agency facilities, municipal buildings'
+    },
+    { 
+      path: '/industries/manufacturing', 
+      title: 'Manufacturing Industry',
+      suggestedMetaTitle: 'Manufacturing Facilities | Industrial Modular Buildings',
+      suggestedDescription: 'Industrial modular buildings for manufacturing operations, warehouses, and production facilities.',
+      suggestedKeywords: 'manufacturing facilities, industrial buildings, production spaces, warehouse solutions'
+    },
+    { 
+      path: '/resources', 
+      title: 'Resources Overview',
+      suggestedMetaTitle: 'Modular Building Resources | Planning Tools & Guides',
+      suggestedDescription: 'Comprehensive resources for planning your modular building project including tools, guides, and inventory.',
+      suggestedKeywords: 'modular building resources, planning tools, construction guides, project planning'
+    },
+    { 
+      path: '/resources/live-inventory', 
+      title: 'Live Inventory',
+      suggestedMetaTitle: 'Live Inventory | Available Modular Buildings',
+      suggestedDescription: 'Browse our live inventory of available modular buildings ready for immediate delivery or customization.',
+      suggestedKeywords: 'live inventory, available buildings, ready to ship, immediate delivery'
+    },
+    { 
+      path: '/resources/planning-tools', 
+      title: 'Planning Tools',
+      suggestedMetaTitle: 'Planning Tools | Modular Building Project Planning',
+      suggestedDescription: 'Essential planning tools and calculators to help you design and plan your modular building project.',
+      suggestedKeywords: 'planning tools, project planning, design tools, building calculators'
+    },
+    { 
+      path: '/resources/content', 
+      title: 'Content Resources',
+      suggestedMetaTitle: 'Content Resources | Guides & Educational Materials',
+      suggestedDescription: 'Educational content and resources about modular construction, best practices, and industry insights.',
+      suggestedKeywords: 'educational resources, construction guides, industry insights, best practices'
+    },
+    { 
+      path: '/locations', 
+      title: 'Locations Overview',
+      suggestedMetaTitle: 'Service Locations | Nationwide Modular Building Delivery',
+      suggestedDescription: 'Find our service locations and coverage areas for modular building delivery and installation.',
+      suggestedKeywords: 'service locations, delivery areas, nationwide service, coverage map'
+    },
+    { 
+      path: '/news-insights', 
+      title: 'News & Insights',
+      suggestedMetaTitle: 'News & Insights | Modular Construction Updates',
+      suggestedDescription: 'Latest news, insights, and updates from the modular construction industry and our company.',
+      suggestedKeywords: 'industry news, construction insights, company updates, modular trends'
+    },
+    { 
+      path: '/quote', 
+      title: 'Get Quote',
+      suggestedMetaTitle: 'Get Free Quote | Modular Building Cost Estimate',
+      suggestedDescription: 'Get a free quote for your modular building project. Fast, accurate estimates with no obligation.',
+      suggestedKeywords: 'free quote, cost estimate, pricing, modular building cost, project estimate'
+    },
+    { 
+      path: '/contact', 
+      title: 'Contact Us',
+      suggestedMetaTitle: 'Contact Us | Modular Building Experts',
+      suggestedDescription: 'Contact our modular building experts for consultation, quotes, and project support. Multiple ways to reach us.',
+      suggestedKeywords: 'contact us, consultation, expert support, customer service, project help'
+    }
+  ]
+
+  // Auto-suggest content based on selected page
+  const handlePageSelection = (pagePath: string) => {
+    const selectedPage = availablePages.find(page => page.path === pagePath)
+    if (selectedPage && !editingItem) {
+      setFormData(prev => ({
+        ...prev,
+        page_path: pagePath,
+        meta_title: selectedPage.suggestedMetaTitle,
+        meta_description: selectedPage.suggestedDescription,
+        keywords: selectedPage.suggestedKeywords,
+        h1_title: selectedPage.title,
+        content_focus: `SEO optimization for ${selectedPage.title.toLowerCase()}`
+      }))
+    } else {
+      setFormData(prev => ({ ...prev, page_path: pagePath }))
+    }
+  }
+
   // Load demo data on component mount
   useEffect(() => {
     loadDemoData()
@@ -274,11 +478,45 @@ export default function SEOContentPage() {
               <div className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Page Path</label>
-                  <Input
+                  <select
                     value={formData.page_path}
-                    onChange={(e) => setFormData({...formData, page_path: e.target.value})}
-                    placeholder="e.g., /solutions, /about"
-                  />
+                    onChange={(e) => handlePageSelection(e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white"
+                    required
+                  >
+                    <option value="">Select a page to optimize...</option>
+                    {availablePages.map((page) => (
+                      <option key={page.path} value={page.path}>
+                        {page.title} ({page.path})
+                      </option>
+                    ))}
+                  </select>
+                  <div className="flex justify-between items-center mt-1">
+                    <p className="text-xs text-gray-500">Choose from existing website pages</p>
+                    {formData.page_path && !editingItem && (
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        onClick={() => {
+                          const selectedPage = availablePages.find(page => page.path === formData.page_path)
+                          if (selectedPage) {
+                            setFormData(prev => ({
+                              ...prev,
+                              meta_title: selectedPage.suggestedMetaTitle,
+                              meta_description: selectedPage.suggestedDescription,
+                              keywords: selectedPage.suggestedKeywords,
+                              h1_title: selectedPage.title,
+                              content_focus: `SEO optimization for ${selectedPage.title.toLowerCase()}`
+                            }))
+                          }
+                        }}
+                        className="text-xs"
+                      >
+                        Auto-fill suggestions
+                      </Button>
+                    )}
+                  </div>
                 </div>
 
                 <div>
@@ -332,12 +570,34 @@ export default function SEOContentPage() {
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Internal Links</label>
-                  <Input
-                    value={formData.internal_links}
-                    onChange={(e) => setFormData({...formData, internal_links: e.target.value})}
-                    placeholder="/page1, /page2, /page3"
-                  />
-                  <p className="text-xs text-gray-500 mt-1">Separate with commas</p>
+                  <div className="space-y-2">
+                    <select
+                      onChange={(e) => {
+                        if (e.target.value && !formData.internal_links.includes(e.target.value)) {
+                          const newLinks = formData.internal_links ? `${formData.internal_links}, ${e.target.value}` : e.target.value
+                          setFormData({...formData, internal_links: newLinks})
+                        }
+                        e.target.value = ''
+                      }}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white"
+                    >
+                      <option value="">Add internal link...</option>
+                      {availablePages
+                        .filter(page => page.path !== formData.page_path)
+                        .map((page) => (
+                          <option key={page.path} value={page.path}>
+                            {page.title} ({page.path})
+                          </option>
+                        ))}
+                    </select>
+                    <Input
+                      value={formData.internal_links}
+                      onChange={(e) => setFormData({...formData, internal_links: e.target.value})}
+                      placeholder="Selected links will appear here..."
+                      className="text-sm"
+                    />
+                  </div>
+                  <p className="text-xs text-gray-500 mt-1">Select from dropdown or edit manually (comma-separated)</p>
                 </div>
 
                 <div>

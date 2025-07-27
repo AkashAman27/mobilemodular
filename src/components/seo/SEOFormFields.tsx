@@ -12,10 +12,12 @@ import { Separator } from '@/components/ui/separator'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Info, ExternalLink, X } from 'lucide-react'
 
+import type { SEOData, PageType } from '@/types/seo'
+
 export interface SEOFormData {
   seo_title?: string
   seo_description?: string
-  seo_keywords?: string
+  seo_keywords?: string | string[] // Support both formats for backward compatibility
   canonical_url?: string
   robots_index?: boolean
   robots_follow?: boolean
@@ -38,7 +40,7 @@ interface SEOFormFieldsProps {
   onChange: (field: keyof SEOFormData, value: any) => void
   baseUrl?: string
   slug?: string
-  contentType?: 'solution' | 'homepage' | 'page' | 'industry' | 'location'
+  contentType?: PageType
   showJsonLd?: boolean
   fallbackTitle?: string
   fallbackDescription?: string
@@ -64,7 +66,7 @@ export function SEOFormFields({
   onChange, 
   baseUrl = 'https://modularbuilding.com',
   slug = '',
-  contentType = 'page',
+  contentType = 'solution',
   showJsonLd = false,
   fallbackTitle = '',
   fallbackDescription = '',
@@ -80,8 +82,6 @@ export function SEOFormFields({
         return `${baseUrl}/industries/${slug}`
       case 'location':
         return `${baseUrl}/locations/${slug}`
-      case 'page':
-        return `${baseUrl}/${slug}`
       default:
         return baseUrl
     }
@@ -188,7 +188,7 @@ export function SEOFormFields({
             <Label htmlFor="seo_keywords">SEO Keywords</Label>
             <Input
               id="seo_keywords"
-              value={data.seo_keywords || ''}
+              value={Array.isArray(data.seo_keywords) ? data.seo_keywords.join(', ') : (data.seo_keywords || '')}
               onChange={(e) => onChange('seo_keywords', e.target.value)}
               placeholder="keyword1, keyword2, keyword3"
             />

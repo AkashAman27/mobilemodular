@@ -44,7 +44,11 @@ const PUBLIC_API_ENDPOINTS = [
   '/api/seo',
   // Temporarily allow admin endpoints for development/testing
   '/api/admin/site-settings',
-  '/api/admin/homepage-content'
+  '/api/admin/homepage-content',
+  '/api/admin/pages',
+  '/api/admin/faqs',
+  '/api/admin/page-faqs',
+  '/api/assign-faq-to-page-admin'
 ]
 
 export async function middleware(request: NextRequest) {

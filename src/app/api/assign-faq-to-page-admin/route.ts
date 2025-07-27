@@ -1,19 +1,39 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { supabaseAdmin } from '@/lib/supabase'
+import { supabaseAdmin, requireServiceRoleKey } from '@/lib/supabase'
 
 export const dynamic = 'force-dynamic'
 
 export async function POST(request: NextRequest) {
   try {
+    // Ensure we have proper admin privileges
+    requireServiceRoleKey()
+    
     const { pageSlug, faqId } = await request.json()
     
     console.log('🔧 Admin assigning FAQ to page:', { pageSlug, faqId })
+
+    // First, get the page ID from the slug
+    const { data: pageData, error: pageError } = await supabaseAdmin
+      .from('pages')
+      .select('id')
+      .eq('slug', pageSlug)
+      .single()
+
+    if (pageError || !pageData) {
+      console.error('❌ Error finding page:', pageError)
+      return NextResponse.json({
+        success: false,
+        error: `Page not found for slug: ${pageSlug}`
+      })
+    }
+
+    const pageId = pageData.id
 
     // Check if assignment already exists
     const { data: existing } = await supabaseAdmin
       .from('page_faqs')
       .select('*')
-      .eq('page_slug', pageSlug)
+      .eq('page_id', pageId)
       .eq('faq_id', faqId)
       .single()
 
@@ -24,13 +44,25 @@ export async function POST(request: NextRequest) {
       })
     }
 
-    // Create the assignment using admin client
+    // Get the next display order
+    const { data: lastOrder } = await supabaseAdmin
+      .from('page_faqs')
+      .select('display_order')
+      .eq('page_id', pageId)
+      .order('display_order', { ascending: false })
+      .limit(1)
+
+    const nextOrder = (lastOrder && lastOrder.length > 0) ? (lastOrder[0].display_order + 1) : 1
+
+    // Create the assignment using admin client with proper schema
     const { data, error } = await supabaseAdmin
       .from('page_faqs')
       .insert({
-        page_slug: pageSlug,
+        page_id: pageId,
         faq_id: faqId,
-        created_at: new Date().toISOString()
+        page_slug: pageSlug,
+        display_order: nextOrder,
+        is_featured: false
       })
       .select()
 
@@ -64,14 +96,34 @@ export async function POST(request: NextRequest) {
 
 export async function DELETE(request: NextRequest) {
   try {
+    // Ensure we have proper admin privileges
+    requireServiceRoleKey()
+    
     const { pageSlug, faqId } = await request.json()
     
     console.log('🗑️ Admin removing FAQ from page:', { pageSlug, faqId })
 
+    // First, get the page ID from the slug
+    const { data: pageData, error: pageError } = await supabaseAdmin
+      .from('pages')
+      .select('id')
+      .eq('slug', pageSlug)
+      .single()
+
+    if (pageError || !pageData) {
+      console.error('❌ Error finding page:', pageError)
+      return NextResponse.json({
+        success: false,
+        error: `Page not found for slug: ${pageSlug}`
+      })
+    }
+
+    const pageId = pageData.id
+
     const { error } = await supabaseAdmin
       .from('page_faqs')
       .delete()
-      .eq('page_slug', pageSlug)
+      .eq('page_id', pageId)
       .eq('faq_id', faqId)
 
     if (error) {

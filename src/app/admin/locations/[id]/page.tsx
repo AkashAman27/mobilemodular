@@ -6,6 +6,9 @@ import { Save, ArrowLeft } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { supabase } from '@/lib/supabase'
 import Link from 'next/link'
+import SEOSection from '@/components/admin/SEOSection'
+import { SEOData } from '@/types/seo'
+import { toast } from 'react-hot-toast'
 
 interface StateLocationData {
   id: string
@@ -21,6 +24,25 @@ interface StateLocationData {
   service_areas: string[]
   created_at: string
   updated_at: string
+  // SEO fields
+  seo_title?: string
+  seo_description?: string
+  focus_keyword?: string
+  seo_keywords?: string
+  canonical_url?: string
+  robots_index?: boolean
+  robots_follow?: boolean
+  robots_nosnippet?: boolean
+  og_title?: string
+  og_description?: string
+  og_image?: string
+  og_image_alt?: string
+  twitter_title?: string
+  twitter_description?: string
+  twitter_image?: string
+  twitter_image_alt?: string
+  structured_data_type?: string
+  custom_json_ld?: string
 }
 
 export default function EditState() {
@@ -41,7 +63,26 @@ export default function EditState() {
     coverage: 'Statewide',
     description: '',
     major_cities: ['', '', '', '', ''],
-    service_areas: ['', '', '', '', '']
+    service_areas: ['', '', '', '', ''],
+    // SEO fields
+    seo_title: '',
+    seo_description: '',
+    focus_keyword: '',
+    seo_keywords: '',
+    canonical_url: '',
+    robots_index: true,
+    robots_follow: true,
+    robots_nosnippet: false,
+    og_title: '',
+    og_description: '',
+    og_image: '',
+    og_image_alt: '',
+    twitter_title: '',
+    twitter_description: '',
+    twitter_image: '',
+    twitter_image_alt: '',
+    structured_data_type: 'Place',
+    custom_json_ld: ''
   })
 
   useEffect(() => {
@@ -75,12 +116,96 @@ export default function EditState() {
         coverage: data.coverage || 'Statewide',
         description: data.description || '',
         major_cities: [...(data.major_cities || []), '', '', '', '', ''].slice(0, 5),
-        service_areas: [...(data.service_areas || []), '', '', '', '', ''].slice(0, 5)
+        service_areas: [...(data.service_areas || []), '', '', '', '', ''].slice(0, 5),
+        // Load SEO fields
+        seo_title: data.seo_title || '',
+        seo_description: data.seo_description || '',
+        focus_keyword: data.focus_keyword || '',
+        seo_keywords: data.seo_keywords || '',
+        canonical_url: data.canonical_url || '',
+        robots_index: data.robots_index ?? true,
+        robots_follow: data.robots_follow ?? true,
+        robots_nosnippet: data.robots_nosnippet ?? false,
+        og_title: data.og_title || '',
+        og_description: data.og_description || '',
+        og_image: data.og_image || '',
+        og_image_alt: data.og_image_alt || '',
+        twitter_title: data.twitter_title || '',
+        twitter_description: data.twitter_description || '',
+        twitter_image: data.twitter_image || '',
+        twitter_image_alt: data.twitter_image_alt || '',
+        structured_data_type: data.structured_data_type || 'Place',
+        custom_json_ld: data.custom_json_ld || ''
       })
     } catch (err) {
       setError('Failed to fetch state data')
     } finally {
       setLoading(false)
+    }
+  }
+
+  const handleSEOSave = async (seoData: SEOData) => {
+    try {
+      // Update local state with SEO data
+      const updatedFormData = {
+        ...formData,
+        seo_title: seoData.seo_title || '',
+        seo_description: seoData.seo_description || '',
+        focus_keyword: seoData.focus_keyword || '',
+        seo_keywords: seoData.seo_keywords ? seoData.seo_keywords.join(', ') : '',
+        canonical_url: seoData.canonical_url || '',
+        robots_index: seoData.robots_index ?? true,
+        robots_follow: seoData.robots_follow ?? true,
+        robots_nosnippet: seoData.robots_nosnippet ?? false,
+        og_title: seoData.og_title || '',
+        og_description: seoData.og_description || '',
+        og_image: seoData.og_image || '',
+        og_image_alt: seoData.og_image_alt || '',
+        twitter_title: seoData.twitter_title || '',
+        twitter_description: seoData.twitter_description || '',
+        twitter_image: seoData.twitter_image || '',
+        twitter_image_alt: seoData.twitter_image_alt || '',
+        structured_data_type: seoData.structured_data_type || 'Place',
+        custom_json_ld: seoData.custom_json_ld || ''
+      }
+      
+      setFormData(updatedFormData)
+      
+      // Save to database
+      const { error } = await supabase
+        .from('state_locations')
+        .update({
+          seo_title: seoData.seo_title,
+          seo_description: seoData.seo_description,
+          focus_keyword: seoData.focus_keyword,
+          seo_keywords: seoData.seo_keywords ? seoData.seo_keywords.join(', ') : null,
+          canonical_url: seoData.canonical_url,
+          robots_index: seoData.robots_index ?? true,
+          robots_follow: seoData.robots_follow ?? true,
+          robots_nosnippet: seoData.robots_nosnippet ?? false,
+          og_title: seoData.og_title,
+          og_description: seoData.og_description,
+          og_image: seoData.og_image,
+          og_image_alt: seoData.og_image_alt,
+          twitter_title: seoData.twitter_title,
+          twitter_description: seoData.twitter_description,
+          twitter_image: seoData.twitter_image,
+          twitter_image_alt: seoData.twitter_image_alt,
+          structured_data_type: seoData.structured_data_type,
+          custom_json_ld: seoData.custom_json_ld,
+          updated_at: new Date().toISOString()
+        })
+        .eq('id', params.id)
+
+      if (error) {
+        throw new Error(error.message)
+      }
+      
+      toast.success('SEO settings saved successfully!')
+    } catch (error) {
+      console.error('Error saving SEO data:', error)
+      toast.error('Failed to save SEO settings')
+      throw error
     }
   }
 
@@ -102,6 +227,25 @@ export default function EditState() {
           description: formData.description,
           major_cities: formData.major_cities.filter(city => city.trim() !== ''),
           service_areas: formData.service_areas.filter(area => area.trim() !== ''),
+          // Include SEO fields in main form save
+          seo_title: formData.seo_title,
+          seo_description: formData.seo_description,
+          focus_keyword: formData.focus_keyword,
+          seo_keywords: formData.seo_keywords,
+          canonical_url: formData.canonical_url,
+          robots_index: formData.robots_index,
+          robots_follow: formData.robots_follow,
+          robots_nosnippet: formData.robots_nosnippet,
+          og_title: formData.og_title,
+          og_description: formData.og_description,
+          og_image: formData.og_image,
+          og_image_alt: formData.og_image_alt,
+          twitter_title: formData.twitter_title,
+          twitter_description: formData.twitter_description,
+          twitter_image: formData.twitter_image,
+          twitter_image_alt: formData.twitter_image_alt,
+          structured_data_type: formData.structured_data_type,
+          custom_json_ld: formData.custom_json_ld,
           updated_at: new Date().toISOString()
         })
         .eq('id', params.id)
@@ -111,6 +255,7 @@ export default function EditState() {
         return
       }
 
+      toast.success('Location updated successfully!')
       router.push('/admin/locations')
     } catch (err) {
       setError('Failed to update state')
@@ -477,6 +622,36 @@ export default function EditState() {
                 </div>
               </Button>
             </div>
+          </div>
+
+          {/* Comprehensive SEO Section */}
+          <div className="bg-white rounded-lg shadow p-6">
+            <SEOSection
+              pageType="location"
+              contentId={params.id as string}
+              pagePath={`/locations/${formData.state_id}`}
+              initialData={{
+                seo_title: formData.seo_title || '',
+                seo_description: formData.seo_description || '',
+                focus_keyword: formData.focus_keyword || '',
+                seo_keywords: formData.seo_keywords ? formData.seo_keywords.split(',').map(k => k.trim()).filter(k => k) : [],
+                canonical_url: formData.canonical_url || '',
+                robots_index: formData.robots_index ?? true,
+                robots_follow: formData.robots_follow ?? true,
+                robots_nosnippet: formData.robots_nosnippet ?? false,
+                og_title: formData.og_title || '',
+                og_description: formData.og_description || '',
+                og_image: formData.og_image || '',
+                og_image_alt: formData.og_image_alt || `Modular Buildings in ${formData.name}`,
+                twitter_title: formData.twitter_title || '',
+                twitter_description: formData.twitter_description || '',
+                twitter_image: formData.twitter_image || '',
+                twitter_image_alt: formData.twitter_image_alt || `Modular Buildings in ${formData.name}`,
+                structured_data_type: formData.structured_data_type || 'Place',
+                custom_json_ld: formData.custom_json_ld || ''
+              }}
+              onSave={handleSEOSave}
+            />
           </div>
 
           {/* Save Button */}

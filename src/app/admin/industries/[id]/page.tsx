@@ -8,6 +8,9 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import PreviewButton from '@/components/admin/PreviewButton'
 import { supabase } from '@/lib/supabase'
+import SEOSection from '@/components/admin/SEOSection'
+import { SEOData } from '@/types/seo'
+import { toast } from 'react-hot-toast'
 
 interface IndustryFormData {
   id: string
@@ -16,6 +19,25 @@ interface IndustryFormData {
   description: string
   image_url: string
   case_studies_count: number
+  // SEO fields
+  seo_title?: string
+  seo_description?: string
+  focus_keyword?: string
+  seo_keywords?: string
+  canonical_url?: string
+  robots_index?: boolean
+  robots_follow?: boolean
+  robots_nosnippet?: boolean
+  og_title?: string
+  og_description?: string
+  og_image?: string
+  og_image_alt?: string
+  twitter_title?: string
+  twitter_description?: string
+  twitter_image?: string
+  twitter_image_alt?: string
+  structured_data_type?: string
+  custom_json_ld?: string
 }
 
 export default function EditIndustry() {
@@ -31,7 +53,26 @@ export default function EditIndustry() {
     name: '',
     description: '',
     image_url: '',
-    case_studies_count: 0
+    case_studies_count: 0,
+    // SEO defaults
+    seo_title: '',
+    seo_description: '',
+    focus_keyword: '',
+    seo_keywords: '',
+    canonical_url: '',
+    robots_index: true,
+    robots_follow: true,
+    robots_nosnippet: false,
+    og_title: '',
+    og_description: '',
+    og_image: '',
+    og_image_alt: '',
+    twitter_title: '',
+    twitter_description: '',
+    twitter_image: '',
+    twitter_image_alt: '',
+    structured_data_type: 'Service',
+    custom_json_ld: ''
   })
 
   useEffect(() => {
@@ -72,7 +113,26 @@ export default function EditIndustry() {
           name: data.name,
           description: data.description,
           image_url: data.image_url || '',
-          case_studies_count: data.case_studies_count || 0
+          case_studies_count: data.case_studies_count || 0,
+          // Load SEO fields
+          seo_title: data.seo_title || '',
+          seo_description: data.seo_description || '',
+          focus_keyword: data.focus_keyword || '',
+          seo_keywords: data.seo_keywords || '',
+          canonical_url: data.canonical_url || '',
+          robots_index: data.robots_index ?? true,
+          robots_follow: data.robots_follow ?? true,
+          robots_nosnippet: data.robots_nosnippet ?? false,
+          og_title: data.og_title || '',
+          og_description: data.og_description || '',
+          og_image: data.og_image || '',
+          og_image_alt: data.og_image_alt || '',
+          twitter_title: data.twitter_title || '',
+          twitter_description: data.twitter_description || '',
+          twitter_image: data.twitter_image || '',
+          twitter_image_alt: data.twitter_image_alt || '',
+          structured_data_type: data.structured_data_type || 'Service',
+          custom_json_ld: data.custom_json_ld || ''
         })
       }
     } catch (error) {
@@ -111,6 +171,61 @@ export default function EditIndustry() {
     if (!formData.slug.trim()) return 'Slug is required'
     if (!formData.description.trim()) return 'Description is required'
     return null
+  }
+
+  const handleSEOSave = async (seoData: SEOData) => {
+    try {
+      // Update local state with SEO data
+      const updatedFormData = {
+        ...formData,
+        seo_title: seoData.seo_title || '',
+        seo_description: seoData.seo_description || '',
+        focus_keyword: seoData.focus_keyword || '',
+        seo_keywords: seoData.seo_keywords ? seoData.seo_keywords.join(', ') : '',
+        canonical_url: seoData.canonical_url || '',
+        robots_index: seoData.robots_index ?? true,
+        robots_follow: seoData.robots_follow ?? true,
+        robots_nosnippet: seoData.robots_nosnippet ?? false,
+        og_title: seoData.og_title || '',
+        og_description: seoData.og_description || '',
+        og_image: seoData.og_image || '',
+        og_image_alt: seoData.og_image_alt || '',
+        twitter_title: seoData.twitter_title || '',
+        twitter_description: seoData.twitter_description || '',
+        twitter_image: seoData.twitter_image || '',
+        twitter_image_alt: seoData.twitter_image_alt || '',
+        structured_data_type: seoData.structured_data_type || 'Service',
+        custom_json_ld: seoData.custom_json_ld || ''
+      }
+      
+      setFormData(updatedFormData)
+      
+      if (usingDemoData) {
+        // For demo data, save to localStorage
+        localStorage.setItem(`industry_form_${params.id}`, JSON.stringify(updatedFormData))
+        toast.success('SEO settings saved locally (Demo mode)')
+      } else {
+        // For real database data, save to Supabase
+        const { id, ...updateData } = updatedFormData
+        const { error } = await supabase
+          .from('industries')
+          .update({
+            ...updateData,
+            updated_at: new Date().toISOString()
+          })
+          .eq('id', id)
+
+        if (error) {
+          throw new Error(error.message)
+        }
+        
+        toast.success('SEO settings saved successfully!')
+      }
+    } catch (error) {
+      console.error('Error saving SEO data:', error)
+      toast.error('Failed to save SEO settings')
+      throw error
+    }
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -310,6 +425,35 @@ export default function EditIndustry() {
               )}
             </CardContent>
           </Card>
+
+          {/* Comprehensive SEO Section */}
+          <SEOSection
+            pageType="industry"
+            contentId={formData.id}
+            pagePath={`/industries/${formData.slug}`}
+            initialData={{
+              seo_title: formData.seo_title || '',
+              seo_description: formData.seo_description || '',
+              focus_keyword: formData.focus_keyword || '',
+              seo_keywords: formData.seo_keywords ? formData.seo_keywords.split(',').map(k => k.trim()).filter(k => k) : [],
+              canonical_url: formData.canonical_url || '',
+              robots_index: formData.robots_index ?? true,
+              robots_follow: formData.robots_follow ?? true,
+              robots_nosnippet: formData.robots_nosnippet ?? false,
+              og_title: formData.og_title || '',
+              og_description: formData.og_description || '',
+              og_image: formData.og_image || formData.image_url || '',
+              og_image_alt: formData.og_image_alt || `${formData.name} Industry Solutions`,
+              twitter_title: formData.twitter_title || '',
+              twitter_description: formData.twitter_description || '',
+              twitter_image: formData.twitter_image || formData.image_url || '',
+              twitter_image_alt: formData.twitter_image_alt || `${formData.name} Industry Solutions`,
+              structured_data_type: formData.structured_data_type || 'Service',
+              custom_json_ld: formData.custom_json_ld || ''
+            }}
+            onSave={handleSEOSave}
+            className="mt-6"
+          />
 
           {/* Submit Button */}
           <div className="flex justify-end space-x-4">

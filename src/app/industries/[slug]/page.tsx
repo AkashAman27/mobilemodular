@@ -288,20 +288,20 @@ export default async function IndustryPage({ params }: IndustryPageProps) {
     statistics: []
   } : null
 
+  // Get the data directly in the server component
+  const data = sharedData || fallbackData
+  
+  if (!data) {
+    notFound()
+  }
+
+  const industry = data.industry
+  const solutions = data.solutions || []
+  const benefits = data.benefits || []
+  const caseStudies = data.caseStudies || []
+  const statistics = data.statistics || []
+
   return (
-    <ClientIndustryPage slug={params.slug} fallbackData={sharedData || fallbackData}>
-      {(data: any) => {
-        if (!data) {
-          notFound()
-        }
-
-        const industry = data.industry
-        const solutions = data.solutions || []
-        const benefits = data.benefits || []
-        const caseStudies = data.caseStudies || []
-        const statistics = data.statistics || []
-
-        return (
           <PageLayout>
             {/* Structured Data */}
             <StructuredData
@@ -510,8 +510,5 @@ export default async function IndustryPage({ params }: IndustryPageProps) {
               </div>
             </section>
           </PageLayout>
-        )
-      }}
-    </ClientIndustryPage>
   )
 }

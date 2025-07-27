@@ -66,8 +66,10 @@ export default function ClientIndustryPage({ slug, fallbackData, children }: Cli
 
   // Don't render until mounted to avoid hydration mismatch
   if (!mounted) {
-    return children(fallbackData)
+    const content = children(fallbackData)
+    return content
   }
 
-  return children(data)
+  const content = children(data)
+  return content
 }

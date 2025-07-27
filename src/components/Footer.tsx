@@ -11,10 +11,10 @@ const Footer = () => {
       links: [
         { label: 'Office Buildings', href: '/solutions/office-buildings' },
         { label: 'Portable Classrooms', href: '/solutions/portable-classrooms' },
-        { label: 'Storage Containers', href: '/solutions/storage-containers' },
+        { label: 'Restroom Facilities', href: '/solutions/restroom-facilities' },
         { label: 'Healthcare Facilities', href: '/solutions/healthcare-facilities' },
         { label: 'Security Buildings', href: '/solutions/security-buildings' },
-        { label: 'Restaurant & Food Service', href: '/solutions/restaurant-facilities' },
+        { label: 'Restaurant & Food Service', href: '/solutions/restaurant-food-service' },
       ]
     },
     {
@@ -24,19 +24,19 @@ const Footer = () => {
         { label: 'Construction', href: '/industries/construction' },
         { label: 'Healthcare', href: '/industries/healthcare' },
         { label: 'Government', href: '/industries/government' },
-        { label: 'Retail & Commercial', href: '/industries/retail' },
-        { label: 'Emergency Response', href: '/industries/emergency' },
+        { label: 'Retail & Commercial', href: '/industries/retail-commercial' },
+        { label: 'Emergency Response', href: '/industries/emergency-response' },
       ]
     },
     {
       title: 'Company',
       links: [
-        { label: 'About Us', href: '/company/about' },
-        { label: 'Our Process', href: '/company/process' },
-        { label: 'Quality Standards', href: '/company/quality' },
-        { label: 'Locations', href: '/company/locations' },
+        { label: 'About Us', href: '/company/about-us' },
+        { label: 'Our Process', href: '/company/our-process' },
+        { label: 'Quality Standards', href: '/company/quality-standards' },
+        { label: 'Locations', href: '/locations' },
         { label: 'Careers', href: '/company/careers' },
-        { label: 'News & Updates', href: '/company/news' },
+        { label: 'News & Updates', href: '/news-insights' },
       ]
     },
     {
@@ -46,7 +46,7 @@ const Footer = () => {
         { label: 'Case Studies', href: '/resources/case-studies' },
         { label: 'Planning Tools', href: '/resources/planning-tools' },
         { label: 'FAQ', href: '/resources/faq' },
-        { label: 'Blog & Insights', href: '/resources/insights' },
+        { label: 'Blog & Insights', href: '/news-insights' },
         { label: 'Documentation', href: '/resources/docs' },
       ]
     }

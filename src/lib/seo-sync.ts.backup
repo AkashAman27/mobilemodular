@@ -1,0 +1,622 @@
+/**
+ * SEO Data Synchronization Utilities
+ * Handles synchronization between individual page SEO and central management
+ */
+
+import { supabase } from './supabase'
+import type { 
+  SEOData, 
+  PageSEOData, 
+  SEOSettings, 
+  SEOTemplate, 
+  SEOSyncResult,
+  PageType,
+  SEOValidationStatus,
+  SEOValidationRules,
+  defaultSEOValidationRules
+} from '@/types/seo'
+
+// SEO data synchronization class
+export class SEOSyncManager {
+  private settings: SEOSettings | null = null
+  private templates: Record<PageType, SEOTemplate> = {} as Record<PageType, SEOTemplate>
+
+  constructor() {
+    this.initialize()
+  }
+
+  /**
+   * Initialize the sync manager with settings and templates
+   */
+  private async initialize() {
+    try {
+      await Promise.all([
+        this.loadSettings(),
+        this.loadTemplates()
+      ])
+    } catch (error) {
+      console.warn('SEO Sync Manager initialization warning:', error)
+    }
+  }
+
+  /**
+   * Load global SEO settings
+   */
+  private async loadSettings(): Promise<void> {
+    try {
+      const { data, error } = await supabase
+        .from('seo_settings')
+        .select('*')
+        .single()
+
+      if (!error && data) {
+        this.settings = data
+      }
+    } catch (error) {
+      // Silent fallback - use defaults
+    }
+  }
+
+  /**
+   * Load SEO templates for different page types
+   */
+  private async loadTemplates(): Promise<void> {
+    try {
+      const { data, error } = await supabase
+        .from('seo_templates')
+        .select('*')
+        .eq('is_active', true)
+
+      if (!error && data) {
+        data.forEach((template: SEOTemplate) => {
+          this.templates[template.page_type as PageType] = template
+        })
+      }
+    } catch (error) {
+      // Silent fallback - templates optional
+    }
+  }
+
+  /**
+   * Get merged SEO data for a specific page
+   * Combines central settings, templates, and individual page data
+   */
+  async getMergedSEOData(
+    pageType: PageType,
+    contentId?: string,
+    pagePath?: string
+  ): Promise<SEOData> {
+    // Create basic SEO data structure
+    let mergedData: Partial<SEOData> = {
+      page_type: pageType,
+      page_path: pagePath || ''
+    }
+
+    // Apply central settings defaults
+    if (this.settings) {
+      mergedData = {
+        ...mergedData,
+        og_image: mergedData.og_image || this.settings.default_og_image,
+        twitter_image: mergedData.twitter_image || this.settings.default_twitter_image
+      }
+    }
+
+    // Try to load individual page SEO data
+    if (pagePath) {
+      try {
+        const { data: pageData } = await supabase
+          .from('seo_pages')
+          .select('*')
+          .eq('page_path', pagePath)
+          .eq('is_active', true)
+          .single()
+
+        if (pageData) {
+          mergedData = {
+            ...mergedData,
+            ...pageData,
+            source: 'individual'
+          }
+        }
+      } catch (error) {
+        // No individual data found, continue with template/central data
+      }
+    }
+
+    // Load content-specific SEO if available
+    if (contentId && pageType) {
+      try {
+        const contentSEO = await this.getContentSEO(pageType, contentId)
+        if (contentSEO) {
+          mergedData = {
+            ...mergedData,
+            ...contentSEO,
+            source: contentSEO.source || 'individual'
+          }
+        }
+      } catch (error) {
+        // No content-specific SEO found
+      }
+    }
+
+    return {
+      page_path: pagePath || '',
+      page_type: pageType,
+      ...mergedData
+    } as SEOData
+  }
+
+  /**
+   * Get SEO data from content tables (solutions, industries, etc.)
+   */
+  private async getContentSEO(pageType: PageType, contentId: string): Promise<Partial<PageSEOData> | null> {
+    let tableName: string
+    
+    switch (pageType) {
+      case 'solution':
+        tableName = 'solutions'
+        break
+      case 'industry':
+        tableName = 'industries'
+        break
+      case 'location':
+        tableName = 'locations'
+        break
+      default:
+        return null
+    }
+
+    try {
+      const { data, error } = await supabase
+        .from(tableName)
+        .select(`
+          seo_title,
+          seo_description,
+          seo_keywords,
+          canonical_url,
+          robots_index,
+          robots_follow,
+          robots_nosnippet,
+          og_title,
+          og_description,
+          og_image,
+          og_image_alt,
+          twitter_title,
+          twitter_description,
+          twitter_image,
+          twitter_image_alt,
+          structured_data_type,
+          custom_json_ld,
+          focus_keyword
+        `)
+        .eq('id', contentId)
+        .single()
+
+      if (error || !data) return null
+
+      return {
+        ...data,
+        source: 'individual',
+        content_id: contentId
+      }
+    } catch (error) {
+      return null
+    }
+  }
+
+  /**
+   * Save SEO data to individual page
+   */
+  async saveIndividualSEO(
+    pageType: PageType,
+    pagePath: string,
+    seoData: Partial<SEOData>,
+    contentId?: string
+  ): Promise<SEOSyncResult> {
+    const result: SEOSyncResult = {
+      success: false,
+      changes_applied: [],
+      conflicts: [],
+      errors: []
+    }
+
+    try {
+      // Save to seo_pages table
+      const { data: existingPage } = await supabase
+        .from('seo_pages')
+        .select('*')
+        .eq('page_path', pagePath)
+        .single()
+
+      const updateData = {
+        ...seoData,
+        page_path: pagePath,
+        page_type: pageType,
+        content_id: contentId,
+        updated_at: new Date().toISOString(),
+        last_modified: new Date().toISOString()
+      }
+
+      if (existingPage) {
+        // Update existing
+        const { error } = await supabase
+          .from('seo_pages')
+          .update(updateData)
+          .eq('page_path', pagePath)
+
+        if (error) throw error
+      } else {
+        // Create new
+        const { error } = await supabase
+          .from('seo_pages')
+          .insert([{
+            ...updateData,
+            created_at: new Date().toISOString()
+          }])
+
+        if (error) throw error
+      }
+
+      // Also save to content table if applicable
+      if (contentId && pageType) {
+        await this.saveContentSEO(pageType, contentId, seoData)
+      }
+
+      result.success = true
+      result.changes_applied = Object.entries(seoData).map(([field, value]) => ({
+        field: field as keyof SEOData,
+        old_value: existingPage?.[field] || null,
+        new_value: value,
+        source: 'individual'
+      }))
+
+    } catch (error) {
+      result.errors.push(error instanceof Error ? error.message : 'Unknown error')
+    }
+
+    return result
+  }
+
+  /**
+   * Save SEO data to content tables
+   */
+  private async saveContentSEO(
+    pageType: PageType,
+    contentId: string,
+    seoData: Partial<SEOData>
+  ): Promise<void> {
+    let tableName: string
+    
+    switch (pageType) {
+      case 'solution':
+        tableName = 'solutions'
+        break
+      case 'industry':
+        tableName = 'industries'
+        break
+      case 'location':
+        tableName = 'locations'
+        break
+      default:
+        return
+    }
+
+    const seoFields = {
+      seo_title: seoData.seo_title,
+      seo_description: seoData.seo_description,
+      seo_keywords: seoData.seo_keywords,
+      canonical_url: seoData.canonical_url,
+      robots_index: seoData.robots_index,
+      robots_follow: seoData.robots_follow,
+      robots_nosnippet: seoData.robots_nosnippet,
+      og_title: seoData.og_title,
+      og_description: seoData.og_description,
+      og_image: seoData.og_image,
+      og_image_alt: seoData.og_image_alt,
+      twitter_title: seoData.twitter_title,
+      twitter_description: seoData.twitter_description,
+      twitter_image: seoData.twitter_image,
+      twitter_image_alt: seoData.twitter_image_alt,
+      structured_data_type: seoData.structured_data_type,
+      custom_json_ld: seoData.custom_json_ld,
+      focus_keyword: seoData.focus_keyword,
+      updated_at: new Date().toISOString()
+    }
+
+    await supabase
+      .from(tableName)
+      .update(seoFields)
+      .eq('id', contentId)
+  }
+
+  /**
+   * Synchronize central settings with individual pages
+   */
+  async syncCentralToPages(
+    pageType?: PageType,
+    forceOverride: boolean = false
+  ): Promise<SEOSyncResult[]> {
+    const results: SEOSyncResult[] = []
+
+    try {
+      // Get all pages to sync
+      let query = supabase
+        .from('seo_pages')
+        .select('*')
+        .eq('is_active', true)
+
+      if (pageType) {
+        query = query.eq('page_type', pageType)
+      }
+
+      const { data: pages, error } = await query
+
+      if (error) throw error
+
+      // Sync each page
+      for (const page of pages || []) {
+        if (!forceOverride && page.override_central) {
+          continue // Skip pages that explicitly override central settings
+        }
+
+        const syncResult = await this.syncPageWithCentral(page)
+        results.push(syncResult)
+      }
+
+    } catch (error) {
+      results.push({
+        success: false,
+        changes_applied: [],
+        conflicts: [],
+        errors: [error instanceof Error ? error.message : 'Unknown sync error']
+      })
+    }
+
+    return results
+  }
+
+  /**
+   * Sync individual page with central settings
+   */
+  private async syncPageWithCentral(pageData: any): Promise<SEOSyncResult> {
+    const result: SEOSyncResult = {
+      success: false,
+      changes_applied: [],
+      conflicts: [],
+      errors: []
+    }
+
+    try {
+      const template = this.templates[pageData.page_type as PageType]
+      const changes: any = {}
+
+      if (template && this.settings) {
+        // Apply template defaults if fields are empty
+        Object.entries(template.template_data).forEach(([field, value]) => {
+          if (!pageData[field] || pageData[field] === '') {
+            changes[field] = value
+            result.changes_applied.push({
+              field: field as keyof SEOData,
+              old_value: pageData[field],
+              new_value: value,
+              source: 'central'
+            })
+          }
+        })
+
+        // Apply global defaults
+        if (!pageData.og_image && this.settings.default_og_image) {
+          changes.og_image = this.settings.default_og_image
+          result.changes_applied.push({
+            field: 'og_image',
+            old_value: pageData.og_image,
+            new_value: this.settings.default_og_image,
+            source: 'central'
+          })
+        }
+
+        if (!pageData.twitter_image && this.settings.default_twitter_image) {
+          changes.twitter_image = this.settings.default_twitter_image
+          result.changes_applied.push({
+            field: 'twitter_image',
+            old_value: pageData.twitter_image,
+            new_value: this.settings.default_twitter_image,
+            source: 'central'
+          })
+        }
+
+        // Apply changes if any
+        if (Object.keys(changes).length > 0) {
+          changes.updated_at = new Date().toISOString()
+          
+          const { error } = await supabase
+            .from('seo_pages')
+            .update(changes)
+            .eq('id', pageData.id)
+
+          if (error) throw error
+        }
+
+        result.success = true
+      }
+
+    } catch (error) {
+      result.errors.push(error instanceof Error ? error.message : 'Unknown error')
+    }
+
+    return result
+  }
+
+  /**
+   * Validate SEO data
+   */
+  validateSEOData(
+    seoData: Partial<SEOData>,
+    rules: SEOValidationRules = defaultSEOValidationRules
+  ): SEOValidationStatus {
+    const status: SEOValidationStatus = {
+      title: 'valid',
+      description: 'valid',
+      keywords: 'valid',
+      images: 'valid',
+      overall: 'valid',
+      issues: [],
+      suggestions: []
+    }
+
+    // Validate title
+    const titleLength = seoData.seo_title?.length || 0
+    if (rules.title.required && !seoData.seo_title) {
+      status.title = 'error'
+      status.issues.push({
+        field: 'seo_title',
+        severity: 'error',
+        message: 'SEO title is required',
+        fix: 'Add a descriptive SEO title'
+      })
+    } else if (titleLength < rules.title.min_length) {
+      status.title = 'warning'
+      status.issues.push({
+        field: 'seo_title',
+        severity: 'warning',
+        message: `Title too short (${titleLength}/${rules.title.min_length} min)`,
+        fix: 'Expand title to include more descriptive keywords'
+      })
+    } else if (titleLength > rules.title.max_length) {
+      status.title = 'warning'
+      status.issues.push({
+        field: 'seo_title',
+        severity: 'warning',
+        message: `Title too long (${titleLength}/${rules.title.max_length} max)`,
+        fix: 'Shorten title to improve search result display'
+      })
+    }
+
+    // Validate description
+    const descLength = seoData.seo_description?.length || 0
+    if (rules.description.required && !seoData.seo_description) {
+      status.description = 'error'
+      status.issues.push({
+        field: 'seo_description',
+        severity: 'error',
+        message: 'Meta description is required',
+        fix: 'Add a compelling meta description'
+      })
+    } else if (descLength < rules.description.min_length) {
+      status.description = 'warning'
+      status.issues.push({
+        field: 'seo_description',
+        severity: 'warning',
+        message: `Description too short (${descLength}/${rules.description.min_length} min)`,
+        fix: 'Expand description with more details'
+      })
+    } else if (descLength > rules.description.max_length) {
+      status.description = 'warning'
+      status.issues.push({
+        field: 'seo_description',
+        severity: 'warning',
+        message: `Description too long (${descLength}/${rules.description.max_length} max)`,
+        fix: 'Shorten description for better display'
+      })
+    }
+
+    // Validate keywords
+    if (rules.keywords.focus_keyword_required && !seoData.focus_keyword) {
+      status.keywords = 'warning'
+      status.suggestions.push({
+        field: 'focus_keyword',
+        type: 'optimization',
+        message: 'Consider adding a focus keyword',
+        action: 'Set primary keyword for this page'
+      })
+    }
+
+    // Validate images
+    if (rules.images.og_image_required && !seoData.og_image) {
+      status.images = 'warning'
+      status.suggestions.push({
+        field: 'og_image',
+        type: 'optimization',
+        message: 'Consider adding Open Graph image',
+        action: 'Upload image for social media sharing'
+      })
+    }
+
+    // Set overall status
+    const hasErrors = status.issues.some(issue => issue.severity === 'error')
+    const hasWarnings = status.issues.some(issue => issue.severity === 'warning')
+    
+    if (hasErrors) {
+      status.overall = 'error'
+    } else if (hasWarnings) {
+      status.overall = 'warning'
+    }
+
+    return status
+  }
+
+  /**
+   * Generate SEO suggestions based on content
+   */
+  generateSuggestions(
+    seoData: Partial<SEOData>,
+    contentData?: any
+  ): Array<{ field: keyof SEOData; suggestion: string; priority: 'high' | 'medium' | 'low' }> {
+    const suggestions = []
+
+    // Title suggestions
+    if (!seoData.seo_title && contentData?.name) {
+      suggestions.push({
+        field: 'seo_title' as keyof SEOData,
+        suggestion: `Consider using "${contentData.name} - [Your Brand]" as title`,
+        priority: 'high' as const
+      })
+    }
+
+    // Description suggestions
+    if (!seoData.seo_description && contentData?.description) {
+      const shortDesc = contentData.description.slice(0, 150)
+      suggestions.push({
+        field: 'seo_description' as keyof SEOData,
+        suggestion: `Use content description: "${shortDesc}..."`,
+        priority: 'high' as const
+      })
+    }
+
+    // Image suggestions
+    if (!seoData.og_image && contentData?.image_url) {
+      suggestions.push({
+        field: 'og_image' as keyof SEOData,
+        suggestion: 'Use main content image for social sharing',
+        priority: 'medium' as const
+      })
+    }
+
+    return suggestions
+  }
+}
+
+// Singleton instance
+export const seoSyncManager = new SEOSyncManager()
+
+// Utility functions
+export async function getSEOData(
+  pageType: PageType,
+  pagePath?: string,
+  contentId?: string
+): Promise<PageSEOData> {
+  return await seoSyncManager.getMergedSEOData(pageType, contentId, pagePath)
+}
+
+export async function saveSEOData(
+  pageType: PageType,
+  pagePath: string,
+  seoData: Partial<SEOData>,
+  contentId?: string
+): Promise<SEOSyncResult> {
+  return await seoSyncManager.saveIndividualSEO(pageType, pagePath, seoData, contentId)
+}
+
+export function validateSEO(seoData: Partial<SEOData>): SEOValidationStatus {
+  return seoSyncManager.validateSEOData(seoData)
+}
