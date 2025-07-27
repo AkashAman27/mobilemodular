@@ -39,7 +39,7 @@ export default async function HealthcareFacilitiesPage() {
   const solutionData = await getSolutionData()
   
   // Icon mapping for features
-  const iconMap = { Heart, Shield, Stethoscope, Users }
+  const iconMap: Record<string, any> = { Heart, Shield, Stethoscope, Users }
 
   // Use CMS feature cards or fallback to hardcoded data
   const features = solutionData?.feature_cards || [
@@ -153,7 +153,7 @@ export default async function HealthcareFacilitiesPage() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature: any, index: number) => {
-              const IconComponent = typeof feature.icon === 'string' ? iconMap[feature.icon as keyof typeof iconMap] : feature.icon
+              const IconComponent = (typeof feature.icon === 'string' ? iconMap[feature.icon] : feature.icon) || Heart
               return (
                 <div key={index} className="text-center">
                   <div className="inline-flex items-center justify-center w-16 h-16 bg-navy-600 rounded-full mb-6">

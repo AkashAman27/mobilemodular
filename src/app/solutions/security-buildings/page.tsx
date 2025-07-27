@@ -39,7 +39,7 @@ export default async function SecurityBuildingsPage() {
   const solutionData = await getSolutionData()
   
   // Icon mapping for features
-  const iconMap = { Shield, Camera, Lock, Users }
+  const iconMap: Record<string, any> = { Shield, Camera, Lock, Users }
   // Use CMS feature cards or fallback to hardcoded data
   const features = solutionData?.feature_cards || [
     {
@@ -151,7 +151,7 @@ export default async function SecurityBuildingsPage() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature: any, index: number) => {
-              const IconComponent = typeof feature.icon === 'string' ? iconMap[feature.icon as keyof typeof iconMap] : feature.icon
+              const IconComponent = (typeof feature.icon === 'string' ? iconMap[feature.icon] : feature.icon) || Shield
               return (
                 <div key={index} className="text-center">
                   <div className="inline-flex items-center justify-center w-16 h-16 bg-navy-600 rounded-full mb-6">

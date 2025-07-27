@@ -40,7 +40,7 @@ export default async function PortableClassroomsPage() {
   const locationType = undefined  
   const stateName = undefined
   // Icon mapping for features
-  const iconMap = {
+  const iconMap: Record<string, any> = {
     GraduationCap,
     Users,
     Book,
@@ -159,7 +159,7 @@ export default async function PortableClassroomsPage() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature: any, index: number) => {
-              const IconComponent = typeof feature.icon === 'string' ? iconMap[feature.icon as keyof typeof iconMap] : feature.icon
+              const IconComponent = (typeof feature.icon === 'string' ? iconMap[feature.icon] : feature.icon) || GraduationCap
               return (
                 <div key={index} className="text-center">
                   <div className="inline-flex items-center justify-center w-16 h-16 bg-navy-600 rounded-full mb-6">

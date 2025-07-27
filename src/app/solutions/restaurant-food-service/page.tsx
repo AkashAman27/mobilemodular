@@ -24,7 +24,7 @@ async function getSolutionData() {
 
 export default async function RestaurantFoodServicePage() {
   const solutionData = await getSolutionData()
-  const iconMap = { ChefHat, Utensils, Users, Shield }
+  const iconMap: Record<string, any> = { ChefHat, Utensils, Users, Shield }
   
   const features = solutionData?.feature_cards || [
     {
@@ -134,7 +134,7 @@ export default async function RestaurantFoodServicePage() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature: any, index: number) => {
-              const IconComponent = typeof feature.icon === 'string' ? iconMap[feature.icon as keyof typeof iconMap] : feature.icon
+              const IconComponent = (typeof feature.icon === 'string' ? iconMap[feature.icon] : feature.icon) || ChefHat
               return (
                 <div key={index} className="text-center">
                   <div className="inline-flex items-center justify-center w-16 h-16 bg-navy-600 rounded-full mb-6">

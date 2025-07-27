@@ -24,7 +24,7 @@ async function getSolutionData() {
 
 export default async function RestroomFacilitiesPage() {
   const solutionData = await getSolutionData()
-  const iconMap = { Droplets, Users, Shield, Zap }
+  const iconMap: Record<string, any> = { Droplets, Users, Shield, Zap }
   
   const features = solutionData?.feature_cards || [
     {
@@ -111,7 +111,7 @@ export default async function RestroomFacilitiesPage() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature: any, index: number) => {
-              const IconComponent = typeof feature.icon === 'string' ? iconMap[feature.icon as keyof typeof iconMap] : feature.icon
+              const IconComponent = (typeof feature.icon === 'string' ? iconMap[feature.icon] : feature.icon) || Droplets
               return (
                 <div key={index} className="text-center">
                   <div className="inline-flex items-center justify-center w-16 h-16 bg-navy-600 rounded-full mb-6">
