@@ -18,12 +18,14 @@ interface HeaderProps {
   companyName?: string
   primaryPhone?: string
   supportHours?: string
+  logoUrl?: string
 }
 
 const Header = ({ 
   companyName = "MODULAR BUILDING",
   primaryPhone = "866-352-4651", 
-  supportHours = "24/7 Support"
+  supportHours = "24/7 Support",
+  logoUrl
 }: HeaderProps) => {
   const [isOpen, setIsOpen] = useState(false)
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
@@ -142,7 +144,7 @@ const Header = ({
             <Link href="/" className="flex items-center space-x-3">
               <div className="relative h-10 w-10">
                 <Image
-                  src="https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/company_logo_professional_aman_modular_constructio.webp"
+                  src={logoUrl || "https://ixyniofgkhhzidivmtrz.supabase.co/storage/v1/object/public/images/generated/company_logo_professional_aman_modular_constructio.webp"}
                   alt="Modular Building Logo"
                   fill
                   className="object-contain"

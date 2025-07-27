@@ -109,6 +109,7 @@ export default async function Home() {
           companyName={siteSettings?.company_name}
           primaryPhone={siteSettings?.primary_phone}
           supportHours={siteSettings?.support_hours}
+          logoUrl={siteSettings?.logo_url}
         />
         <HeroSection heroData={homepageContent} />
         <SolutionsGrid 
