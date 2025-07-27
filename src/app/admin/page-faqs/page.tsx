@@ -134,6 +134,14 @@ export default function PageFAQsAdmin() {
 
     setAssignLoading(true)
     try {
+      // Find the page slug from the selected page ID
+      const selectedPageData = pages.find(page => page.id === selectedPage)
+      if (!selectedPageData) {
+        alert('Selected page not found')
+        setAssignLoading(false)
+        return
+      }
+
       // Use API endpoint with service role key to bypass RLS
       const response = await fetch('/api/assign-faq-to-page-admin', {
         method: 'POST',
@@ -141,7 +149,7 @@ export default function PageFAQsAdmin() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          pageSlug: selectedPage,
+          pageSlug: selectedPageData.slug,
           faqId: faqId
         })
       })
@@ -175,13 +183,20 @@ export default function PageFAQsAdmin() {
         return
       }
 
+      // Find the page slug from the page ID
+      const pageData = pages.find(page => page.id === assignment.page_id)
+      if (!pageData) {
+        alert('Page not found')
+        return
+      }
+
       const response = await fetch(`/api/assign-faq-to-page-admin`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          pageSlug: assignment.page_id,
+          pageSlug: pageData.slug,
           faqId: assignment.faq_id
         })
       })
